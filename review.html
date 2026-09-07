@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- =====================================================
+       BASIC META
+  ====================================================== -->
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Share your experience with LikeStar Publications. Rate our printing, customization, design and branding services."
+  >
+
+  <meta
+    name="theme-color"
+    content="#0057b8"
+  >
+
+  <title>Leave a Review | LikeStar Publications</title>
+
+
+  <!-- =====================================================
+       FONTS
+  ====================================================== -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- =====================================================
+       STYLES
+  ====================================================== -->
+
+  <style>
+
+    /* =====================================================
+       VARIABLES
+    ====================================================== */
+
+    :root {
+
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-sm:
+        0 8px 25px rgba(11, 23, 40, 0.06);
+
+      --shadow-md:
+        0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --font-body:
+        "DM Sans",
+        sans-serif;
+
+      --font-heading:
+        "Plus Jakarta Sans",
+        sans-serif;
+
+      --transition:
+        0.25s ease;
+    }
+
+
+    /* =====================================================
+       RESET
+    ====================================================== */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+
+      background: var(--light);
+
+      color: var(--text);
+
+      font-family: var(--font-body);
+
+      line-height: 1.6;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ====================================================== */
+
+    .site-header {
+      position: sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      width: 100%;
+
+      background:
+        rgba(255, 255, 255, 0.97);
+
+      border-bottom:
+        1px solid var(--border);
+
+      backdrop-filter: blur(14px);
+
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .navbar {
+      width:
+        calc(100% - 64px);
+
+      min-height: 82px;
+
+      margin-inline: auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 30px;
+    }
+
+
+    /* =====================================================
+       LOGO
+    ====================================================== */
+
+    .logo {
+      display: inline-flex;
+
+      align-items: center;
+
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      display: block;
+
+      width: auto;
+
+      height: 48px;
+
+      object-fit: contain;
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+    ====================================================== */
+
+    .nav-menu {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: flex-end;
+
+      gap: 30px;
+
+      margin-left: auto;
+    }
+
+    .nav-link {
+      position: relative;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      min-height: 44px;
+
+      color: var(--text);
+
+      font-size: 0.9rem;
+
+      font-weight: 600;
+
+      white-space: nowrap;
+
+      transition:
+        color var(--transition);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--blue);
+    }
+
+    .nav-link::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      right: 0;
+
+      bottom: 3px;
+
+      height: 2px;
+
+      background: var(--orange);
+
+      transform:
+        scaleX(0);
+
+      transition:
+        transform var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform:
+        scaleX(1);
+    }
+
+
+    /* =====================================================
+       NAV BUTTON
+    ====================================================== */
+
+    .nav-button {
+      min-height: 44px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        0 18px;
+
+      color: var(--white);
+
+      background: var(--blue);
+
+      border-radius: 9px;
+
+      font-size: 0.87rem;
+
+      font-weight: 700;
+
+      transition:
+        background var(--transition),
+        transform var(--transition);
+    }
+
+    .nav-button:hover {
+      background: var(--blue-dark);
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    /* =====================================================
+       MOBILE TOGGLE
+    ====================================================== */
+
+    .menu-toggle {
+      display: none;
+
+      width: 44px;
+      height: 44px;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-direction: column;
+
+      gap: 5px;
+
+      padding: 0;
+
+      background: transparent;
+    }
+
+    .menu-toggle span {
+      display: block;
+
+      width: 23px;
+      height: 2px;
+
+      background: var(--black);
+
+      border-radius: 10px;
+
+      transition:
+        transform var(--transition),
+        opacity var(--transition);
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform:
+        translateY(7px)
+        rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform:
+        translateY(-7px)
+        rotate(-45deg);
+    }
+
+
+    /* =====================================================
+       MAIN
+    ====================================================== */
+
+    main {
+      min-height:
+        calc(100vh - 82px);
+    }
+
+
+    /* =====================================================
+       HERO
+    ====================================================== */
+
+    .review-hero {
+      padding:
+        85px 20px 55px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue-dark),
+          var(--blue)
+        );
+    }
+
+    .review-hero-inner {
+      max-width: 760px;
+
+      margin-inline: auto;
+    }
+
+    .review-label {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      padding:
+        7px 12px;
+
+      color: var(--white);
+
+      background:
+        rgba(255, 255, 255, 0.10);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.20);
+
+      border-radius: 100px;
+
+      font-size: 0.72rem;
+
+      font-weight: 800;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+    }
+
+    .review-label span {
+      width: 7px;
+      height: 7px;
+
+      background:
+        var(--orange);
+
+      border-radius: 50%;
+    }
+
+    .review-hero h1 {
+      margin-top: 22px;
+
+      color: var(--white);
+
+      font-family:
+        var(--font-heading);
+
+      font-size:
+        clamp(
+          2.5rem,
+          6vw,
+          4.5rem
+        );
+
+      font-weight: 800;
+
+      line-height: 1.08;
+
+      letter-spacing: -0.04em;
+    }
+
+    .review-hero h1 span {
+      display: block;
+
+      color: var(--orange);
+    }
+
+    .review-hero p {
+      max-width: 600px;
+
+      margin:
+        20px auto 0;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      font-size: 1rem;
+
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       REVIEW AREA
+    ====================================================== */
+
+    .review-section {
+      padding:
+        70px 20px 100px;
+    }
+
+    .review-container {
+      width:
+        min(
+          100%,
+          760px
+        );
+
+      margin-inline: auto;
+    }
+
+
+    /* =====================================================
+       FORM CARD
+    ====================================================== */
+
+    .review-card {
+      padding:
+        42px;
+
+      background:
+        var(--white);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        var(--radius-lg);
+
+      box-shadow:
+        var(--shadow-md);
+    }
+
+    .review-card-header {
+      margin-bottom: 35px;
+    }
+
+    .review-card-header h2 {
+      color: var(--black);
+
+      font-family:
+        var(--font-heading);
+
+      font-size:
+        clamp(
+          1.7rem,
+          4vw,
+          2.3rem
+        );
+
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .review-card-header p {
+      margin-top: 9px;
+
+      color: var(--muted);
+
+      font-size: 0.92rem;
+    }
+
+
+    /* =====================================================
+       FORM GROUP
+    ====================================================== */
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: var(--black);
+
+      font-size: 0.84rem;
+
+      font-weight: 700;
+    }
+
+    .required {
+      color: var(--orange);
+    }
+
+
+    /* =====================================================
+       INPUTS
+    ====================================================== */
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+
+      color: var(--black);
+
+      background:
+        var(--white);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        10px;
+
+      outline: none;
+
+      transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .form-input,
+    .form-select {
+      min-height: 52px;
+
+      padding:
+        0 15px;
+    }
+
+    .form-textarea {
+      min-height: 150px;
+
+      padding:
+        14px 15px;
+
+      resize: vertical;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color:
+        #a0aec0;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color:
+        var(--blue);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(0, 87, 184, 0.10);
+    }
+
+
+    /* =====================================================
+       RATING
+    ====================================================== */
+
+    .rating-wrapper {
+      padding:
+        18px;
+
+      background:
+        var(--light);
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        12px;
+    }
+
+    .rating-title {
+      display: block;
+
+      margin-bottom: 13px;
+
+      color: var(--black);
+
+      font-size: 0.84rem;
+
+      font-weight: 700;
+    }
+
+    .rating-stars-input {
+      display: flex;
+
+      flex-direction: row-reverse;
+
+      justify-content: flex-end;
+
+      gap: 7px;
+    }
+
+    .rating-stars-input input {
+      position: absolute;
+
+      opacity: 0;
+
+      pointer-events: none;
+    }
+
+    .rating-stars-input label {
+      color:
+        #cbd5e0;
+
+      font-size:
+        2rem;
+
+      line-height: 1;
+
+      cursor: pointer;
+
+      transition:
+        color 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .rating-stars-input label:hover,
+    .rating-stars-input label:hover ~ label,
+    .rating-stars-input input:checked ~ label {
+      color:
+        var(--orange);
+    }
+
+    .rating-stars-input label:hover {
+      transform:
+        scale(1.08);
+    }
+
+    .rating-hint {
+      display: block;
+
+      margin-top: 10px;
+
+      color: var(--muted);
+
+      font-size: 0.75rem;
+    }
+
+
+    /* =====================================================
+       FORM FOOTNOTE
+    ====================================================== */
+
+    .review-note {
+      margin-top: 5px;
+
+      padding:
+        14px 16px;
+
+      color: var(--muted);
+
+      background:
+        var(--blue-light);
+
+      border-radius:
+        10px;
+
+      font-size: 0.78rem;
+
+      line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       SUBMIT
+    ====================================================== */
+
+    .submit-button {
+      width: 100%;
+
+      min-height: 54px;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 10px;
+
+      margin-top: 26px;
+
+      color: var(--white);
+
+      background:
+        var(--orange);
+
+      border-radius:
+        10px;
+
+      font-size: 0.92rem;
+
+      font-weight: 800;
+
+      transition:
+        background var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .submit-button:hover {
+      background:
+        var(--orange-dark);
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 10px 25px
+        rgba(255, 122, 0, 0.20);
+    }
+
+    .submit-button:disabled {
+      opacity: 0.65;
+
+      cursor: not-allowed;
+
+      transform: none;
+
+      box-shadow: none;
+    }
+
+
+    /* =====================================================
+       SUCCESS MESSAGE
+    ====================================================== */
+
+    .form-message {
+      display: none;
+
+      margin-top: 20px;
+
+      padding:
+        16px 18px;
+
+      border-radius:
+        10px;
+
+      font-size: 0.86rem;
+
+      line-height: 1.6;
+    }
+
+    .form-message.show {
+      display: block;
+    }
+
+    .form-message.success {
+      color:
+        #166534;
+
+      background:
+        #f0fdf4;
+
+      border:
+        1px solid
+        #bbf7d0;
+    }
+
+    .form-message.error {
+      color:
+        #991b1b;
+
+      background:
+        #fef2f2;
+
+      border:
+        1px solid
+        #fecaca;
+    }
+
+
+    /* =====================================================
+       BACK LINK
+    ====================================================== */
+
+    .back-link-wrapper {
+      display: flex;
+
+      justify-content: center;
+
+      margin-top: 28px;
+    }
+
+    .back-link {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: var(--blue);
+
+      font-size: 0.86rem;
+
+      font-weight: 700;
+
+      transition:
+        color var(--transition),
+        gap var(--transition);
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+
+      gap: 12px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ====================================================== */
+
+    .footer {
+      padding:
+        35px 20px;
+
+      color:
+        rgba(255, 255, 255, 0.55);
+
+      background:
+        var(--black);
+
+      text-align: center;
+    }
+
+    .footer p {
+      color:
+        rgba(255, 255, 255, 0.55);
+
+      font-size: 0.78rem;
+    }
+
+    .footer a {
+      color:
+        var(--orange);
+
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       TABLET
+    ====================================================== */
+
+    @media (max-width: 900px) {
+
+      .navbar {
+        width:
+          calc(100% - 40px);
+
+        min-height: 76px;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: absolute;
+
+        top:
+          calc(100% + 8px);
+
+        left: 20px;
+        right: 20px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        margin-left: 0;
+
+        padding: 10px;
+
+        background:
+          var(--white);
+
+        border:
+          1px solid var(--border);
+
+        border-radius:
+          15px;
+
+        box-shadow:
+          var(--shadow-md);
+
+        opacity: 0;
+
+        visibility: hidden;
+
+        transform:
+          translateY(-10px);
+
+        transition:
+          opacity var(--transition),
+          visibility var(--transition),
+          transform var(--transition);
+      }
+
+      .nav-menu.open {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform:
+          translateY(0);
+      }
+
+      .nav-link {
+        width: 100%;
+
+        padding:
+          13px 12px;
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .nav-button {
+        width: 100%;
+
+        margin-top: 8px;
+      }
+
+      .review-card {
+        padding:
+          35px;
+      }
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        width:
+          calc(100% - 32px);
+
+        min-height: 70px;
+      }
+
+      .logo img {
+        height: 43px;
+      }
+
+      .nav-menu {
+        left: 16px;
+        right: 16px;
+      }
+
+      .review-hero {
+        padding:
+          65px 16px 45px;
+      }
+
+      .review-hero h1 {
+        font-size:
+          clamp(
+            2.3rem,
+            12vw,
+            3.4rem
+          );
+      }
+
+      .review-hero p {
+        font-size: 0.91rem;
+      }
+
+      .review-section {
+        padding:
+          45px 16px 70px;
+      }
+
+      .review-card {
+        padding:
+          25px 20px;
+
+        border-radius:
+          var(--radius-md);
+      }
+
+      .rating-stars-input {
+        gap: 5px;
+      }
+
+      .rating-stars-input label {
+        font-size:
+          1.85rem;
+      }
+    }
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ====================================================== */
+
+    @media (max-width: 380px) {
+
+      .navbar {
+        width:
+          calc(100% - 24px);
+
+        min-height: 66px;
+      }
+
+      .logo img {
+        height: 39px;
+      }
+
+      .review-hero {
+        padding-top:
+          55px;
+      }
+
+      .review-card {
+        padding:
+          22px 17px;
+      }
+
+      .rating-stars-input {
+        justify-content:
+          space-between;
+      }
+
+      .rating-stars-input label {
+        font-size:
+          1.7rem;
+      }
+    }
+
+
+    /* =====================================================
+       REDUCED MOTION
+    ====================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration:
+          0.01ms !important;
+      }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="site-header">
+
+    <nav class="navbar">
+
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LikeStar Publications home"
+      >
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+        >
+      </a>
+
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+
+      <div
+        class="nav-menu"
+        id="navMenu"
+      >
+
+        <a
+          href="index.html"
+          class="nav-link"
+        >
+          Home
+        </a>
+
+        <a
+          href="services.html"
+          class="nav-link"
+        >
+          Services
+        </a>
+
+        <a
+          href="portfolio.html"
+          class="nav-link"
+        >
+          Portfolio
+        </a>
+
+        <a
+          href="about.html"
+          class="nav-link"
+        >
+          About
+        </a>
+
+        <a
+          href="review.html"
+          class="nav-link active"
+        >
+          Reviews
+        </a>
+
+        <a
+          href="get-quote.html"
+          class="nav-button"
+        >
+          Get a Quote
+        </a>
+
+      </div>
+
+    </nav>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main>
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="review-hero">
+
+      <div class="review-hero-inner">
+
+        <div class="review-label">
+          <span></span>
+          Customer Feedback
+        </div>
+
+        <h1>
+          Tell us how
+          <span>we did.</span>
+        </h1>
+
+        <p>
+          Your experience matters to us. Leave a rating
+          and share your feedback about your experience
+          with LikeStar Publications.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         REVIEW FORM
+    ==================================================== -->
+
+    <section class="review-section">
+
+      <div class="review-container">
+
+        <div class="review-card">
+
+
+          <!-- =============================================
+               FORM HEADER
+          ============================================== -->
+
+          <div class="review-card-header">
+
+            <h2>
+              Leave a review
+            </h2>
+
+            <p>
+              It only takes a minute. Your feedback helps
+              us improve and helps future customers make
+              better decisions.
+            </p>
+
+          </div>
+
+
+          <!-- =============================================
+               FORM
+          ============================================== -->
+
+          <form
+            id="reviewForm"
+            novalidate
+          >
+
+
+            <!-- ===========================================
+                 NAME
+            ============================================ -->
+
+            <div class="form-group">
+
+              <label
+                for="customerName"
+                class="form-label"
+              >
+                Your name
+                <span class="required">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="customerName"
+                name="customerName"
+                class="form-input"
+                placeholder="Enter your name"
+                maxlength="80"
+                autocomplete="name"
+                required
+              >
+
+            </div>
+
+
+            <!-- ===========================================
+                 SERVICE
+            ============================================ -->
+
+            <div class="form-group">
+
+              <label
+                for="service"
+                class="form-label"
+              >
+                What service did you use?
+              </label>
+
+              <select
+                id="service"
+                name="service"
+                class="form-select"
+              >
+
+                <option value="">
+                  Select a service
+                </option>
+
+                <option value="T-Shirt Printing">
+                  T-Shirt Printing
+                </option>
+
+                <option value="Cap Customization">
+                  Cap Customization
+                </option>
+
+                <option value="Banners">
+                  Banners
+                </option>
+
+                <option value="Flyers & Posters">
+                  Flyers & Posters
+                </option>
+
+                <option value="Book Printing">
+                  Book Printing
+                </option>
+
+                <option value="Passport Pictures">
+                  Passport Pictures
+                </option>
+
+                <option value="Graphic Design">
+                  Graphic Design
+                </option>
+
+                <option value="Logo Design">
+                  Logo Design
+                </option>
+
+                <option value="Business Cards">
+                  Business Cards
+                </option>
+
+                <option value="Business Branding">
+                  Business Branding
+                </option>
+
+                <option value="Custom Products">
+                  Custom Products
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- ===========================================
+                 RATING
+            ============================================ -->
+
+            <div class="form-group">
+
+              <div class="rating-wrapper">
+
+                <span class="rating-title">
+                  How would you rate your experience?
+                  <span class="required">*</span>
+                </span>
+
+
+                <div
+                  class="rating-stars-input"
+                  role="radiogroup"
+                  aria-label="Customer rating"
+                >
+
+                  <input
+                    type="radio"
+                    id="star5"
+                    name="rating"
+                    value="5"
+                    required
+                  >
+
+                  <label
+                    for="star5"
+                    title="5 stars"
+                    aria-label="5 stars"
+                  >
+                    ★
+                  </label>
+
+
+                  <input
+                    type="radio"
+                    id="star4"
+                    name="rating"
+                    value="4"
+                  >
+
+                  <label
+                    for="star4"
+                    title="4 stars"
+                    aria-label="4 stars"
+                  >
+                    ★
+                  </label>
+
+
+                  <input
+                    type="radio"
+                    id="star3"
+                    name="rating"
+                    value="3"
+                  >
+
+                  <label
+                    for="star3"
+                    title="3 stars"
+                    aria-label="3 stars"
+                  >
+                    ★
+                  </label>
+
+
+                  <input
+                    type="radio"
+                    id="star2"
+                    name="rating"
+                    value="2"
+                  >
+
+                  <label
+                    for="star2"
+                    title="2 stars"
+                    aria-label="2 stars"
+                  >
+                    ★
+                  </label>
+
+
+                  <input
+                    type="radio"
+                    id="star1"
+                    name="rating"
+                    value="1"
+                  >
+
+                  <label
+                    for="star1"
+                    title="1 star"
+                    aria-label="1 star"
+                  >
+                    ★
+                  </label>
+
+                </div>
+
+                <span class="rating-hint">
+                  Select from 1 to 5 stars.
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===========================================
+                 COMMENT
+            ============================================ -->
+
+            <div class="form-group">
+
+              <label
+                for="comment"
+                class="form-label"
+              >
+                Your experience
+                <span class="required">*</span>
+              </label>
+
+              <textarea
+                id="comment"
+                name="comment"
+                class="form-textarea"
+                placeholder="Tell us about your experience with LikeStar..."
+                maxlength="500"
+                required
+              ></textarea>
+
+            </div>
+
+
+            <!-- ===========================================
+                 REVIEW NOTE
+            ============================================ -->
+
+            <div class="review-note">
+
+              <strong>
+                A quick note:
+              </strong>
+
+              Reviews will be checked before appearing
+              publicly on the LikeStar website. Please keep
+              your feedback genuine and respectful.
+
+            </div>
+
+
+            <!-- ===========================================
+                 SUBMIT
+            ============================================ -->
+
+            <button
+              type="submit"
+              class="submit-button"
+              id="submitReview"
+            >
+              Submit Review
+              <span aria-hidden="true">↗</span>
+            </button>
+
+
+            <!-- ===========================================
+                 FORM MESSAGE
+            ============================================ -->
+
+            <div
+              id="formMessage"
+              class="form-message"
+              role="status"
+              aria-live="polite"
+            ></div>
+
+          </form>
+
+        </div>
+
+
+        <!-- =============================================
+             BACK TO WEBSITE
+        ============================================== -->
+
+        <div class="back-link-wrapper">
+
+          <a
+            href="index.html"
+            class="back-link"
+          >
+            ← Back to LikeStar Publications
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+
+    <p>
+      © <span id="currentYear"></span>
+      LikeStar Publications.
+      All rights reserved.
+    </p>
+
+  </footer>
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+       TEMPORARY FRONTEND VALIDATION
+       FIREBASE WILL BE CONNECTED LATER
+  ====================================================== -->
+
+  <script>
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const navMenu =
+      document.getElementById("navMenu");
+
+    const reviewForm =
+      document.getElementById("reviewForm");
+
+    const submitReview =
+      document.getElementById("submitReview");
+
+    const formMessage =
+      document.getElementById("formMessage");
+
+    const currentYear =
+      document.getElementById("currentYear");
+
+
+    /* =====================================================
+       CURRENT YEAR
+    ====================================================== */
+
+    if (currentYear) {
+
+      currentYear.textContent =
+        new Date().getFullYear();
+
+    }
+
+
+    /* =====================================================
+       MOBILE MENU
+    ====================================================== */
+
+    if (menuToggle && navMenu) {
+
+      menuToggle.addEventListener(
+        "click",
+        () => {
+
+          const isOpen =
+            navMenu.classList.toggle("open");
+
+          menuToggle.classList.toggle(
+            "active",
+            isOpen
+          );
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            String(isOpen)
+          );
+
+          menuToggle.setAttribute(
+            "aria-label",
+            isOpen
+              ? "Close navigation"
+              : "Open navigation"
+          );
+
+        }
+      );
+
+
+      /* ================================================
+         CLOSE AFTER NAVIGATION
+      ================================================= */
+
+      navMenu
+        .querySelectorAll("a")
+        .forEach((link) => {
+
+          link.addEventListener(
+            "click",
+            () => {
+
+              navMenu.classList.remove("open");
+
+              menuToggle.classList.remove("active");
+
+              menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+              menuToggle.setAttribute(
+                "aria-label",
+                "Open navigation"
+              );
+
+            }
+          );
+
+        });
+
+
+      /* ================================================
+         CLICK OUTSIDE
+      ================================================= */
+
+      document.addEventListener(
+        "click",
+        (event) => {
+
+          if (
+            !navMenu.contains(event.target) &&
+            !menuToggle.contains(event.target)
+          ) {
+
+            navMenu.classList.remove("open");
+
+            menuToggle.classList.remove("active");
+
+            menuToggle.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+
+        }
+      );
+
+
+      /* ================================================
+         RESIZE
+      ================================================= */
+
+      window.addEventListener(
+        "resize",
+        () => {
+
+          if (window.innerWidth > 900) {
+
+            navMenu.classList.remove("open");
+
+            menuToggle.classList.remove("active");
+
+            menuToggle.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       REVIEW FORM
+    ====================================================== */
+
+    if (reviewForm) {
+
+      reviewForm.addEventListener(
+        "submit",
+        (event) => {
+
+          event.preventDefault();
+
+
+          /* ==============================================
+             GET VALUES
+          =============================================== */
+
+          const name =
+            document
+              .getElementById("customerName")
+              .value
+              .trim();
+
+          const service =
+            document
+              .getElementById("service")
+              .value
+              .trim();
+
+          const comment =
+            document
+              .getElementById("comment")
+              .value
+              .trim();
+
+          const ratingInput =
+            document.querySelector(
+              'input[name="rating"]:checked'
+            );
+
+          const rating =
+            ratingInput
+              ? Number(ratingInput.value)
+              : 0;
+
+
+          /* ==============================================
+             VALIDATION
+          =============================================== */
+
+          if (!name) {
+
+            showMessage(
+              "Please enter your name.",
+              "error"
+            );
+
+            return;
+
+          }
+
+          if (!rating) {
+
+            showMessage(
+              "Please select a rating from 1 to 5 stars.",
+              "error"
+            );
+
+            return;
+
+          }
+
+          if (!comment) {
+
+            showMessage(
+              "Please tell us about your experience.",
+              "error"
+            );
+
+            return;
+
+          }
+
+          if (comment.length < 10) {
+
+            showMessage(
+              "Please provide a little more detail about your experience.",
+              "error"
+            );
+
+            return;
+
+          }
+
+
+          /* ==============================================
+             TEMPORARY DATA OBJECT
+
+             Firebase will eventually replace this.
+          =============================================== */
+
+          const reviewData = {
+
+            name: name,
+
+            rating: rating,
+
+            comment: comment,
+
+            service:
+              service || null,
+
+            createdAt:
+              new Date().toISOString(),
+
+            status:
+              "pending"
+
+          };
+
+
+          console.log(
+            "Review ready for Firebase:",
+            reviewData
+          );
+
+
+          /* ==============================================
+             TEMPORARY SUCCESS
+
+             DO NOT CLAIM THAT THIS HAS BEEN SAVED.
+          =============================================== */
+
+          showMessage(
+            "Thank you for your feedback. Your review has been received and will be checked before it appears publicly.",
+            "success"
+          );
+
+
+          reviewForm.reset();
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       MESSAGE HELPER
+    ====================================================== */
+
+    function showMessage(
+      message,
+      type
+    ) {
+
+      if (!formMessage) {
+        return;
+      }
+
+      formMessage.textContent =
+        message;
+
+      formMessage.className =
+        "form-message show " + type;
+
+      formMessage.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>

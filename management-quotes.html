@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications management — quote requests."
+  >
+
+  <title>Quote Requests | LikeStar Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* =========================================================
+       LIKESTAR MANAGEMENT — QUOTE REQUESTS
+       Firebase-ready frontend
+       ========================================================= */
+
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --success: #138a4b;
+      --success-light: #e8f7ef;
+
+      --warning: #a96800;
+      --warning-light: #fff5df;
+
+      --danger: #c93434;
+      --danger-light: #fff0f0;
+
+      --purple: #6941c6;
+      --purple-light: #f2edff;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, 0.06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar-width: 255px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar-width);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-brand {
+      min-height: 78px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-brand img {
+      display: block;
+      width: 145px;
+      height: auto;
+      max-height: 48px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .portal-label {
+      padding: 18px 22px 8px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      padding: 8px 12px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .nav-section {
+      margin-bottom: 20px;
+    }
+
+    .nav-section-title {
+      padding: 0 11px 8px;
+      color: #9aa5b4;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-link {
+      min-height: 44px;
+      padding: 10px 12px;
+      margin-bottom: 4px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: #566579;
+      font-size: 13px;
+      font-weight: 600;
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .sidebar-link:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .sidebar-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .sidebar-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+    }
+
+    .sidebar-bottom {
+      padding: 14px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .website-link {
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .website-link:hover {
+      background: var(--blue-light);
+      border-color: #c9def4;
+    }
+
+    /* =========================================================
+       MOBILE OVERLAY
+       ========================================================= */
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 23, 40, 0.45);
+      z-index: 900;
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================================================
+       MAIN
+       ========================================================= */
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    .topbar {
+      min-height: 78px;
+      padding: 0 34px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mobile-menu-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      display: none;
+      place-items: center;
+      font-size: 19px;
+    }
+
+    .page-title {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .notification-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      position: relative;
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      border: 2px solid var(--white);
+    }
+
+    .employee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .employee-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .employee-name {
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .employee-role {
+      margin-top: 1px;
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: capitalize;
+    }
+
+    /* =========================================================
+       CONTENT
+       ========================================================= */
+
+    .content {
+      width: min(100%, 1500px);
+      padding: 32px;
+      margin: 0 auto;
+    }
+
+    .content-heading {
+      margin-bottom: 24px;
+    }
+
+    .content-heading h1 {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .content-heading p {
+      max-width: 680px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       STAT CARDS
+       ========================================================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 20px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .stat-card.orange .stat-icon {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .stat-card.green .stat-icon {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .stat-card.purple .stat-icon {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .stat-number {
+      margin-top: 13px;
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-description {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       TOOLBAR
+       ========================================================= */
+
+    .toolbar-card {
+      padding: 16px;
+      margin-bottom: 18px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      min-width: 260px;
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box span {
+      position: absolute;
+      top: 50%;
+      left: 13px;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 13px 10px 38px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      color: var(--text);
+      background: var(--white);
+      font-size: 13px;
+      transition: border-color var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--blue);
+    }
+
+    .filter-select {
+      min-height: 42px;
+      min-width: 150px;
+      padding: 9px 34px 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: var(--white);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .refresh-button {
+      min-height: 42px;
+      padding: 9px 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .refresh-button:hover {
+      background: var(--light);
+      border-color: #cbd5e1;
+    }
+
+    /* =========================================================
+       QUOTES PANEL
+       ========================================================= */
+
+    .quotes-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .panel-title {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .panel-count {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th {
+      padding: 12px 20px;
+      background: #fbfcfe;
+      border-bottom: 1px solid var(--border);
+      color: #7d8998;
+      font-size: 10px;
+      font-weight: 700;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: #fcfdff;
+    }
+
+    .customer-cell {
+      min-width: 180px;
+    }
+
+    .customer-name {
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .customer-contact {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .service-name {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .quote-date {
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 27px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-new {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .status-contacted {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .status-quoted {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .status-approved {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-completed {
+      background: #edf8f2;
+      color: #08783e;
+    }
+
+    .status-cancelled {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .action-button {
+      min-height: 32px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .action-button:hover {
+      background: var(--blue-light);
+      border-color: #c8def5;
+    }
+
+    /* =========================================================
+       EMPTY STATE
+       ========================================================= */
+
+    .empty-state {
+      padding: 70px 25px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      border-radius: 16px;
+      background: var(--blue-light);
+      color: var(--blue);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+    }
+
+    .empty-state h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      max-width: 480px;
+      margin: 8px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      padding: 24px;
+      background: rgba(11, 23, 40, 0.58);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal {
+      width: min(100%, 720px);
+      max-height: min(850px, calc(100vh - 48px));
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(12px);
+      transition: transform var(--transition-normal);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .modal-title {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .modal-subtitle {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--muted);
+      display: grid;
+      place-items: center;
+      font-size: 17px;
+      flex: 0 0 auto;
+    }
+
+    .modal-close:hover {
+      color: var(--black);
+      background: var(--light);
+    }
+
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .detail-item {
+      padding: 14px;
+      background: var(--light);
+      border-radius: 11px;
+    }
+
+    .detail-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .detail-value {
+      margin-top: 5px;
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .detail-full {
+      grid-column: 1 / -1;
+    }
+
+    .description-box {
+      margin-top: 18px;
+    }
+
+    .description-box label,
+    .notes-box label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .description {
+      min-height: 100px;
+      padding: 14px;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: var(--text);
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .notes-box {
+      margin-top: 18px;
+    }
+
+    .notes-box textarea {
+      width: 100%;
+      min-height: 95px;
+      padding: 12px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      outline: none;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .notes-box textarea:focus {
+      border-color: var(--blue);
+    }
+
+    .modal-footer {
+      padding: 16px 22px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-control label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .status-control select {
+      min-height: 38px;
+      padding: 7px 30px 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-action {
+      min-height: 38px;
+      padding: 8px 13px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .modal-action.primary {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+    }
+
+    .modal-action.primary:hover {
+      background: var(--blue-dark);
+    }
+
+    /* =========================================================
+       PAGINATION
+       ========================================================= */
+
+    .pagination {
+      padding: 15px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pagination-info {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .pagination-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-button {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .page-button.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+    }
+
+    .page-button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* =========================================================
+       ROLE READY
+       ========================================================= */
+
+    [data-role-only] {
+      display: none !important;
+    }
+
+    body.role-owner [data-role-only~="owner"],
+    body.role-manager [data-role-only~="manager"],
+    body.role-staff [data-role-only~="staff"] {
+      display: inline-flex !important;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 1150px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .content {
+        padding: 26px;
+      }
+
+      .topbar {
+        padding-inline: 26px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --sidebar-width: 255px;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        box-shadow: var(--shadow-md);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu-button {
+        display: grid;
+      }
+
+      .topbar {
+        min-height: 70px;
+        padding-inline: 20px;
+      }
+
+      .content {
+        padding: 22px 20px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .topbar {
+        gap: 10px;
+      }
+
+      .page-subtitle {
+        display: none;
+      }
+
+      .employee {
+        display: none;
+      }
+
+      .content-heading {
+        margin-bottom: 18px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-number {
+        font-size: 23px;
+      }
+
+      .stat-description {
+        display: none;
+      }
+
+      .stat-icon {
+        width: 33px;
+        height: 33px;
+      }
+
+      .toolbar-card {
+        padding: 12px;
+      }
+
+      .search-box {
+        min-width: 100%;
+      }
+
+      .filter-select {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .refresh-button {
+        flex: 0 0 auto;
+      }
+
+      .panel-header {
+        padding: 15px;
+      }
+
+      .modal-backdrop {
+        padding: 10px;
+      }
+
+      .modal {
+        max-height: calc(100vh - 20px);
+        border-radius: 18px;
+      }
+
+      .modal-header,
+      .modal-body,
+      .modal-footer {
+        padding: 16px;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-full {
+        grid-column: auto;
+      }
+
+      .modal-footer {
+        align-items: stretch;
+      }
+
+      .status-control,
+      .modal-actions {
+        width: 100%;
+      }
+
+      .status-control select {
+        flex: 1;
+      }
+
+      .modal-actions > * {
+        flex: 1;
+      }
+
+      .pagination {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .content {
+        padding-inline: 14px;
+      }
+
+      .topbar {
+        padding-inline: 14px;
+      }
+
+      .page-title {
+        font-size: 17px;
+      }
+
+      .stats-grid {
+        gap: 8px;
+      }
+
+      .stat-card {
+        padding: 13px;
+      }
+
+      .stat-label {
+        font-size: 10px;
+      }
+
+      .stat-number {
+        font-size: 21px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="role-owner">
+
+  <!-- =======================================================
+       SIDEBAR
+       ======================================================= -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+      <img
+        src="images/like star logo.png"
+        alt="LikeStar Publications"
+      >
+    </div>
+
+    <div class="portal-label">
+      Management Portal
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Management navigation">
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Overview
+        </div>
+
+        <a
+          href="management-dashboard.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">▦</span>
+          <span>Dashboard</span>
+        </a>
+
+      </div>
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Business
+        </div>
+
+        <a
+          href="management-quotes.html"
+          class="sidebar-link active"
+          aria-current="page"
+        >
+          <span class="sidebar-icon">▤</span>
+          <span>Quote Requests</span>
+        </a>
+
+        <a
+          href="management-reviews.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">★</span>
+          <span>Reviews</span>
+        </a>
+
+        <a
+          href="management-services.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">◈</span>
+          <span>Services</span>
+        </a>
+
+        <a
+          href="management-portfolio.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">▧</span>
+          <span>Portfolio</span>
+        </a>
+
+        <a
+          href="management-customers.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">♙</span>
+          <span>Customers</span>
+        </a>
+
+      </div>
+
+      <div
+        class="nav-section"
+        data-role-only="owner manager"
+      >
+
+        <div class="nav-section-title">
+          Administration
+        </div>
+
+        <a
+          href="management-employees.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">♙</span>
+          <span>Employees</span>
+        </a>
+
+        <a
+          href="management-activity.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">◷</span>
+          <span>Activity Log</span>
+        </a>
+
+        <a
+          href="management-settings.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+
+      </div>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <a
+        href="index.html"
+        class="website-link"
+      >
+        ← Back to Website
+      </a>
+    </div>
+
+  </aside>
+
+  <div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+  ></div>
+
+  <!-- =======================================================
+       MAIN
+       ======================================================= -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button
+          type="button"
+          class="mobile-menu-button"
+          id="mobileMenuButton"
+          aria-label="Open management menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <div>
+          <div class="page-title">
+            Quote Requests
+          </div>
+
+          <div class="page-subtitle">
+            Review and manage customer quote enquiries
+          </div>
+        </div>
+
+      </div>
+
+      <div class="topbar-right">
+
+        <button
+          type="button"
+          class="notification-button"
+          aria-label="Notifications"
+        >
+          ♢
+          <span class="notification-dot"></span>
+        </button>
+
+        <div class="employee">
+
+          <div
+            class="employee-avatar"
+            id="employeeAvatar"
+          >
+            AU
+          </div>
+
+          <div>
+            <div
+              class="employee-name"
+              id="employeeName"
+            >
+              Admin User
+            </div>
+
+            <div
+              class="employee-role"
+              id="employeeRole"
+            >
+              Owner
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <div class="content">
+
+      <!-- =====================================================
+           PAGE HEADING
+           ===================================================== -->
+
+      <div class="content-heading">
+
+        <h1>
+          Quote Requests
+        </h1>
+
+        <p>
+          Keep track of customers who have requested pricing,
+          follow up with enquiries, and move each request through
+          the production process.
+        </p>
+
+      </div>
+
+      <!-- =====================================================
+           STATS
+           ===================================================== -->
+
+      <section
+        class="stats-grid"
+        aria-label="Quote statistics"
+      >
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              New Requests
+            </span>
+
+            <span class="stat-icon">
+              +
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="newCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Awaiting first response
+          </div>
+
+        </article>
+
+        <article class="stat-card orange">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Contacted
+            </span>
+
+            <span class="stat-icon">
+              ☎
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="contactedCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Customer follow-up started
+          </div>
+
+        </article>
+
+        <article class="stat-card purple">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Quoted
+            </span>
+
+            <span class="stat-icon">
+              ₵
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="quotedCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Pricing has been provided
+          </div>
+
+        </article>
+
+        <article class="stat-card green">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Completed
+            </span>
+
+            <span class="stat-icon">
+              ✓
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="completedCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Successfully completed requests
+          </div>
+
+        </article>
+
+      </section>
+
+      <!-- =====================================================
+           SEARCH / FILTER
+           ===================================================== -->
+
+      <section class="toolbar-card">
+
+        <div class="toolbar">
+
+          <div class="search-box">
+
+            <span aria-hidden="true">
+              ⌕
+            </span>
+
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search customer, phone or service..."
+              autocomplete="off"
+            >
+
+          </div>
+
+          <select
+            class="filter-select"
+            id="statusFilter"
+            aria-label="Filter by status"
+          >
+
+            <option value="all">
+              All statuses
+            </option>
+
+            <option value="new">
+              New
+            </option>
+
+            <option value="contacted">
+              Contacted
+            </option>
+
+            <option value="quoted">
+              Quoted
+            </option>
+
+            <option value="approved">
+              Approved
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+          <button
+            type="button"
+            class="refresh-button"
+            id="refreshButton"
+          >
+            ↻ Refresh
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- =====================================================
+           QUOTES TABLE
+           ===================================================== -->
+
+      <section class="quotes-card">
+
+        <div class="panel-header">
+
+          <div>
+            <div class="panel-title">
+              Customer Enquiries
+            </div>
+
+            <div
+              class="panel-count"
+              id="resultCount"
+            >
+              No requests loaded
+            </div>
+          </div>
+
+        </div>
+
+        <div
+          class="table-wrap"
+          id="quotesTableWrap"
+        >
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              ▤
+            </div>
+
+            <h3>
+              No quote requests yet
+            </h3>
+
+            <p>
+              Quote requests will appear here once the public
+              quote form is connected to Firebase Firestore.
+              No sample customer data is being displayed.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div
+          class="pagination"
+          id="pagination"
+          hidden
+        >
+
+          <div
+            class="pagination-info"
+            id="paginationInfo"
+          >
+            Page 1
+          </div>
+
+          <div class="pagination-buttons">
+
+            <button
+              type="button"
+              class="page-button"
+              id="previousPage"
+              disabled
+            >
+              ‹
+            </button>
+
+            <button
+              type="button"
+              class="page-button active"
+              id="currentPage"
+            >
+              1
+            </button>
+
+            <button
+              type="button"
+              class="page-button"
+              id="nextPage"
+              disabled
+            >
+              ›
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- =======================================================
+       QUOTE DETAIL MODAL
+       ======================================================= -->
+
+  <div
+    class="modal-backdrop"
+    id="quoteModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <div
+            class="modal-title"
+            id="modalTitle"
+          >
+            Quote Request
+          </div>
+
+          <div
+            class="modal-subtitle"
+            id="modalSubtitle"
+          >
+            Request details
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close quote details"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div class="detail-grid">
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Customer
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailName"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Phone
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailPhone"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Email
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailEmail"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Service
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailService"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Quantity
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailQuantity"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item">
+
+            <div class="detail-label">
+              Requested Date
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailDate"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-item detail-full">
+
+            <div class="detail-label">
+              Submitted
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailCreatedAt"
+            >
+              —
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="description-box">
+
+          <label>
+            Customer Message
+          </label>
+
+          <div
+            class="description"
+            id="detailDescription"
+          >
+            No message provided.
+          </div>
+
+        </div>
+
+        <div class="notes-box">
+
+          <label for="adminNotes">
+            Internal Notes
+          </label>
+
+          <textarea
+            id="adminNotes"
+            placeholder="Add notes for the LikeStar team. These notes are internal and should not be shown to the customer."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <div class="status-control">
+
+          <label for="detailStatus">
+            Status
+          </label>
+
+          <select id="detailStatus">
+
+            <option value="new">
+              New
+            </option>
+
+            <option value="contacted">
+              Contacted
+            </option>
+
+            <option value="quoted">
+              Quoted
+            </option>
+
+            <option value="approved">
+              Approved
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="cancelled">
+              Cancelled
+            </option>
+
+          </select>
+
+        </div>
+
+        <div class="modal-actions">
+
+          <a
+            href="#"
+            class="modal-action"
+            id="whatsappButton"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+
+          <a
+            href="#"
+            class="modal-action"
+            id="callButton"
+          >
+            Call
+          </a>
+
+          <button
+            type="button"
+            class="modal-action primary"
+            id="saveQuoteButton"
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    /* =========================================================
+       LIKESTAR QUOTE MANAGEMENT
+       ========================================================= */
+
+    const MANAGEMENT_CONFIG = {
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+    };
+
+
+    /* =========================================================
+       STATE
+       ========================================================= */
+
+    const state = {
+      quotes: [],
+      filteredQuotes: [],
+      selectedQuote: null,
+
+      search: "",
+      status: "all",
+
+      currentPage: 1,
+      pageSize: 10
+    };
+
+
+    /* =========================================================
+       DOM
+       ========================================================= */
+
+    const sidebar =
+      document.getElementById("sidebar");
+
+    const sidebarOverlay =
+      document.getElementById("sidebarOverlay");
+
+    const mobileMenuButton =
+      document.getElementById("mobileMenuButton");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const statusFilter =
+      document.getElementById("statusFilter");
+
+    const refreshButton =
+      document.getElementById("refreshButton");
+
+    const quotesTableWrap =
+      document.getElementById("quotesTableWrap");
+
+    const resultCount =
+      document.getElementById("resultCount");
+
+    const pagination =
+      document.getElementById("pagination");
+
+    const paginationInfo =
+      document.getElementById("paginationInfo");
+
+    const previousPage =
+      document.getElementById("previousPage");
+
+    const currentPage =
+      document.getElementById("currentPage");
+
+    const nextPage =
+      document.getElementById("nextPage");
+
+    const quoteModal =
+      document.getElementById("quoteModal");
+
+    const modalClose =
+      document.getElementById("modalClose");
+
+    const saveQuoteButton =
+      document.getElementById("saveQuoteButton");
+
+    const detailStatus =
+      document.getElementById("detailStatus");
+
+    const adminNotes =
+      document.getElementById("adminNotes");
+
+    const whatsappButton =
+      document.getElementById("whatsappButton");
+
+    const callButton =
+      document.getElementById("callButton");
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    function openSidebar() {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("open");
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      document.body.classList.add("no-scroll");
+    }
+
+
+    function closeSidebar() {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("open");
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      document.body.classList.remove("no-scroll");
+    }
+
+
+    mobileMenuButton.addEventListener(
+      "click",
+      () => {
+
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+
+      }
+    );
+
+
+    sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (window.innerWidth > 900) {
+          closeSidebar();
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       ESCAPE
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key !== "Escape") {
+          return;
+        }
+
+        closeSidebar();
+        closeModal();
+
+      }
+    );
+
+
+    /* =========================================================
+       SECURITY HELPERS
+       ========================================================= */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    /* =========================================================
+       STATUS HELPERS
+       ========================================================= */
+
+    function getStatusLabel(status) {
+
+      const labels = {
+        new: "New",
+        contacted: "Contacted",
+        quoted: "Quoted",
+        approved: "Approved",
+        completed: "Completed",
+        cancelled: "Cancelled"
+      };
+
+      return labels[status] || "New";
+
+    }
+
+
+    function getStatusClass(status) {
+
+      const classes = {
+        new: "status-new",
+        contacted: "status-contacted",
+        quoted: "status-quoted",
+        approved: "status-approved",
+        completed: "status-completed",
+        cancelled: "status-cancelled"
+      };
+
+      return classes[status] || "status-new";
+
+    }
+
+
+    /* =========================================================
+       DATE HELPERS
+       ========================================================= */
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "—";
+      }
+
+      let date;
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+        date = value.toDate();
+      } else {
+        date = new Date(value);
+      }
+
+      if (Number.isNaN(date.getTime())) {
+        return "—";
+      }
+
+      return new Intl.DateTimeFormat(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    function formatDateTime(value) {
+
+      if (!value) {
+        return "—";
+      }
+
+      let date;
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+        date = value.toDate();
+      } else {
+        date = new Date(value);
+      }
+
+      if (Number.isNaN(date.getTime())) {
+        return "—";
+      }
+
+      return new Intl.DateTimeFormat(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      ).format(date);
+
+    }
+
+
+    /* =========================================================
+       STATS
+       ========================================================= */
+
+    function updateStats() {
+
+      const counts = {
+        new: 0,
+        contacted: 0,
+        quoted: 0,
+        completed: 0
+      };
+
+      state.quotes.forEach((quote) => {
+
+        const status =
+          String(quote.status || "new").toLowerCase();
+
+        if (Object.hasOwn(counts, status)) {
+          counts[status]++;
+        }
+
+      });
+
+      document.getElementById("newCount").textContent =
+        counts.new;
+
+      document.getElementById("contactedCount").textContent =
+        counts.contacted;
+
+      document.getElementById("quotedCount").textContent =
+        counts.quoted;
+
+      document.getElementById("completedCount").textContent =
+        counts.completed;
+
+    }
+
+
+    /* =========================================================
+       FILTERING
+       ========================================================= */
+
+    function applyFilters() {
+
+      const search =
+        state.search.trim().toLowerCase();
+
+      const status =
+        state.status;
+
+      state.filteredQuotes =
+        state.quotes.filter((quote) => {
+
+          const quoteStatus =
+            String(
+              quote.status || "new"
+            ).toLowerCase();
+
+          if (
+            status !== "all" &&
+            quoteStatus !== status
+          ) {
+            return false;
+          }
+
+          if (!search) {
+            return true;
+          }
+
+          const searchable = [
+            quote.name,
+            quote.customerName,
+            quote.phone,
+            quote.email,
+            quote.service,
+            quote.projectType,
+            quote.message
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+          return searchable.includes(search);
+
+        });
+
+      state.currentPage = 1;
+
+      renderQuotes();
+
+    }
+
+
+    /* =========================================================
+       RENDER QUOTES
+       ========================================================= */
+
+    function renderQuotes() {
+
+      const total =
+        state.filteredQuotes.length;
+
+      resultCount.textContent =
+        total === 1
+          ? "1 request"
+          : `${total} requests`;
+
+      if (total === 0) {
+
+        quotesTableWrap.innerHTML = `
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              ▤
+            </div>
+
+            <h3>
+              ${
+                state.quotes.length === 0
+                  ? "No quote requests yet"
+                  : "No matching requests"
+              }
+            </h3>
+
+            <p>
+              ${
+                state.quotes.length === 0
+                  ? "Quote requests will appear here once the public quote form is connected to Firebase Firestore."
+                  : "Try changing the search term or status filter."
+              }
+            </p>
+
+          </div>
+        `;
+
+        pagination.hidden = true;
+
+        return;
+      }
+
+
+      const start =
+        (state.currentPage - 1) *
+        state.pageSize;
+
+      const end =
+        start + state.pageSize;
+
+      const pageItems =
+        state.filteredQuotes.slice(
+          start,
+          end
+        );
+
+
+      let rows = "";
+
+      pageItems.forEach((quote) => {
+
+        const name =
+          quote.name ||
+          quote.customerName ||
+          "Unnamed Customer";
+
+        const phone =
+          quote.phone ||
+          "No phone";
+
+        const service =
+          quote.service ||
+          quote.projectType ||
+          "General enquiry";
+
+        const status =
+          String(
+            quote.status || "new"
+          ).toLowerCase();
+
+        rows += `
+          <tr>
+
+            <td class="customer-cell">
+
+              <div class="customer-name">
+                ${escapeHTML(name)}
+              </div>
+
+              <div class="customer-contact">
+                ${escapeHTML(phone)}
+              </div>
+
+            </td>
+
+            <td>
+              <span class="service-name">
+                ${escapeHTML(service)}
+              </span>
+            </td>
+
+            <td>
+              <span class="quote-date">
+                ${escapeHTML(
+                  formatDate(
+                    quote.createdAt ||
+                    quote.submittedAt
+                  )
+                )}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="status ${getStatusClass(status)}"
+              >
+                ${getStatusLabel(status)}
+              </span>
+            </td>
+
+            <td>
+
+              <button
+                type="button"
+                class="action-button"
+                data-quote-id="${escapeHTML(
+                  quote.id || ""
+                )}"
+              >
+                View Request
+              </button>
+
+            </td>
+
+          </tr>
+        `;
+
+      });
+
+
+      quotesTableWrap.innerHTML = `
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Submitted</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+            ${rows}
+          </tbody>
+
+        </table>
+      `;
+
+
+      quotesTableWrap
+        .querySelectorAll(
+          "[data-quote-id]"
+        )
+        .forEach((button) => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              openQuote(
+                button.dataset.quoteId
+              );
+
+            }
+          );
+
+        });
+
+
+      updatePagination();
+
+    }
+
+
+    /* =========================================================
+       PAGINATION
+       ========================================================= */
+
+    function updatePagination() {
+
+      const total =
+        state.filteredQuotes.length;
+
+      const totalPages =
+        Math.ceil(
+          total / state.pageSize
+        );
+
+      if (totalPages <= 1) {
+        pagination.hidden = true;
+        return;
+      }
+
+      pagination.hidden = false;
+
+      paginationInfo.textContent =
+        `Page ${state.currentPage} of ${totalPages}`;
+
+      currentPage.textContent =
+        state.currentPage;
+
+      previousPage.disabled =
+        state.currentPage <= 1;
+
+      nextPage.disabled =
+        state.currentPage >= totalPages;
+
+    }
+
+
+    previousPage.addEventListener(
+      "click",
+      () => {
+
+        if (state.currentPage <= 1) {
+          return;
+        }
+
+        state.currentPage--;
+
+        renderQuotes();
+
+      }
+    );
+
+
+    nextPage.addEventListener(
+      "click",
+      () => {
+
+        const totalPages =
+          Math.ceil(
+            state.filteredQuotes.length /
+            state.pageSize
+          );
+
+        if (
+          state.currentPage >= totalPages
+        ) {
+          return;
+        }
+
+        state.currentPage++;
+
+        renderQuotes();
+
+      }
+    );
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    function openQuote(id) {
+
+      const quote =
+        state.quotes.find(
+          (item) => item.id === id
+        );
+
+      if (!quote) {
+        return;
+      }
+
+      state.selectedQuote =
+        quote;
+
+
+      const name =
+        quote.name ||
+        quote.customerName ||
+        "Unnamed Customer";
+
+      const phone =
+        quote.phone ||
+        "";
+
+      const email =
+        quote.email ||
+        "";
+
+      const service =
+        quote.service ||
+        quote.projectType ||
+        "General enquiry";
+
+      const quantity =
+        quote.quantity ||
+        quote.amount ||
+        "Not specified";
+
+      const requestedDate =
+        quote.requestedDate ||
+        quote.deadline ||
+        quote.dateNeeded ||
+        "";
+
+      const description =
+        quote.message ||
+        quote.description ||
+        quote.details ||
+        "No message provided.";
+
+
+      document.getElementById("modalTitle")
+        .textContent =
+        name;
+
+      document.getElementById("modalSubtitle")
+        .textContent =
+        service;
+
+      document.getElementById("detailName")
+        .textContent =
+        name;
+
+      document.getElementById("detailPhone")
+        .textContent =
+        phone || "—";
+
+      document.getElementById("detailEmail")
+        .textContent =
+        email || "—";
+
+      document.getElementById("detailService")
+        .textContent =
+        service;
+
+      document.getElementById("detailQuantity")
+        .textContent =
+        quantity;
+
+      document.getElementById("detailDate")
+        .textContent =
+        requestedDate || "—";
+
+      document.getElementById("detailCreatedAt")
+        .textContent =
+        formatDateTime(
+          quote.createdAt ||
+          quote.submittedAt
+        );
+
+      document.getElementById("detailDescription")
+        .textContent =
+        description;
+
+      adminNotes.value =
+        quote.adminNotes ||
+        "";
+
+      detailStatus.value =
+        String(
+          quote.status || "new"
+        ).toLowerCase();
+
+
+      if (phone) {
+
+        const cleanPhone =
+          phone.replace(
+            /[^\d+]/g,
+            ""
+          );
+
+        callButton.href =
+          `tel:${cleanPhone}`;
+
+        const internationalPhone =
+          normalizeGhanaPhone(
+            cleanPhone
+          );
+
+        whatsappButton.href =
+          `https://wa.me/${internationalPhone}`;
+
+        whatsappButton.style.display =
+          "inline-flex";
+
+        callButton.style.display =
+          "inline-flex";
+
+      } else {
+
+        whatsappButton.style.display =
+          "none";
+
+        callButton.style.display =
+          "none";
+
+      }
+
+
+      quoteModal.classList.add("open");
+
+      quoteModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "no-scroll"
+      );
+
+    }
+
+
+    function closeModal() {
+
+      quoteModal.classList.remove("open");
+
+      quoteModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      state.selectedQuote =
+        null;
+
+      document.body.classList.remove(
+        "no-scroll"
+      );
+
+    }
+
+
+    modalClose.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    quoteModal.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target === quoteModal
+        ) {
+          closeModal();
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       GHANA PHONE NORMALIZATION
+       ========================================================= */
+
+    function normalizeGhanaPhone(phone) {
+
+      const digits =
+        String(phone)
+          .replace(/\D/g, "");
+
+      if (
+        digits.startsWith("233")
+      ) {
+        return digits;
+      }
+
+      if (
+        digits.startsWith("0") &&
+        digits.length === 10
+      ) {
+        return "233" + digits.slice(1);
+      }
+
+      return digits;
+
+    }
+
+
+    /* =========================================================
+       SAVE
+       ========================================================= */
+
+    saveQuoteButton.addEventListener(
+      "click",
+      async () => {
+
+        if (!state.selectedQuote) {
+          return;
+        }
+
+        const newStatus =
+          detailStatus.value;
+
+        const newNotes =
+          adminNotes.value.trim();
+
+
+        /*
+         * Firebase connection will eventually:
+         *
+         * updateDoc(
+         *   doc(db, "quotes", quoteId),
+         *   {
+         *     status: newStatus,
+         *     adminNotes: newNotes,
+         *     updatedAt: serverTimestamp(),
+         *     updatedBy: auth.currentUser.uid
+         *   }
+         * )
+         *
+         * Security Rules must verify the employee role.
+         */
+
+
+        if (
+          !MANAGEMENT_CONFIG.firebaseConnected
+        ) {
+
+          alert(
+            "Firebase is not connected yet. The quote changes were not saved."
+          );
+
+          return;
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       SEARCH
+       ========================================================= */
+
+    searchInput.addEventListener(
+      "input",
+      () => {
+
+        state.search =
+          searchInput.value;
+
+        applyFilters();
+
+      }
+    );
+
+
+    statusFilter.addEventListener(
+      "change",
+      () => {
+
+        state.status =
+          statusFilter.value;
+
+        applyFilters();
+
+      }
+    );
+
+
+    /* =========================================================
+       REFRESH
+       ========================================================= */
+
+    refreshButton.addEventListener(
+      "click",
+      async () => {
+
+        await loadQuotes();
+
+      }
+    );
+
+
+    /* =========================================================
+       FIREBASE LOAD PLACEHOLDER
+       ========================================================= */
+
+    async function loadQuotes() {
+
+      /*
+       * Firebase implementation:
+       *
+       * const q = query(
+       *   collection(db, "quotes"),
+       *   orderBy("createdAt", "desc"),
+       *   limit(25)
+       * );
+       *
+       * const snapshot =
+       *   await getDocs(q);
+       *
+       * state.quotes =
+       *   snapshot.docs.map(doc => ({
+       *     id: doc.id,
+       *     ...doc.data()
+       *   }));
+       *
+       * applyFilters();
+       *
+       *
+       * IMPORTANT:
+       * Do not download the entire quotes collection.
+       * Later we should use Firestore pagination/cursors.
+       */
+
+
+      if (
+        !MANAGEMENT_CONFIG.firebaseConnected
+      ) {
+
+        state.quotes = [];
+
+        updateStats();
+
+        applyFilters();
+
+        return;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       EMPLOYEE DISPLAY
+       ========================================================= */
+
+    function initializeEmployee() {
+
+      const user =
+        MANAGEMENT_CONFIG.developmentUser;
+
+      const name =
+        user.name ||
+        "Admin User";
+
+      const role =
+        user.role ||
+        "owner";
+
+      document.getElementById(
+        "employeeName"
+      ).textContent =
+        name;
+
+      document.getElementById(
+        "employeeRole"
+      ).textContent =
+        role;
+
+      document.getElementById(
+        "employeeAvatar"
+      ).textContent =
+        getInitials(name);
+
+
+      document.body.classList.remove(
+        "role-owner",
+        "role-manager",
+        "role-staff",
+        "role-designer"
+      );
+
+      document.body.classList.add(
+        `role-${role}`
+      );
+
+    }
+
+
+    function getInitials(name) {
+
+      return String(name)
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(
+          (part) =>
+            part.charAt(0).toUpperCase()
+        )
+        .join("");
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    initializeEmployee();
+
+    loadQuotes();
+
+  </script>
+
+</body>
+</html>
+

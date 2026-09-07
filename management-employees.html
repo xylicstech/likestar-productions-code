@@ -1,0 +1,3211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Employees | LikeStar Management</title>
+
+<meta
+name="description"
+content="LikeStar Publications employee management dashboard."
+
+>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ede4db;
+      --orange-dark: #eae5e1;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+      --success: #16834b;
+      --success-light: #e9f8f0;
+      --danger: #c92a2a;
+      --danger-light: #fff0f0;
+      --warning: #a56800;
+      --warning-light: #fff7df;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, 0.06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar: 260px;
+      --topbar: 76px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================================
+       SIDEBAR
+    ========================================= */
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand {
+      height: var(--topbar);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand img {
+      width: 142px;
+      height: auto;
+      display: block;
+    }
+
+    .sidebar-label {
+      padding: 24px 24px 10px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sidebar-nav {
+      padding: 0 12px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .nav-link {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 13px;
+      margin-bottom: 4px;
+      border-radius: 11px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      background: var(--light);
+      color: var(--blue);
+    }
+
+    .nav-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .nav-icon {
+      width: 19px;
+      height: 19px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 19px;
+    }
+
+    .nav-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sidebar-bottom {
+      padding: 14px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: var(--light);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex: 0 0 38px;
+    }
+
+    .sidebar-user-text {
+      min-width: 0;
+    }
+
+    .sidebar-user-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user-role {
+      margin-top: 2px;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: capitalize;
+    }
+
+    /* =========================================
+       MAIN
+    ========================================= */
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar);
+    }
+
+    .topbar {
+      height: var(--topbar);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 34px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-menu-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--white);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+    }
+
+    .mobile-menu-button svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+    }
+
+    .page-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .page-heading h1 {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .page-heading p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .notification-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--white);
+      color: var(--text);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+    }
+
+    .notification-button svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .notification-dot {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      right: 9px;
+      top: 8px;
+      background: var(--orange);
+      border: 2px solid var(--white);
+      border-radius: 50%;
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-left: 6px;
+    }
+
+    .topbar-user .avatar {
+      width: 36px;
+      height: 36px;
+      flex-basis: 36px;
+    }
+
+    .topbar-user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar-user-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .topbar-user-role {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: capitalize;
+    }
+
+    /* =========================================
+       CONTENT
+    ========================================= */
+
+    .content {
+      padding: 34px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .page-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 26px;
+    }
+
+    .page-intro h2 {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .page-intro p {
+      max-width: 650px;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .primary-button {
+      min-height: 44px;
+      border: 0;
+      border-radius: 11px;
+      padding: 0 17px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      background: var(--blue);
+      color: var(--white);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        transform var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .primary-button:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+    }
+
+    .primary-button svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    /* =========================================
+       STAT CARDS
+    ========================================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stat-icon svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .stat-value {
+      margin-top: 12px;
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .stat-description {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================================
+       TOOLBAR
+    ========================================= */
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar {
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 270px;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 17px;
+      height: 17px;
+      stroke: var(--muted);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .search-box input,
+    .filter-select {
+      height: 42px;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text);
+      outline: none;
+      font-size: 12px;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .search-box input {
+      padding: 0 13px 0 39px;
+    }
+
+    .filter-select {
+      min-width: 145px;
+      padding: 0 12px;
+    }
+
+    .search-box input:focus,
+    .filter-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.09);
+    }
+
+    .secondary-button {
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 13px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .secondary-button:hover {
+      border-color: #cdd6e2;
+      background: var(--light);
+    }
+
+    .secondary-button svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* =========================================
+       EMPLOYEE TABLE
+    ========================================= */
+
+    .panel-heading {
+      padding: 20px 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .panel-heading h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .panel-heading span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .employee-table-wrap {
+      overflow-x: auto;
+      padding: 12px 18px 18px;
+    }
+
+    .employee-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+    }
+
+    .employee-table th {
+      padding: 13px 10px;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      text-align: left;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .employee-table td {
+      padding: 15px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+      font-size: 12px;
+    }
+
+    .employee-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .employee-table tbody tr:hover {
+      background: #fbfcfe;
+    }
+
+    .employee-person {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 210px;
+    }
+
+    .employee-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 11px;
+      font-weight: 800;
+      flex: 0 0 38px;
+    }
+
+    .employee-name {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .employee-email {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+
+/* =========================================
+   EMPLOYEE ROLE BADGES
+========================================= */
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 27px;
+  padding: 0 9px;
+
+  border-radius: 999px;
+
+  background: var(--white);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+/* Owner */
+.role-owner {
+  background: var(--white);
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+/* Manager */
+.role-manager {
+  background: var(--white);
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+/* Staff */
+.role-staff {
+  background: var(--white);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Designer */
+.role-designer {
+  background: var(--white);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+
+
+    .status-active {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-inactive {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .last-login {
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .action-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .icon-button {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--text);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-button:hover {
+      background: var(--light);
+      color: var(--blue);
+    }
+
+    .icon-button.danger:hover {
+      color: var(--danger);
+      background: var(--danger-light);
+    }
+
+    .icon-button svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* =========================================
+       EMPTY STATE
+    ========================================= */
+
+    .empty-state {
+      padding: 60px 24px;
+      text-align: center;
+      display: none;
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .empty-icon {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto 14px;
+      border-radius: 15px;
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .empty-icon svg {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .empty-state h3 {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      max-width: 430px;
+      margin: 7px auto 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       MODAL
+    ========================================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      background: rgba(7, 20, 36, 0.55);
+      backdrop-filter: blur(5px);
+
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      width: min(100%, 570px);
+      max-height: min(760px, calc(100vh - 48px));
+      overflow-y: auto;
+
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+
+      transform: translateY(12px) scale(0.98);
+      transition: transform var(--transition-normal);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      padding: 21px 22px;
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .modal-header h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .modal-header p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+      color: var(--muted);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 34px;
+    }
+
+    .modal-close:hover {
+      color: var(--black);
+      background: var(--light);
+    }
+
+    .modal-close svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .form-label span {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0 12px;
+      outline: none;
+      background: var(--white);
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.09);
+    }
+
+    .role-description {
+      margin-top: 7px;
+      padding: 11px 12px;
+      border-radius: 10px;
+      background: var(--light);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .permission-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .permission-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 11px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--white);
+    }
+
+    .permission-item input {
+      accent-color: var(--blue);
+    }
+
+    .permission-item span {
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .modal-footer {
+      padding: 16px 22px;
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .danger-button {
+      height: 42px;
+      border: 0;
+      border-radius: 10px;
+      padding: 0 14px;
+      background: var(--danger);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .danger-button:hover {
+      background: #aa2222;
+    }
+
+    /* =========================================
+       CONFIRM MODAL
+    ========================================= */
+
+    .confirm-modal {
+      width: min(100%, 440px);
+    }
+
+    .confirm-body {
+      padding: 26px 22px;
+    }
+
+    .confirm-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--warning-light);
+      color: var(--warning);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 14px;
+    }
+
+    .confirm-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .confirm-body h3 {
+      font-family: var(--font-heading);
+      color: var(--black);
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .confirm-body p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    /* =========================================
+       MOBILE OVERLAY
+    ========================================= */
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      background: rgba(7, 20, 36, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================================
+       ROLE CONTROL
+    ========================================= */
+
+    [data-role-only] {
+      display: none !important;
+    }
+
+    body.role-owner [data-role-only~="owner"],
+    body.role-manager [data-role-only~="manager"] {
+      display: inline-flex !important;
+    }
+
+    body.role-owner [data-role-block~="owner"],
+    body.role-manager [data-role-block~="manager"] {
+      display: block !important;
+    }
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 1200px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .content {
+        padding: 28px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --sidebar: 250px;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu-button {
+        display: flex;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .page-intro {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .page-intro .primary-button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .content {
+        padding: 22px 16px;
+      }
+
+      .topbar {
+        padding: 0 16px;
+      }
+
+      .topbar-user-info {
+        display: none;
+      }
+
+      .page-heading p {
+        display: none;
+      }
+
+      .page-intro h2 {
+        font-size: 23px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 11px;
+      }
+
+      .stat-card {
+        padding: 16px;
+      }
+
+      .stat-value {
+        font-size: 23px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .toolbar-left {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+      }
+
+      .filter-select,
+      .toolbar .secondary-button {
+        width: 100%;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .modal-backdrop {
+        padding: 12px;
+      }
+
+      .modal {
+        max-height: calc(100vh - 24px);
+      }
+    }
+
+    @media (max-width: 430px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-user .avatar {
+        display: none;
+      }
+
+      .topbar-right {
+        gap: 6px;
+      }
+
+      .notification-button {
+        width: 38px;
+        height: 38px;
+      }
+
+      .mobile-menu-button {
+        width: 38px;
+        height: 38px;
+      }
+
+      .page-intro p {
+        font-size: 12px;
+      }
+
+      .modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .modal-footer button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+
+</head>
+
+<body class="role-owner">
+
+  <!-- =========================================
+       SIDEBAR
+  ========================================== -->
+
+  <aside class="sidebar" id="sidebar">
+
+```
+<div class="brand">
+  <a href="index.html" aria-label="LikeStar Publications">
+    <img
+      src="images/like star logo.png"
+      alt="LikeStar Publications"
+    >
+  </a>
+</div>
+
+<div class="sidebar-label">
+  Management
+</div>
+
+<nav class="sidebar-nav">
+
+  <a href="management-dashboard.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+      </svg>
+    </span>
+    Dashboard
+  </a>
+
+  <a href="management-quotes.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 4h16v13H8l-4 4V4z"></path>
+        <path d="M8 8h8"></path>
+        <path d="M8 12h5"></path>
+      </svg>
+    </span>
+    Quotes
+  </a>
+
+  <a href="management-reviews.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M20 11.5a8 8 0 0 1-8 8H7l-4 2 1.5-4A8 8 0 1 1 20 11.5z"></path>
+        <path d="M8 11h.01"></path>
+        <path d="M12 11h.01"></path>
+        <path d="M16 11h.01"></path>
+      </svg>
+    </span>
+    Reviews
+  </a>
+
+  <a href="management-services.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M4 6h16"></path>
+        <path d="M4 12h16"></path>
+        <path d="M4 18h16"></path>
+        <circle cx="9" cy="6" r="2"></circle>
+        <circle cx="15" cy="12" r="2"></circle>
+        <circle cx="10" cy="18" r="2"></circle>
+      </svg>
+    </span>
+    Services
+  </a>
+
+  <a href="management-portfolio.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+        <circle cx="8.5" cy="9" r="1.5"></circle>
+        <path d="m21 15-5-5L5 20"></path>
+      </svg>
+    </span>
+    Portfolio
+  </a>
+
+  <a href="management-customers.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9.5" cy="7" r="4"></circle>
+        <path d="M17 11a4 4 0 0 0 0-8"></path>
+        <path d="M21 21v-2a4 4 0 0 0-3-3.87"></path>
+      </svg>
+    </span>
+    Customers
+  </a>
+
+  <a
+    href="management-employees.html"
+    class="nav-link active"
+    data-role-only="owner manager"
+  >
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9.5" cy="7" r="4"></circle>
+        <path d="M16 3.5a4 4 0 0 1 0 7.8"></path>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+      </svg>
+    </span>
+    Employees
+  </a>
+
+  <a
+    href="management-activity.html"
+    class="nav-link"
+    data-role-only="owner manager"
+  >
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 8v5l3 2"></path>
+        <circle cx="12" cy="12" r="9"></circle>
+      </svg>
+    </span>
+    Activity
+  </a>
+
+  <a
+    href="management-settings.html"
+    class="nav-link"
+    data-role-only="owner manager"
+  >
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55V20h-2.4v-.09a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.6 15a1.7 1.7 0 0 0-1.55-1H7v-2.4h.09a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1-1.55V5h2.4v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06A1.7 1.7 0 0 0 19.4 10c.16.6.7 1 1.3 1H21v2.4h-.3c-.6 0-1.14.4-1.3 1.6z"></path>
+      </svg>
+    </span>
+    Settings
+  </a>
+
+  <a href="index.html" class="nav-link">
+    <span class="nav-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"></path>
+      </svg>
+    </span>
+    Back to Website
+  </a>
+
+</nav>
+
+<div class="sidebar-bottom">
+  <div class="sidebar-user">
+    <div class="avatar" id="sidebarAvatar">AD</div>
+
+    <div class="sidebar-user-text">
+      <div class="sidebar-user-name" id="sidebarName">
+        Admin User
+      </div>
+
+      <div class="sidebar-user-role" id="sidebarRole">
+        owner
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </aside>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
+  <main class="main">
+
+```
+<header class="topbar">
+
+  <div class="topbar-left">
+
+    <button
+      class="mobile-menu-button"
+      id="mobileMenuButton"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M4 6h16"></path>
+        <path d="M4 12h16"></path>
+        <path d="M4 18h16"></path>
+      </svg>
+    </button>
+
+    <div class="page-heading">
+      <h1>Employees</h1>
+      <p>Manage staff accounts and access levels.</p>
+    </div>
+
+  </div>
+
+  <div class="topbar-right">
+
+    <button
+      class="notification-button"
+      type="button"
+      aria-label="Notifications"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+        <path d="M10 21h4"></path>
+      </svg>
+
+      <span class="notification-dot"></span>
+    </button>
+
+    <div class="topbar-user">
+
+      <div class="avatar" id="topbarAvatar">AD</div>
+
+      <div class="topbar-user-info">
+        <span class="topbar-user-name" id="topbarName">
+          Admin User
+        </span>
+
+        <span class="topbar-user-role" id="topbarRole">
+          owner
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section class="content">
+
+  <!-- INTRO -->
+
+  <div class="page-intro">
+
+    <div>
+      <h2>Team & Access</h2>
+
+      <p>
+        Give each employee their own account and assign only the
+        management access they need. Employee access will be enforced
+        by Firebase Authentication and Firestore Security Rules once
+        Firebase is connected.
+      </p>
+    </div>
+
+    <button
+      class="primary-button"
+      id="addEmployeeButton"
+      type="button"
+      data-role-only="owner manager"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </svg>
+      Add Employee
+    </button>
+
+  </div>
+
+  <!-- STATS -->
+
+  <div class="stats-grid">
+
+    <article class="stat-card">
+
+      <div class="stat-top">
+        <span class="stat-label">Total Employees</span>
+
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9.5" cy="7" r="4"></circle>
+            <path d="M17 11a4 4 0 0 0 0-8"></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stat-value" id="totalEmployees">
+        0
+      </div>
+
+      <div class="stat-description">
+        Staff accounts in the system
+      </div>
+
+    </article>
+
+    <article class="stat-card">
+
+      <div class="stat-top">
+        <span class="stat-label">Active</span>
+
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stat-value" id="activeEmployees">
+        0
+      </div>
+
+      <div class="stat-description">
+        Accounts currently enabled
+      </div>
+
+    </article>
+
+    <article class="stat-card">
+
+      <div class="stat-top">
+        <span class="stat-label">Managers</span>
+
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3 14.8 8.7 21 9.6l-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3z"></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stat-value" id="managerEmployees">
+        0
+      </div>
+
+      <div class="stat-description">
+        Employees with manager access
+      </div>
+
+    </article>
+
+    <article class="stat-card">
+
+      <div class="stat-top">
+        <span class="stat-label">Designers</span>
+
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z"></path>
+            <path d="m4 7.5 8 4.5 8-4.5"></path>
+            <path d="M12 12v9"></path>
+          </svg>
+        </div>
+      </div>
+
+      <div class="stat-value" id="designerEmployees">
+        0
+      </div>
+
+      <div class="stat-description">
+        Employees with design access
+      </div>
+
+    </article>
+
+  </div>
+
+  <!-- EMPLOYEE PANEL -->
+
+  <section class="panel">
+
+    <div class="toolbar">
+
+      <div class="toolbar-left">
+
+        <div class="search-box">
+
+          <svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-4-4"></path>
+          </svg>
+
+          <input
+            type="search"
+            id="employeeSearch"
+            placeholder="Search employees..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <select
+          class="filter-select"
+          id="roleFilter"
+          aria-label="Filter by role"
+        >
+          <option value="all">All roles</option>
+          <option value="owner">Owner</option>
+          <option value="manager">Manager</option>
+          <option value="staff">Staff</option>
+          <option value="designer">Designer</option>
+        </select>
+
+        <select
+          class="filter-select"
+          id="statusFilter"
+          aria-label="Filter by status"
+        >
+          <option value="all">All statuses</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+
+      </div>
+
+      <button
+        class="secondary-button"
+        id="refreshButton"
+        type="button"
+      >
+        <svg viewBox="0 0 24 24">
+          <path d="M20 11a8 8 0 0 0-14.9-4"></path>
+          <path d="M4 4v5h5"></path>
+          <path d="M4 13a8 8 0 0 0 14.9 4"></path>
+          <path d="M20 20v-5h-5"></path>
+        </svg>
+        Refresh
+      </button>
+
+    </div>
+
+    <div class="panel-heading">
+      <div>
+        <h3>Employee Accounts</h3>
+        <span id="resultCount">0 employees</span>
+      </div>
+    </div>
+
+    <div class="employee-table-wrap">
+
+      <table class="employee-table">
+
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Last Login</th>
+            <th>Joined</th>
+            <th style="text-align:right;">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody id="employeeTableBody"></tbody>
+
+      </table>
+
+      <div class="empty-state" id="emptyState">
+
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9.5" cy="7" r="4"></circle>
+            <path d="M17 11a4 4 0 0 0 0-8"></path>
+          </svg>
+        </div>
+
+        <h3>No employees loaded</h3>
+
+        <p>
+          Employee accounts will appear here after Firebase
+          Authentication and the employee records are connected.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</section>
+```
+
+  </main>
+
+  <!-- =========================================
+       ADD / EDIT EMPLOYEE MODAL
+  ========================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="employeeModal"
+    aria-hidden="true"
+  >
+
+```
+<div
+  class="modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="employeeModalTitle"
+>
+
+  <div class="modal-header">
+
+    <div>
+      <h3 id="employeeModalTitle">
+        Add Employee
+      </h3>
+
+      <p id="employeeModalDescription">
+        Create an employee record. Firebase Authentication will
+        handle the actual login account.
+      </p>
+    </div>
+
+    <button
+      class="modal-close"
+      id="closeEmployeeModal"
+      type="button"
+      aria-label="Close"
+    >
+      <svg viewBox="0 0 24 24">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <form id="employeeForm">
+
+    <div class="modal-body">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label" for="employeeName">
+            Full Name
+          </label>
+
+          <input
+            class="form-control"
+            id="employeeName"
+            type="text"
+            placeholder="Employee full name"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="employeeEmail">
+            Email Address
+          </label>
+
+          <input
+            class="form-control"
+            id="employeeEmail"
+            type="email"
+            placeholder="employee@example.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="employeeRole">
+            Role
+          </label>
+
+          <select
+            class="form-control"
+            id="employeeRole"
+            required
+          >
+            <option value="staff">Staff</option>
+            <option value="designer">Designer</option>
+            <option value="manager">Manager</option>
+            <option value="owner">Owner</option>
+          </select>
+
+          <div class="role-description" id="roleDescription">
+            Staff can work with operational areas assigned to them.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="employeeStatus">
+            Account Status
+          </label>
+
+          <select
+            class="form-control"
+            id="employeeStatus"
+          >
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+
+          <label class="form-label">
+            Access Summary
+            <span>based on selected role</span>
+          </label>
+
+          <div class="permission-list" id="permissionList">
+
+            <label class="permission-item">
+              <input type="checkbox" checked disabled>
+              <span>View dashboard</span>
+            </label>
+
+            <label class="permission-item">
+              <input type="checkbox" checked disabled>
+              <span>Manage assigned operational work</span>
+            </label>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        type="button"
+        class="secondary-button"
+        id="cancelEmployeeButton"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        class="primary-button"
+        id="saveEmployeeButton"
+      >
+        Save Employee
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
+```
+
+  </div>
+
+  <!-- =========================================
+       CONFIRM MODAL
+  ========================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="confirmModal"
+    aria-hidden="true"
+  >
+
+```
+<div
+  class="modal confirm-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="confirmTitle"
+>
+
+  <div class="confirm-body">
+
+    <div class="confirm-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 9v4"></path>
+        <path d="M12 17h.01"></path>
+        <path d="M10.3 3.5 2.8 17a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3l-7.5-13.5a2 2 0 0 0-3.4 0z"></path>
+      </svg>
+    </div>
+
+    <h3 id="confirmTitle">
+      Disable employee?
+    </h3>
+
+    <p id="confirmMessage">
+      This will prevent the employee from accessing the management
+      system once Firebase Authentication is connected.
+    </p>
+
+  </div>
+
+  <div class="modal-footer">
+
+    <button
+      type="button"
+      class="secondary-button"
+      id="cancelConfirmButton"
+    >
+      Cancel
+    </button>
+
+    <button
+      type="button"
+      class="danger-button"
+      id="confirmActionButton"
+    >
+      Disable Account
+    </button>
+
+  </div>
+
+</div>
+```
+
+  </div>
+
+  <script>
+    /*
+     * =========================================
+     * LIKESTAR EMPLOYEE MANAGEMENT
+     * =========================================
+     *
+     * Firebase is intentionally NOT connected yet.
+     *
+     * When Firebase config is available:
+     *
+     * Authentication:
+     *   Firebase Authentication
+     *
+     * Employee profile:
+     *   users/{uid}
+     *
+     * Example:
+     *
+     * {
+     *   name: "Employee Name",
+     *   email: "employee@example.com",
+     *   role: "staff",
+     *   active: true,
+     *   createdAt: Timestamp,
+     *   updatedAt: Timestamp,
+     *   lastLoginAt: Timestamp
+     * }
+     *
+     * IMPORTANT:
+     * The frontend role check is only for UI.
+     * Real access MUST be enforced with Firestore
+     * Security Rules / Authentication.
+     */
+
+    const MANAGEMENT_CONFIG = {
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+    };
+
+    /*
+     * =========================================
+     * STATE
+     * =========================================
+     */
+
+    let employees = [];
+
+    let editingEmployeeId = null;
+    let employeeToToggle = null;
+
+    /*
+     * =========================================
+     * ELEMENTS
+     * =========================================
+     */
+
+    const body = document.body;
+
+    const sidebar =
+      document.getElementById("sidebar");
+
+    const sidebarOverlay =
+      document.getElementById("sidebarOverlay");
+
+    const mobileMenuButton =
+      document.getElementById("mobileMenuButton");
+
+    const addEmployeeButton =
+      document.getElementById("addEmployeeButton");
+
+    const refreshButton =
+      document.getElementById("refreshButton");
+
+    const employeeSearch =
+      document.getElementById("employeeSearch");
+
+    const roleFilter =
+      document.getElementById("roleFilter");
+
+    const statusFilter =
+      document.getElementById("statusFilter");
+
+    const employeeTableBody =
+      document.getElementById("employeeTableBody");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+    const resultCount =
+      document.getElementById("resultCount");
+
+    const totalEmployees =
+      document.getElementById("totalEmployees");
+
+    const activeEmployees =
+      document.getElementById("activeEmployees");
+
+    const managerEmployees =
+      document.getElementById("managerEmployees");
+
+    const designerEmployees =
+      document.getElementById("designerEmployees");
+
+    const employeeModal =
+      document.getElementById("employeeModal");
+
+    const confirmModal =
+      document.getElementById("confirmModal");
+
+    const employeeForm =
+      document.getElementById("employeeForm");
+
+    const employeeModalTitle =
+      document.getElementById("employeeModalTitle");
+
+    const employeeModalDescription =
+      document.getElementById("employeeModalDescription");
+
+    const employeeName =
+      document.getElementById("employeeName");
+
+    const employeeEmail =
+      document.getElementById("employeeEmail");
+
+    const employeeRole =
+      document.getElementById("employeeRole");
+
+    const employeeStatus =
+      document.getElementById("employeeStatus");
+
+    const roleDescription =
+      document.getElementById("roleDescription");
+
+    const permissionList =
+      document.getElementById("permissionList");
+
+    /*
+     * =========================================
+     * SECURITY / ROLE
+     * =========================================
+     */
+
+    function applyDevelopmentRole() {
+      const role =
+        MANAGEMENT_CONFIG.developmentRole || "owner";
+
+      body.classList.remove(
+        "role-owner",
+        "role-manager",
+        "role-staff",
+        "role-designer"
+      );
+
+      body.classList.add(
+        `role-${role}`
+      );
+
+      const user =
+        MANAGEMENT_CONFIG.developmentUser;
+
+      const initials =
+        getInitials(user.name || "Admin User");
+
+      document.getElementById("sidebarAvatar").textContent =
+        initials;
+
+      document.getElementById("topbarAvatar").textContent =
+        initials;
+
+      document.getElementById("sidebarName").textContent =
+        user.name || "Admin User";
+
+      document.getElementById("topbarName").textContent =
+        user.name || "Admin User";
+
+      document.getElementById("sidebarRole").textContent =
+        role;
+
+      document.getElementById("topbarRole").textContent =
+        role;
+
+      /*
+       * Only owner and manager should see
+       * employee management.
+       *
+       * The owner should normally be the only
+       * role allowed to create or promote owners.
+       */
+      if (role === "staff" || role === "designer") {
+        window.location.href =
+          "management-dashboard.html";
+      }
+    }
+
+    /*
+     * =========================================
+     * UTILITIES
+     * =========================================
+     */
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getInitials(name) {
+      const parts =
+        String(name || "")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (!parts.length) {
+        return "NA";
+      }
+
+      if (parts.length === 1) {
+        return parts[0]
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+      ).toUpperCase();
+    }
+
+    function formatDate(value) {
+      if (!value) {
+        return "Never";
+      }
+
+      const date =
+        value instanceof Date
+          ? value
+          : new Date(value);
+
+      if (Number.isNaN(date.getTime())) {
+        return "—";
+      }
+
+      return date.toLocaleDateString(
+        undefined,
+        {
+          day: "numeric",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+    function formatRole(role) {
+      if (!role) return "Staff";
+
+      return role.charAt(0).toUpperCase() +
+        role.slice(1);
+    }
+
+    function roleDescriptionText(role) {
+      const descriptions = {
+        owner:
+          "Full management access. Owners can manage employees, settings, content, quotes, reviews, services, portfolio and operational records.",
+
+        manager:
+          "Management access for day-to-day operations. Managers can manage content, quotes, reviews, services, portfolio and customers.",
+
+        staff:
+          "Operational access. Staff can work with assigned operational areas such as quotes and customers.",
+
+        designer:
+          "Design-focused access. Designers can manage portfolio work and design-related content."
+      };
+
+      return descriptions[role] ||
+        descriptions.staff;
+    }
+
+    function getPermissions(role) {
+      const permissions = {
+        owner: [
+          "View management dashboard",
+          "Manage quotes",
+          "Manage reviews",
+          "Manage services",
+          "Manage portfolio",
+          "Manage customers",
+          "Manage employees",
+          "View activity logs",
+          "Manage settings"
+        ],
+
+        manager: [
+          "View management dashboard",
+          "Manage quotes",
+          "Manage reviews",
+          "Manage services",
+          "Manage portfolio",
+          "Manage customers",
+          "View operational activity"
+        ],
+
+        staff: [
+          "View management dashboard",
+          "View and work on assigned quotes",
+          "View customer records"
+        ],
+
+        designer: [
+          "View management dashboard",
+          "Manage portfolio",
+          "Manage design-related content"
+        ]
+      };
+
+      return permissions[role] ||
+        permissions.staff;
+    }
+
+    /*
+     * =========================================
+     * STATS
+     * =========================================
+     */
+
+    function updateStats() {
+      const total =
+        employees.length;
+
+      const active =
+        employees.filter(
+          employee => employee.active
+        ).length;
+
+      const managers =
+        employees.filter(
+          employee =>
+            employee.role === "manager"
+        ).length;
+
+      const designers =
+        employees.filter(
+          employee =>
+            employee.role === "designer"
+        ).length;
+
+      totalEmployees.textContent =
+        total;
+
+      activeEmployees.textContent =
+        active;
+
+      managerEmployees.textContent =
+        managers;
+
+      designerEmployees.textContent =
+        designers;
+    }
+
+    /*
+     * =========================================
+     * FILTERING
+     * =========================================
+     */
+
+    function getFilteredEmployees() {
+      const search =
+        employeeSearch.value
+          .trim()
+          .toLowerCase();
+
+      const role =
+        roleFilter.value;
+
+      const status =
+        statusFilter.value;
+
+      return employees.filter(employee => {
+
+        const matchesSearch =
+          !search ||
+          employee.name
+            .toLowerCase()
+            .includes(search) ||
+          employee.email
+            .toLowerCase()
+            .includes(search);
+
+        const matchesRole =
+          role === "all" ||
+          employee.role === role;
+
+        const matchesStatus =
+          status === "all" ||
+          (status === "active" && employee.active) ||
+          (status === "inactive" && !employee.active);
+
+        return (
+          matchesSearch &&
+          matchesRole &&
+          matchesStatus
+        );
+      });
+    }
+
+    /*
+     * =========================================
+     * RENDER
+     * =========================================
+     */
+
+    function renderEmployees() {
+      const filtered =
+        getFilteredEmployees();
+
+      employeeTableBody.innerHTML = "";
+
+      resultCount.textContent =
+        `${filtered.length} ${
+          filtered.length === 1
+            ? "employee"
+            : "employees"
+        }`;
+
+      if (!filtered.length) {
+        emptyState.classList.add("visible");
+        updateStats();
+        return;
+      }
+
+      emptyState.classList.remove("visible");
+
+      filtered.forEach(employee => {
+
+        const row =
+          document.createElement("tr");
+
+        const roleClass =
+          `role-${employee.role}`;
+
+        const statusClass =
+          employee.active
+            ? "status-active"
+            : "status-inactive";
+
+        const statusText =
+          employee.active
+            ? "Active"
+            : "Inactive";
+
+        row.innerHTML = `
+          <td>
+            <div class="employee-person">
+              <div class="employee-avatar">
+                ${escapeHTML(
+                  getInitials(employee.name)
+                )}
+              </div>
+
+              <div>
+                <div class="employee-name">
+                  ${escapeHTML(employee.name)}
+                </div>
+
+                <div class="employee-email">
+                  ${escapeHTML(employee.email)}
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td>
+            <span class="role-badge ${roleClass}">
+              ${escapeHTML(
+                formatRole(employee.role)
+              )}
+            </span>
+          </td>
+
+          <td>
+            <span class="status-badge ${statusClass}">
+              ${statusText}
+            </span>
+          </td>
+
+          <td>
+            <span class="last-login">
+              ${escapeHTML(
+                formatDate(employee.lastLoginAt)
+              )}
+            </span>
+          </td>
+
+          <td>
+            <span class="last-login">
+              ${escapeHTML(
+                formatDate(employee.createdAt)
+              )}
+            </span>
+          </td>
+
+          <td>
+            <div class="action-group">
+
+              <button
+                class="icon-button"
+                type="button"
+                title="Edit employee"
+                aria-label="Edit employee"
+                data-action="edit"
+                data-id="${escapeHTML(employee.id)}"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+              </button>
+
+              <button
+                class="icon-button ${
+                  employee.active ? "danger" : ""
+                }"
+                type="button"
+                title="${
+                  employee.active
+                    ? "Disable employee"
+                    : "Enable employee"
+                }"
+                aria-label="${
+                  employee.active
+                    ? "Disable employee"
+                    : "Enable employee"
+                }"
+                data-action="toggle"
+                data-id="${escapeHTML(employee.id)}"
+              >
+                <svg viewBox="0 0 24 24">
+                  ${
+                    employee.active
+                      ? `
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                        <path d="M10 21h4"></path>
+                      `
+                      : `
+                        <path d="M6 10a6 6 0 0 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9"></path>
+                        <path d="M10 21h4"></path>
+                      `
+                  }
+                </svg>
+              </button>
+
+            </div>
+          </td>
+        `;
+
+        employeeTableBody.appendChild(row);
+      });
+
+      updateStats();
+    }
+
+    /*
+     * =========================================
+     * MODAL
+     * =========================================
+     */
+
+    function openEmployeeModal(employee = null) {
+      editingEmployeeId =
+        employee?.id || null;
+
+      employeeModalTitle.textContent =
+        employee
+          ? "Edit Employee"
+          : "Add Employee";
+
+      employeeModalDescription.textContent =
+        employee
+          ? "Update this employee's profile and access role."
+          : "Create an employee record. Firebase Authentication will handle the actual login account.";
+
+      employeeName.value =
+        employee?.name || "";
+
+      employeeEmail.value =
+        employee?.email || "";
+
+      employeeRole.value =
+        employee?.role || "staff";
+
+      employeeStatus.value =
+        employee?.active === false
+          ? "inactive"
+          : "active";
+
+      updateRoleDescription();
+
+      employeeModal.classList.add("open");
+      employeeModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      body.classList.add("modal-open");
+
+      setTimeout(() => {
+        employeeName.focus();
+      }, 50);
+    }
+
+    function closeEmployeeModal() {
+      employeeModal.classList.remove("open");
+      employeeModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      body.classList.remove("modal-open");
+
+      employeeForm.reset();
+
+      editingEmployeeId = null;
+
+      updateRoleDescription();
+    }
+
+    function updateRoleDescription() {
+      const role =
+        employeeRole.value;
+
+      roleDescription.textContent =
+        roleDescriptionText(role);
+
+      const permissions =
+        getPermissions(role);
+
+      permissionList.innerHTML =
+        permissions
+          .map(permission => `
+            <label class="permission-item">
+              <input
+                type="checkbox"
+                checked
+                disabled
+              >
+              <span>
+                ${escapeHTML(permission)}
+              </span>
+            </label>
+          `)
+          .join("");
+    }
+
+    /*
+     * =========================================
+     * CONFIRM
+     * =========================================
+     */
+
+    function openConfirm(employee) {
+      employeeToToggle =
+        employee;
+
+      const disabling =
+        employee.active;
+
+      document.getElementById(
+        "confirmTitle"
+      ).textContent =
+        disabling
+          ? "Disable employee?"
+          : "Enable employee?";
+
+      document.getElementById(
+        "confirmMessage"
+      ).textContent =
+        disabling
+          ? `Disable ${employee.name}'s management account? They will no longer be able to access the management system once Firebase Authentication is connected.`
+          : `Enable ${employee.name}'s management account?`;
+
+      document.getElementById(
+        "confirmActionButton"
+      ).textContent =
+        disabling
+          ? "Disable Account"
+          : "Enable Account";
+
+      document.getElementById(
+        "confirmActionButton"
+      ).className =
+        disabling
+          ? "danger-button"
+          : "primary-button";
+
+      confirmModal.classList.add("open");
+
+      confirmModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      body.classList.add("modal-open");
+    }
+
+    function closeConfirm() {
+      confirmModal.classList.remove("open");
+
+      confirmModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      body.classList.remove("modal-open");
+
+      employeeToToggle = null;
+    }
+
+    /*
+     * =========================================
+     * SAVE EMPLOYEE
+     * =========================================
+     */
+
+    employeeForm.addEventListener(
+      "submit",
+      event => {
+        event.preventDefault();
+
+        if (!MANAGEMENT_CONFIG.firebaseConnected) {
+
+          alert(
+            "Firebase is not connected yet. The employee was not saved."
+          );
+
+          return;
+        }
+
+        /*
+         * FUTURE FIREBASE LOGIC
+         *
+         * IMPORTANT:
+         *
+         * Do NOT create arbitrary client-side
+         * privileged accounts.
+         *
+         * Employee account creation should be
+         * handled through a secure invitation /
+         * account-creation flow.
+         *
+         * Recommended:
+         *
+         * Owner
+         *   ↓
+         * Invite employee
+         *   ↓
+         * Firebase Authentication account
+         *   ↓
+         * users/{uid}
+         *
+         * {
+         *   name,
+         *   email,
+         *   role,
+         *   active
+         * }
+         *
+         * For production, privileged account
+         * creation should use a trusted backend
+         * such as Firebase Admin SDK / Cloud
+         * Functions or another secure server.
+         */
+
+        const data = {
+          name: employeeName.value.trim(),
+          email: employeeEmail.value.trim(),
+          role: employeeRole.value,
+          active:
+            employeeStatus.value === "active"
+        };
+
+        console.log(
+          "Employee save payload:",
+          data
+        );
+      }
+    );
+
+    /*
+     * =========================================
+     * TOGGLE ACCOUNT
+     * =========================================
+     */
+
+    document.getElementById(
+      "confirmActionButton"
+    ).addEventListener(
+      "click",
+      () => {
+
+        if (!employeeToToggle) {
+          return;
+        }
+
+        if (!MANAGEMENT_CONFIG.firebaseConnected) {
+
+          alert(
+            "Firebase is not connected yet. The employee account was not changed."
+          );
+
+          closeConfirm();
+
+          return;
+        }
+
+        /*
+         * FUTURE:
+         *
+         * Update:
+         *
+         * users/{uid}.active
+         *
+         * Also create:
+         *
+         * activityLogs/{logId}
+         *
+         * {
+         *   action: "employee_disabled",
+         *   targetUserId: uid,
+         *   performedBy: currentUser.uid,
+         *   createdAt: Timestamp
+         * }
+         */
+
+        closeConfirm();
+      }
+    );
+
+    /*
+     * =========================================
+     * TABLE ACTIONS
+     * =========================================
+     */
+
+    employeeTableBody.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(
+            "button[data-action]"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        const id =
+          button.dataset.id;
+
+        const employee =
+          employees.find(
+            item => item.id === id
+          );
+
+        if (!employee) {
+          return;
+        }
+
+        const action =
+          button.dataset.action;
+
+        if (action === "edit") {
+          openEmployeeModal(employee);
+        }
+
+        if (action === "toggle") {
+          openConfirm(employee);
+        }
+      }
+    );
+
+    /*
+     * =========================================
+     * MOBILE SIDEBAR
+     * =========================================
+     */
+
+    function openSidebar() {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("open");
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("open");
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+
+    mobileMenuButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          sidebar.classList.contains("open")
+        ) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+
+      }
+    );
+
+    sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (window.innerWidth > 980) {
+          closeSidebar();
+        }
+
+      }
+    );
+
+    /*
+     * =========================================
+     * MODAL EVENTS
+     * =========================================
+     */
+
+    addEmployeeButton.addEventListener(
+      "click",
+      () => openEmployeeModal()
+    );
+
+    document.getElementById(
+      "closeEmployeeModal"
+    ).addEventListener(
+      "click",
+      closeEmployeeModal
+    );
+
+    document.getElementById(
+      "cancelEmployeeButton"
+    ).addEventListener(
+      "click",
+      closeEmployeeModal
+    );
+
+    document.getElementById(
+      "cancelConfirmButton"
+    ).addEventListener(
+      "click",
+      closeConfirm
+    );
+
+    employeeRole.addEventListener(
+      "change",
+      updateRoleDescription
+    );
+
+    employeeModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === employeeModal
+        ) {
+          closeEmployeeModal();
+        }
+
+      }
+    );
+
+    confirmModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === confirmModal
+        ) {
+          closeConfirm();
+        }
+
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key !== "Escape") {
+          return;
+        }
+
+        closeEmployeeModal();
+        closeConfirm();
+        closeSidebar();
+
+      }
+    );
+
+    /*
+     * =========================================
+     * FILTER EVENTS
+     * =========================================
+     */
+
+    employeeSearch.addEventListener(
+      "input",
+      renderEmployees
+    );
+
+    roleFilter.addEventListener(
+      "change",
+      renderEmployees
+    );
+
+    statusFilter.addEventListener(
+      "change",
+      renderEmployees
+    );
+
+    refreshButton.addEventListener(
+      "click",
+      () => {
+
+        /*
+         * Future:
+         *
+         * Re-run a bounded Firestore query.
+         *
+         * Example:
+         *
+         * query(
+         *   collection(db, "users"),
+         *   where("isEmployee", "==", true),
+         *   orderBy("createdAt", "desc"),
+         *   limit(50)
+         * )
+         *
+         * For large teams, add pagination.
+         */
+
+        if (
+          !MANAGEMENT_CONFIG.firebaseConnected
+        ) {
+          renderEmployees();
+
+          return;
+        }
+
+        loadEmployeesFromFirebase();
+      }
+    );
+
+    /*
+     * =========================================
+     * FIREBASE PLACEHOLDER
+     * =========================================
+     */
+
+    async function loadEmployeesFromFirebase() {
+
+      /*
+       * Firebase implementation goes here
+       * after the LikeStar Firebase configuration
+       * is available.
+       *
+       * Recommended structure:
+       *
+       * users/{uid}
+       *
+       * {
+       *   name,
+       *   email,
+       *   role,
+       *   active,
+       *   isEmployee: true,
+       *   createdAt,
+       *   updatedAt,
+       *   lastLoginAt
+       * }
+       *
+       * Query only employee accounts.
+       *
+       * Do not download unrelated customer
+       * accounts.
+       */
+
+      console.log(
+        "Firebase employee loading is not connected yet."
+      );
+    }
+
+    /*
+     * =========================================
+     * INITIALIZATION
+     * =========================================
+     */
+
+    applyDevelopmentRole();
+
+    updateRoleDescription();
+
+    updateStats();
+
+    renderEmployees();
+
+  </script>
+
+</body>
+</html>

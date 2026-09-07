@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications staff administration login."
+  >
+
+  <meta
+    name="theme-color"
+    content="#0057b8"
+  >
+
+  <title>Admin Login | LikeStar Publications</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-md:
+        0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+    }
+
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family: var(--font-body);
+      color: var(--text);
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(0, 87, 184, 0.08),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(255, 122, 0, 0.07),
+          transparent 30%
+        ),
+        var(--light);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+    }
+
+
+    /* =========================================
+       PAGE
+    ========================================= */
+
+    .login-page {
+      width: 100%;
+      max-width: 1100px;
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+
+      overflow: hidden;
+
+      box-shadow: var(--shadow-md);
+    }
+
+
+    /* =========================================
+       BRAND PANEL
+    ========================================= */
+
+    .brand-panel {
+      position: relative;
+
+      min-height: 650px;
+
+      padding: 55px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--blue-dark),
+          var(--blue)
+        );
+
+      color: var(--white);
+
+      overflow: hidden;
+    }
+
+    .brand-panel::before {
+      content: "";
+
+      position: absolute;
+
+      width: 320px;
+      height: 320px;
+
+      top: -150px;
+      right: -120px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-panel::after {
+      content: "";
+
+      position: absolute;
+
+      width: 240px;
+      height: 240px;
+
+      bottom: -120px;
+      left: -100px;
+
+      border-radius: 50%;
+
+      background: rgba(255, 122, 0, 0.16);
+    }
+
+
+    /* =========================================
+       LOGO
+    ========================================= */
+
+    .brand-logo {
+      position: relative;
+      z-index: 2;
+
+      display: inline-flex;
+      align-items: center;
+
+      width: fit-content;
+    }
+
+    .brand-logo img {
+      display: block;
+
+      width: 180px;
+      height: auto;
+
+      object-fit: contain;
+    }
+
+
+    /* =========================================
+       BRAND CONTENT
+    ========================================= */
+
+    .brand-content {
+      position: relative;
+      z-index: 2;
+
+      max-width: 430px;
+    }
+
+    .brand-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      margin-bottom: 20px;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .brand-label span:first-child {
+      width: 24px;
+      height: 2px;
+
+      background: var(--orange);
+    }
+
+    .brand-content h1 {
+      margin-bottom: 20px;
+
+      font-family: var(--font-heading);
+
+      font-size: clamp(38px, 4vw, 58px);
+      line-height: 1.04;
+
+      letter-spacing: -0.045em;
+
+      color: var(--white);
+    }
+
+    .brand-content h1 span {
+      color: #ff9a42;
+    }
+
+    .brand-content p {
+      max-width: 390px;
+
+      font-size: 15px;
+      line-height: 1.8;
+
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+
+    /* =========================================
+       BRAND FOOTER
+    ========================================= */
+
+    .brand-footer {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 13px;
+
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .brand-footer span {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--orange);
+    }
+
+
+    /* =========================================
+       LOGIN PANEL
+    ========================================= */
+
+    .login-panel {
+      padding: 55px;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .login-content {
+      width: 100%;
+      max-width: 410px;
+      margin-inline: auto;
+    }
+
+
+    /* =========================================
+       LOGIN HEADING
+    ========================================= */
+
+    .login-heading {
+      margin-bottom: 34px;
+    }
+
+    .login-heading h2 {
+      margin-bottom: 9px;
+
+      font-family: var(--font-heading);
+
+      font-size: 30px;
+      line-height: 1.2;
+
+      letter-spacing: -0.025em;
+
+      color: var(--black);
+    }
+
+    .login-heading p {
+      font-size: 14px;
+      line-height: 1.7;
+
+      color: var(--muted);
+    }
+
+
+    /* =========================================
+       FORM
+    ========================================= */
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      color: var(--black);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+
+      height: 52px;
+
+      padding: 0 16px;
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+
+      outline: none;
+
+      background: var(--white);
+
+      font-family: var(--font-body);
+      font-size: 14px;
+
+      color: var(--black);
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #a2adba;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--blue);
+
+      box-shadow:
+        0 0 0 4px rgba(0, 87, 184, 0.10);
+    }
+
+
+    /* =========================================
+       PASSWORD
+    ========================================= */
+
+    .password-wrapper input {
+      padding-right: 78px;
+    }
+
+    .password-toggle {
+      position: absolute;
+
+      top: 50%;
+      right: 12px;
+
+      transform: translateY(-50%);
+
+      border: none;
+      background: transparent;
+
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+
+      color: var(--blue);
+
+      cursor: pointer;
+    }
+
+    .password-toggle:hover {
+      color: var(--blue-dark);
+    }
+
+
+    /* =========================================
+       FORM OPTIONS
+    ========================================= */
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+    }
+
+    .remember-me {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 13px;
+      color: var(--muted);
+
+      cursor: pointer;
+    }
+
+    .remember-me input {
+      width: 15px;
+      height: 15px;
+
+      accent-color: var(--blue);
+
+      cursor: pointer;
+    }
+
+    .forgot-password {
+      border: none;
+      background: none;
+
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 700;
+
+      color: var(--blue);
+
+      cursor: pointer;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================
+       LOGIN BUTTON
+    ========================================= */
+
+    .login-button {
+      width: 100%;
+      min-height: 54px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      border: none;
+      border-radius: var(--radius-sm);
+
+      background: var(--blue);
+
+      color: var(--white);
+
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .login-button:hover {
+      background: var(--blue-dark);
+
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 10px 25px rgba(0, 87, 184, 0.20);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+
+    /* =========================================
+       STATUS
+    ========================================= */
+
+    .login-status {
+      display: none;
+
+      margin-top: 18px;
+      padding: 13px 15px;
+
+      border-radius: 10px;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .login-status.show {
+      display: block;
+    }
+
+    .login-status.info {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+    }
+
+    .login-status.error {
+      background: #fff0f0;
+      color: #b42318;
+    }
+
+
+    /* =========================================
+       SECURITY NOTE
+    ========================================= */
+
+    .security-note {
+      display: flex;
+      gap: 10px;
+
+      margin-top: 28px;
+      padding-top: 22px;
+
+      border-top: 1px solid var(--border);
+
+      font-size: 12px;
+      line-height: 1.6;
+
+      color: var(--muted);
+    }
+
+    .security-icon {
+      flex-shrink: 0;
+
+      width: 22px;
+      height: 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+
+      color: var(--blue);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+
+    /* =========================================
+       BACK TO WEBSITE
+    ========================================= */
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      margin-top: 25px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      color: var(--muted);
+
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--blue);
+    }
+
+
+    /* =========================================
+       TABLET
+    ========================================= */
+
+    @media (max-width: 850px) {
+
+      body {
+        padding: 20px;
+      }
+
+      .login-page {
+        grid-template-columns: 1fr;
+        max-width: 560px;
+      }
+
+      .brand-panel {
+        min-height: auto;
+        padding: 38px;
+      }
+
+      .brand-content {
+        margin-top: 65px;
+      }
+
+      .brand-footer {
+        margin-top: 55px;
+      }
+
+      .login-panel {
+        padding: 38px;
+      }
+
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 520px) {
+
+      body {
+        padding: 0;
+
+        align-items: stretch;
+      }
+
+      .login-page {
+        min-height: 100vh;
+
+        border: none;
+        border-radius: 0;
+
+        box-shadow: none;
+      }
+
+      .brand-panel {
+        padding: 30px 24px;
+      }
+
+      .brand-logo img {
+        width: 145px;
+      }
+
+      .brand-content {
+        margin-top: 55px;
+      }
+
+      .brand-content h1 {
+        font-size: 40px;
+      }
+
+      .brand-content p {
+        font-size: 14px;
+      }
+
+      .brand-footer {
+        margin-top: 45px;
+      }
+
+      .login-panel {
+        padding: 35px 24px 45px;
+      }
+
+      .login-heading h2 {
+        font-size: 27px;
+      }
+
+      .form-options {
+        align-items: flex-start;
+      }
+
+    }
+
+
+    /* =========================================
+       SMALL MOBILE
+    ========================================= */
+
+    @media (max-width: 360px) {
+
+      .brand-panel {
+        padding: 25px 20px;
+      }
+
+      .login-panel {
+        padding-inline: 20px;
+      }
+
+      .form-options {
+        flex-direction: column;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="login-page">
+
+
+    <!-- =====================================
+         BRAND PANEL
+    ====================================== -->
+
+    <section class="brand-panel">
+
+      <a
+        href="index.html"
+        class="brand-logo"
+        aria-label="LikeStar Publications home"
+      >
+
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+        >
+
+      </a>
+
+
+      <div class="brand-content">
+
+        <div class="brand-label">
+
+          <span></span>
+
+          <span>
+            Staff Portal
+          </span>
+
+        </div>
+
+
+        <h1>
+          Welcome
+          <span>back.</span>
+        </h1>
+
+
+        <p>
+          Sign in to access the LikeStar Publications
+          administration system and manage the areas
+          assigned to your account.
+        </p>
+
+      </div>
+
+
+      <div class="brand-footer">
+
+        <span></span>
+
+        <span>
+          LikeStar Publications
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================
+         LOGIN PANEL
+    ====================================== -->
+
+    <section class="login-panel">
+
+      <div class="login-content">
+
+
+        <div class="login-heading">
+
+          <h2>
+            Staff login
+          </h2>
+
+          <p>
+            Use your LikeStar staff account to continue.
+          </p>
+
+        </div>
+
+
+        <!-- =================================
+             LOGIN FORM
+        ================================== -->
+
+        <form
+          id="adminLoginForm"
+          novalidate
+        >
+
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+
+            <label for="email">
+              Email address
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="username"
+                placeholder="you@example.com"
+                required
+              >
+
+            </div>
+
+          </div>
+
+
+          <!-- PASSWORD -->
+
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div class="input-wrapper password-wrapper">
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                id="passwordToggle"
+                aria-label="Show password"
+              >
+                Show
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- OPTIONS -->
+
+          <div class="form-options">
+
+            <label class="remember-me">
+
+              <input
+                type="checkbox"
+                id="rememberMe"
+                name="rememberMe"
+              >
+
+              <span>
+                Remember me
+              </span>
+
+            </label>
+
+
+            <button
+              type="button"
+              class="forgot-password"
+              id="forgotPassword"
+            >
+              Forgot password?
+            </button>
+
+          </div>
+
+
+          <!-- LOGIN -->
+
+          <button
+            type="submit"
+            class="login-button"
+          >
+
+            <span>
+              Sign in
+            </span>
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </button>
+
+
+          <!-- STATUS -->
+
+          <div
+            class="login-status"
+            id="loginStatus"
+            role="status"
+            aria-live="polite"
+          ></div>
+
+
+        </form>
+
+
+        <!-- SECURITY -->
+
+        <div class="security-note">
+
+          <div class="security-icon">
+            ✓
+          </div>
+
+          <p>
+            Staff access is restricted to authorized
+            LikeStar Publications employees. Your account
+            permissions will determine which parts of the
+            administration system you can access.
+          </p>
+
+        </div>
+
+
+        <!-- BACK -->
+
+        <a
+          href="index.html"
+          class="back-link"
+        >
+          ← Back to LikeStar website
+        </a>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =========================================
+       FRONTEND LOGIN LOGIC
+       Firebase will replace this section later.
+  ========================================== -->
+
+  <script>
+
+    const loginForm =
+      document.getElementById("adminLoginForm");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const passwordToggle =
+      document.getElementById("passwordToggle");
+
+    const forgotPassword =
+      document.getElementById("forgotPassword");
+
+    const loginStatus =
+      document.getElementById("loginStatus");
+
+
+    /* =========================================
+       SHOW / HIDE PASSWORD
+    ========================================= */
+
+    passwordToggle.addEventListener(
+      "click",
+      () => {
+
+        const isPassword =
+          passwordInput.type === "password";
+
+        passwordInput.type =
+          isPassword ? "text" : "password";
+
+        passwordToggle.textContent =
+          isPassword ? "Hide" : "Show";
+
+        passwordToggle.setAttribute(
+          "aria-label",
+          isPassword
+            ? "Hide password"
+            : "Show password"
+        );
+
+      }
+    );
+
+
+    /* =========================================
+       STATUS MESSAGE
+    ========================================= */
+
+    function showStatus(
+      message,
+      type = "info"
+    ) {
+
+      loginStatus.textContent =
+        message;
+
+      loginStatus.className =
+        `login-status show ${type}`;
+
+    }
+
+
+    /* =========================================
+       LOGIN
+       
+       TEMPORARY:
+       Firebase Authentication is not connected.
+    ========================================= */
+
+    loginForm.addEventListener(
+      "submit",
+      (event) => {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+        const password =
+          passwordInput.value;
+
+
+        if (!email) {
+
+          showStatus(
+            "Please enter your email address.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (!password) {
+
+          showStatus(
+            "Please enter your password.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        showStatus(
+          "Staff authentication will be connected to Firebase once the Firebase configuration is added.",
+          "info"
+        );
+
+      }
+    );
+
+
+    /* =========================================
+       FORGOT PASSWORD
+    ========================================= */
+
+    forgotPassword.addEventListener(
+      "click",
+      () => {
+
+        showStatus(
+          "Password reset will be enabled when Firebase Authentication is connected.",
+          "info"
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,3685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications management — customer reviews."
+  >
+
+  <title>Reviews | LikeStar Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* =========================================================
+       LIKESTAR MANAGEMENT — REVIEWS
+       Firebase-ready frontend
+       ========================================================= */
+
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --success: #138a4b;
+      --success-light: #e8f7ef;
+
+      --warning: #a96800;
+      --warning-light: #fff5df;
+
+      --danger: #c93434;
+      --danger-light: #fff0f0;
+
+      --purple: #6941c6;
+      --purple-light: #f2edff;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, 0.06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar-width: 255px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar-width);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      z-index: 1000;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-brand {
+      min-height: 78px;
+      padding: 18px 22px;
+
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-brand img {
+      display: block;
+      width: 145px;
+      height: auto;
+      max-height: 48px;
+
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .portal-label {
+      padding: 18px 22px 8px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      padding: 8px 12px;
+
+      overflow-y: auto;
+
+      flex: 1;
+    }
+
+    .nav-section {
+      margin-bottom: 20px;
+    }
+
+    .nav-section-title {
+      padding: 0 11px 8px;
+
+      color: #9aa5b4;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-link {
+      min-height: 44px;
+
+      padding: 10px 12px;
+      margin-bottom: 4px;
+
+      border-radius: 10px;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      color: #566579;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .sidebar-link:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .sidebar-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .sidebar-icon {
+      width: 20px;
+      height: 20px;
+
+      flex: 0 0 20px;
+
+      display: grid;
+      place-items: center;
+
+      font-size: 16px;
+    }
+
+    .sidebar-bottom {
+      padding: 14px 12px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .website-link {
+      min-height: 42px;
+
+      padding: 10px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--blue);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .website-link:hover {
+      background: var(--blue-light);
+      border-color: #c9def4;
+    }
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+
+      background: rgba(11, 23, 40, 0.45);
+
+      z-index: 900;
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================================================
+       MAIN
+       ========================================================= */
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    .topbar {
+      min-height: 78px;
+
+      padding: 0 34px;
+
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      position: sticky;
+      top: 0;
+
+      z-index: 500;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mobile-menu-button {
+      width: 42px;
+      height: 42px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+
+      display: none;
+      place-items: center;
+
+      font-size: 19px;
+    }
+
+    .page-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 20px;
+      font-weight: 800;
+
+      line-height: 1.2;
+    }
+
+    .page-subtitle {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .notification-button {
+      width: 42px;
+      height: 42px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 17px;
+
+      position: relative;
+    }
+
+    .notification-dot {
+      position: absolute;
+
+      top: 8px;
+      right: 8px;
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--orange);
+
+      border: 2px solid var(--white);
+    }
+
+    .employee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .employee-avatar {
+      width: 38px;
+      height: 38px;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .employee-name {
+      color: var(--black);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .employee-role {
+      margin-top: 1px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      text-transform: capitalize;
+    }
+
+    /* =========================================================
+       CONTENT
+       ========================================================= */
+
+    .content {
+      width: min(100%, 1500px);
+
+      padding: 32px;
+
+      margin: 0 auto;
+    }
+
+    .content-heading {
+      margin-bottom: 24px;
+    }
+
+    .content-heading h1 {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+
+      letter-spacing: -0.03em;
+    }
+
+    .content-heading p {
+      max-width: 700px;
+
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       STATS
+       ========================================================= */
+
+    .stats-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      padding: 20px;
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+
+      border-radius: 10px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 16px;
+    }
+
+    .stat-card.orange .stat-icon {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .stat-card.green .stat-icon {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .stat-card.red .stat-icon {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .stat-number {
+      margin-top: 13px;
+
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 28px;
+      font-weight: 800;
+
+      line-height: 1;
+    }
+
+    .stat-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       TOOLBAR
+       ========================================================= */
+
+    .toolbar-card {
+      padding: 16px;
+
+      margin-bottom: 18px;
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      min-width: 260px;
+
+      flex: 1;
+
+      position: relative;
+    }
+
+    .search-box span {
+      position: absolute;
+
+      top: 50%;
+      left: 13px;
+
+      transform: translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+
+      min-height: 42px;
+
+      padding:
+        10px
+        13px
+        10px
+        38px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      color: var(--text);
+      background: var(--white);
+
+      font-size: 13px;
+
+      transition:
+        border-color var(--transition-fast);
+    }
+
+    .search-box input:focus {
+      border-color: var(--blue);
+    }
+
+    .filter-select {
+      min-height: 42px;
+      min-width: 155px;
+
+      padding:
+        9px
+        34px
+        9px
+        12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 13px;
+    }
+
+    .refresh-button {
+      min-height: 42px;
+
+      padding: 9px 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .refresh-button:hover {
+      background: var(--light);
+      border-color: #cbd5e1;
+    }
+
+    /* =========================================================
+       REVIEWS AREA
+       ========================================================= */
+
+    .reviews-card {
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 18px 20px;
+
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .panel-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .panel-count {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       REVIEW CARDS
+       ========================================================= */
+
+    .review-list {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 16px;
+
+      padding: 20px;
+    }
+
+    .review-item {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 14px;
+
+      background: var(--white);
+
+      transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .review-item:hover {
+      border-color: #cbd9e8;
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 12px;
+    }
+
+    .review-customer {
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
+
+      min-width: 0;
+    }
+
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+
+      flex: 0 0 40px;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .review-name {
+      color: var(--black);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .review-service {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .review-rating {
+      display: flex;
+
+      align-items: center;
+
+      gap: 2px;
+
+      color: var(--orange);
+
+      font-size: 14px;
+
+      white-space: nowrap;
+    }
+
+    .review-rating-number {
+      margin-left: 5px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .review-text {
+      margin-top: 15px;
+
+      color: var(--text);
+
+      font-size: 12px;
+
+      line-height: 1.7;
+    }
+
+    .review-meta {
+      margin-top: 15px;
+
+      padding-top: 12px;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+    }
+
+    .review-date {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .status {
+      display: inline-flex;
+
+      align-items: center;
+
+      min-height: 27px;
+
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      font-size: 10px;
+      font-weight: 700;
+
+      white-space: nowrap;
+    }
+
+    .status-pending {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .status-published {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-rejected {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .status-hidden {
+      background: #edf0f4;
+      color: #596779;
+    }
+
+    .review-actions {
+      display: flex;
+
+      gap: 7px;
+
+      margin-top: 14px;
+    }
+
+    .review-action {
+      min-height: 34px;
+
+      padding: 7px 10px;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .review-action:hover {
+      background: var(--light);
+    }
+
+    .review-action.approve {
+      color: var(--success);
+      border-color: #c9ead8;
+    }
+
+    .review-action.approve:hover {
+      background: var(--success-light);
+    }
+
+    .review-action.reject {
+      color: var(--danger);
+      border-color: #f1cccc;
+    }
+
+    .review-action.reject:hover {
+      background: var(--danger-light);
+    }
+
+    .review-action.view {
+      color: var(--blue);
+      border-color: #cbdff4;
+    }
+
+    .review-action.view:hover {
+      background: var(--blue-light);
+    }
+
+    /* =========================================================
+       EMPTY STATE
+       ========================================================= */
+
+    .empty-state {
+      padding: 70px 25px;
+
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 60px;
+      height: 60px;
+
+      margin:
+        0
+        auto
+        16px;
+
+      border-radius: 16px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 24px;
+    }
+
+    .empty-state h3 {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      max-width: 500px;
+
+      margin:
+        8px
+        auto
+        0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    /* =========================================================
+       REVIEW MODAL
+       ========================================================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+
+      z-index: 2000;
+
+      padding: 24px;
+
+      background: rgba(11, 23, 40, 0.58);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      opacity: 0;
+      visibility: hidden;
+
+      pointer-events: none;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+
+      pointer-events: auto;
+    }
+
+    .modal {
+      width: min(100%, 650px);
+
+      max-height:
+        min(
+          850px,
+          calc(100vh - 48px)
+        );
+
+      background: var(--white);
+
+      border-radius: var(--radius-lg);
+
+      box-shadow: var(--shadow-md);
+
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+
+      transform: translateY(12px);
+
+      transition:
+        transform var(--transition-normal);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 20px 22px;
+
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 16px;
+    }
+
+    .modal-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .modal-subtitle {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--muted);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 17px;
+    }
+
+    .modal-close:hover {
+      color: var(--black);
+      background: var(--light);
+    }
+
+    .modal-body {
+      padding: 22px;
+
+      overflow-y: auto;
+    }
+
+    .modal-review {
+      padding: 18px;
+
+      background: var(--light);
+
+      border-radius: 14px;
+    }
+
+    .modal-review-top {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+    }
+
+    .modal-review-avatar {
+      width: 45px;
+      height: 45px;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      display: grid;
+      place-items: center;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .modal-review-name {
+      color: var(--black);
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .modal-review-service {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .modal-stars {
+      margin-top: 16px;
+
+      color: var(--orange);
+
+      font-size: 18px;
+
+      letter-spacing: 2px;
+    }
+
+    .modal-review-text {
+      margin-top: 13px;
+
+      color: var(--text);
+
+      font-size: 13px;
+
+      line-height: 1.8;
+    }
+
+    .moderation-note {
+      margin-top: 18px;
+
+      padding: 13px 14px;
+
+      border-left: 3px solid var(--blue);
+
+      border-radius: 8px;
+
+      background: var(--blue-light);
+
+      color: var(--text);
+
+      font-size: 11px;
+
+      line-height: 1.6;
+    }
+
+    .modal-footer {
+      padding: 16px 22px;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+    }
+
+    .modal-status {
+      display: flex;
+      align-items: center;
+
+      gap: 8px;
+    }
+
+    .modal-status-label {
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .modal-action {
+      min-height: 38px;
+
+      padding: 8px 13px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .modal-action.approve {
+      background: var(--success);
+
+      border-color: var(--success);
+
+      color: var(--white);
+    }
+
+    .modal-action.approve:hover {
+      background: #0c713d;
+    }
+
+    .modal-action.reject {
+      color: var(--danger);
+    }
+
+    .modal-action.reject:hover {
+      background: var(--danger-light);
+    }
+
+    /* =========================================================
+       ROLE READY
+       ========================================================= */
+
+    [data-role-only] {
+      display: none !important;
+    }
+
+    body.role-owner [data-role-only~="owner"],
+    body.role-manager [data-role-only~="manager"],
+    body.role-staff [data-role-only~="staff"] {
+      display: inline-flex !important;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 1150px) {
+
+      .stats-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .review-list {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 26px;
+      }
+
+      .topbar {
+        padding-inline: 26px;
+      }
+
+    }
+
+    @media (max-width: 900px) {
+
+      .sidebar {
+        transform: translateX(-100%);
+
+        transition:
+          transform var(--transition-normal);
+
+        box-shadow: var(--shadow-md);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu-button {
+        display: grid;
+      }
+
+      .topbar {
+        min-height: 70px;
+
+        padding-inline: 20px;
+      }
+
+      .content {
+        padding: 22px 20px;
+      }
+
+    }
+
+    @media (max-width: 650px) {
+
+      .topbar {
+        gap: 10px;
+      }
+
+      .page-subtitle {
+        display: none;
+      }
+
+      .employee {
+        display: none;
+      }
+
+      .content-heading {
+        margin-bottom: 18px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-number {
+        font-size: 23px;
+      }
+
+      .stat-description {
+        display: none;
+      }
+
+      .stat-icon {
+        width: 33px;
+        height: 33px;
+      }
+
+      .toolbar-card {
+        padding: 12px;
+      }
+
+      .search-box {
+        min-width: 100%;
+      }
+
+      .filter-select {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .refresh-button {
+        flex: 0 0 auto;
+      }
+
+      .review-list {
+        padding: 12px;
+      }
+
+      .review-item {
+        padding: 15px;
+      }
+
+      .modal-backdrop {
+        padding: 10px;
+      }
+
+      .modal {
+        max-height:
+          calc(100vh - 20px);
+
+        border-radius: 18px;
+      }
+
+      .modal-header,
+      .modal-body,
+      .modal-footer {
+        padding: 16px;
+      }
+
+      .modal-footer {
+        align-items: stretch;
+      }
+
+      .modal-status,
+      .modal-actions {
+        width: 100%;
+      }
+
+      .modal-actions > * {
+        flex: 1;
+      }
+
+    }
+
+    @media (max-width: 420px) {
+
+      .content {
+        padding-inline: 14px;
+      }
+
+      .topbar {
+        padding-inline: 14px;
+      }
+
+      .page-title {
+        font-size: 17px;
+      }
+
+      .stats-grid {
+        gap: 8px;
+      }
+
+      .stat-card {
+        padding: 13px;
+      }
+
+      .stat-label {
+        font-size: 10px;
+      }
+
+      .stat-number {
+        font-size: 21px;
+      }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+
+        transition: none !important;
+      }
+
+    }
+  </style>
+</head>
+
+<body class="role-owner">
+
+  <!-- =======================================================
+       SIDEBAR
+       ======================================================= -->
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-brand">
+
+      <img
+        src="images/like star logo.png"
+        alt="LikeStar Publications"
+      >
+
+    </div>
+
+    <div class="portal-label">
+      Management Portal
+    </div>
+
+    <nav
+      class="sidebar-nav"
+      aria-label="Management navigation"
+    >
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Overview
+        </div>
+
+        <a
+          href="management-dashboard.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">▦</span>
+          <span>Dashboard</span>
+        </a>
+
+      </div>
+
+      <div class="nav-section">
+
+        <div class="nav-section-title">
+          Business
+        </div>
+
+        <a
+          href="management-quotes.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">▤</span>
+          <span>Quote Requests</span>
+        </a>
+
+        <a
+          href="management-reviews.html"
+          class="sidebar-link active"
+          aria-current="page"
+        >
+          <span class="sidebar-icon">★</span>
+          <span>Reviews</span>
+        </a>
+
+        <a
+          href="management-services.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">◈</span>
+          <span>Services</span>
+        </a>
+
+        <a
+          href="management-portfolio.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">▧</span>
+          <span>Portfolio</span>
+        </a>
+
+        <a
+          href="management-customers.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">♙</span>
+          <span>Customers</span>
+        </a>
+
+      </div>
+
+      <div
+        class="nav-section"
+        data-role-only="owner manager"
+      >
+
+        <div class="nav-section-title">
+          Administration
+        </div>
+
+        <a
+          href="management-employees.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">♙</span>
+          <span>Employees</span>
+        </a>
+
+        <a
+          href="management-activity.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">◷</span>
+          <span>Activity Log</span>
+        </a>
+
+        <a
+          href="management-settings.html"
+          class="sidebar-link"
+        >
+          <span class="sidebar-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+
+      </div>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a
+        href="index.html"
+        class="website-link"
+      >
+        ← Back to Website
+      </a>
+
+    </div>
+
+  </aside>
+
+  <div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+  ></div>
+
+
+  <!-- =======================================================
+       MAIN
+       ======================================================= -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button
+          type="button"
+          class="mobile-menu-button"
+          id="mobileMenuButton"
+          aria-label="Open management menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <div>
+
+          <div class="page-title">
+            Reviews
+          </div>
+
+          <div class="page-subtitle">
+            Moderate and publish customer feedback
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="topbar-right">
+
+        <button
+          type="button"
+          class="notification-button"
+          aria-label="Notifications"
+        >
+          ♢
+
+          <span class="notification-dot"></span>
+        </button>
+
+
+        <div class="employee">
+
+          <div
+            class="employee-avatar"
+            id="employeeAvatar"
+          >
+            AU
+          </div>
+
+          <div>
+
+            <div
+              class="employee-name"
+              id="employeeName"
+            >
+              Admin User
+            </div>
+
+            <div
+              class="employee-role"
+              id="employeeRole"
+            >
+              Owner
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <div class="content">
+
+      <!-- =====================================================
+           HEADING
+           ===================================================== -->
+
+      <div class="content-heading">
+
+        <h1>
+          Customer Reviews
+        </h1>
+
+        <p>
+          Review customer feedback before it appears publicly
+          on the LikeStar website. Only approved reviews should
+          be published to the homepage.
+        </p>
+
+      </div>
+
+
+      <!-- =====================================================
+           STATISTICS
+           ===================================================== -->
+
+      <section
+        class="stats-grid"
+        aria-label="Review statistics"
+      >
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Pending
+            </span>
+
+            <span class="stat-icon">
+              ◷
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="pendingCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Waiting for moderation
+          </div>
+
+        </article>
+
+
+        <article class="stat-card green">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Published
+            </span>
+
+            <span class="stat-icon">
+              ✓
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="publishedCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Visible on the website
+          </div>
+
+        </article>
+
+
+        <article class="stat-card orange">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Average Rating
+            </span>
+
+            <span class="stat-icon">
+              ★
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="averageRating"
+          >
+            —
+          </div>
+
+          <div class="stat-description">
+            Based on published reviews
+          </div>
+
+        </article>
+
+
+        <article class="stat-card red">
+
+          <div class="stat-top">
+
+            <span class="stat-label">
+              Rejected
+            </span>
+
+            <span class="stat-icon">
+              ×
+            </span>
+
+          </div>
+
+          <div
+            class="stat-number"
+            id="rejectedCount"
+          >
+            0
+          </div>
+
+          <div class="stat-description">
+            Not published
+          </div>
+
+        </article>
+
+      </section>
+
+
+      <!-- =====================================================
+           SEARCH / FILTER
+           ===================================================== -->
+
+      <section class="toolbar-card">
+
+        <div class="toolbar">
+
+          <div class="search-box">
+
+            <span aria-hidden="true">
+              ⌕
+            </span>
+
+            <input
+              type="search"
+              id="searchInput"
+              placeholder="Search customer, service or review..."
+              autocomplete="off"
+            >
+
+          </div>
+
+
+          <select
+            class="filter-select"
+            id="statusFilter"
+            aria-label="Filter reviews by status"
+          >
+
+            <option value="all">
+              All reviews
+            </option>
+
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="published">
+              Published
+            </option>
+
+            <option value="rejected">
+              Rejected
+            </option>
+
+            <option value="hidden">
+              Hidden
+            </option>
+
+          </select>
+
+
+          <select
+            class="filter-select"
+            id="ratingFilter"
+            aria-label="Filter reviews by rating"
+          >
+
+            <option value="all">
+              All ratings
+            </option>
+
+            <option value="5">
+              5 stars
+            </option>
+
+            <option value="4">
+              4 stars
+            </option>
+
+            <option value="3">
+              3 stars
+            </option>
+
+            <option value="2">
+              2 stars
+            </option>
+
+            <option value="1">
+              1 star
+            </option>
+
+          </select>
+
+
+          <button
+            type="button"
+            class="refresh-button"
+            id="refreshButton"
+          >
+            ↻ Refresh
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =====================================================
+           REVIEW LIST
+           ===================================================== -->
+
+      <section class="reviews-card">
+
+        <div class="panel-header">
+
+          <div>
+
+            <div class="panel-title">
+              Customer Feedback
+            </div>
+
+            <div
+              class="panel-count"
+              id="resultCount"
+            >
+              No reviews loaded
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="review-list"
+          id="reviewList"
+        >
+
+          <div
+            class="empty-state"
+            style="grid-column: 1 / -1;"
+          >
+
+            <div class="empty-icon">
+              ★
+            </div>
+
+            <h3>
+              No reviews yet
+            </h3>
+
+            <p>
+              Customer reviews will appear here once the public
+              review form is connected to Firebase Firestore.
+              No fake reviews are being displayed.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =======================================================
+       REVIEW MODAL
+       ======================================================= -->
+
+  <div
+    class="modal-backdrop"
+    id="reviewModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <div
+            class="modal-title"
+            id="modalTitle"
+          >
+            Review
+          </div>
+
+          <div
+            class="modal-subtitle"
+            id="modalSubtitle"
+          >
+            Customer feedback
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close review"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <div class="modal-review">
+
+          <div class="modal-review-top">
+
+            <div
+              class="modal-review-avatar"
+              id="modalAvatar"
+            >
+              CU
+            </div>
+
+            <div>
+
+              <div
+                class="modal-review-name"
+                id="modalName"
+              >
+                Customer
+              </div>
+
+              <div
+                class="modal-review-service"
+                id="modalService"
+              >
+                Service
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="modal-stars"
+            id="modalStars"
+            aria-label="Review rating"
+          >
+            ★★★★★
+          </div>
+
+
+          <div
+            class="modal-review-text"
+            id="modalReviewText"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="moderation-note">
+
+          Reviews should be genuine customer feedback.
+          Do not publish spam, abusive content, personal
+          information, or content that does not represent a
+          customer's experience with LikeStar.
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-footer">
+
+        <div class="modal-status">
+
+          <span class="modal-status-label">
+            Current status
+          </span>
+
+          <span
+            class="status status-pending"
+            id="modalStatus"
+          >
+            Pending
+          </span>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="modal-action reject"
+            id="modalReject"
+          >
+            Reject
+          </button>
+
+          <button
+            type="button"
+            class="modal-action approve"
+            id="modalApprove"
+          >
+            Publish Review
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    /* =========================================================
+       LIKESTAR REVIEW MANAGEMENT
+       ========================================================= */
+
+
+    /* =========================================================
+       CONFIG
+       ========================================================= */
+
+    const MANAGEMENT_CONFIG = {
+
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+
+    };
+
+
+    /* =========================================================
+       STATE
+       ========================================================= */
+
+    const state = {
+
+      reviews: [],
+
+      filteredReviews: [],
+
+      selectedReview: null,
+
+      search: "",
+
+      status: "all",
+
+      rating: "all"
+
+    };
+
+
+    /* =========================================================
+       DOM
+       ========================================================= */
+
+    const sidebar =
+      document.getElementById(
+        "sidebar"
+      );
+
+    const sidebarOverlay =
+      document.getElementById(
+        "sidebarOverlay"
+      );
+
+    const mobileMenuButton =
+      document.getElementById(
+        "mobileMenuButton"
+      );
+
+    const searchInput =
+      document.getElementById(
+        "searchInput"
+      );
+
+    const statusFilter =
+      document.getElementById(
+        "statusFilter"
+      );
+
+    const ratingFilter =
+      document.getElementById(
+        "ratingFilter"
+      );
+
+    const refreshButton =
+      document.getElementById(
+        "refreshButton"
+      );
+
+    const reviewList =
+      document.getElementById(
+        "reviewList"
+      );
+
+    const resultCount =
+      document.getElementById(
+        "resultCount"
+      );
+
+    const reviewModal =
+      document.getElementById(
+        "reviewModal"
+      );
+
+    const modalClose =
+      document.getElementById(
+        "modalClose"
+      );
+
+    const modalApprove =
+      document.getElementById(
+        "modalApprove"
+      );
+
+    const modalReject =
+      document.getElementById(
+        "modalReject"
+      );
+
+
+    /* =========================================================
+       SIDEBAR
+       ========================================================= */
+
+    function openSidebar() {
+
+      sidebar.classList.add(
+        "open"
+      );
+
+      sidebarOverlay.classList.add(
+        "open"
+      );
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+      document.body.classList.add(
+        "no-scroll"
+      );
+
+    }
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove(
+        "open"
+      );
+
+      sidebarOverlay.classList.remove(
+        "open"
+      );
+
+      mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      document.body.classList.remove(
+        "no-scroll"
+      );
+
+    }
+
+
+    mobileMenuButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          sidebar.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeSidebar();
+
+        } else {
+
+          openSidebar();
+
+        }
+
+      }
+    );
+
+
+    sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (
+          window.innerWidth > 900
+        ) {
+
+          closeSidebar();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       ESCAPE
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key !== "Escape"
+        ) {
+
+          return;
+
+        }
+
+        closeSidebar();
+
+        closeModal();
+
+      }
+    );
+
+
+    /* =========================================================
+       HTML ESCAPING
+       ========================================================= */
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ""
+      )
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
+
+    }
+
+
+    /* =========================================================
+       INITIALS
+       ========================================================= */
+
+    function getInitials(
+      name
+    ) {
+
+      const parts =
+        String(name || "")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (!parts.length) {
+
+        return "CU";
+
+      }
+
+      return parts
+        .slice(0, 2)
+        .map(
+          part =>
+            part
+              .charAt(0)
+              .toUpperCase()
+        )
+        .join("");
+
+    }
+
+
+    /* =========================================================
+       DATE
+       ========================================================= */
+
+    function formatDate(
+      value
+    ) {
+
+      if (!value) {
+
+        return "—";
+
+      }
+
+      let date;
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+
+        date =
+          value.toDate();
+
+      } else {
+
+        date =
+          new Date(value);
+
+      }
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "—";
+
+      }
+
+      return new Intl.DateTimeFormat(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    /* =========================================================
+       STATUS
+       ========================================================= */
+
+    function getStatusLabel(
+      status
+    ) {
+
+      const labels = {
+
+        pending: "Pending",
+
+        published: "Published",
+
+        rejected: "Rejected",
+
+        hidden: "Hidden"
+
+      };
+
+      return (
+        labels[status] ||
+        "Pending"
+      );
+
+    }
+
+
+    function getStatusClass(
+      status
+    ) {
+
+      const classes = {
+
+        pending: "status-pending",
+
+        published: "status-published",
+
+        rejected: "status-rejected",
+
+        hidden: "status-hidden"
+
+      };
+
+      return (
+        classes[status] ||
+        "status-pending"
+      );
+
+    }
+
+
+    /* =========================================================
+       STAR DISPLAY
+       ========================================================= */
+
+    function renderStars(
+      rating
+    ) {
+
+      const value =
+        Math.max(
+          0,
+          Math.min(
+            5,
+            Number(rating) || 0
+          )
+        );
+
+      return (
+        "★".repeat(value) +
+        "☆".repeat(5 - value)
+      );
+
+    }
+
+
+    /* =========================================================
+       STATISTICS
+       ========================================================= */
+
+    function updateStats() {
+
+      let pending = 0;
+
+      let published = 0;
+
+      let rejected = 0;
+
+      let publishedRatingTotal = 0;
+
+      let publishedRatingCount = 0;
+
+
+      state.reviews.forEach(
+        review => {
+
+          const status =
+            String(
+              review.status ||
+              "pending"
+            ).toLowerCase();
+
+          const rating =
+            Number(
+              review.rating
+            ) || 0;
+
+
+          if (
+            status === "pending"
+          ) {
+
+            pending++;
+
+          }
+
+
+          if (
+            status === "published"
+          ) {
+
+            published++;
+
+            if (
+              rating >= 1 &&
+              rating <= 5
+            ) {
+
+              publishedRatingTotal +=
+                rating;
+
+              publishedRatingCount++;
+
+            }
+
+          }
+
+
+          if (
+            status === "rejected"
+          ) {
+
+            rejected++;
+
+          }
+
+        }
+      );
+
+
+      document.getElementById(
+        "pendingCount"
+      ).textContent =
+        pending;
+
+
+      document.getElementById(
+        "publishedCount"
+      ).textContent =
+        published;
+
+
+      document.getElementById(
+        "rejectedCount"
+      ).textContent =
+        rejected;
+
+
+      document.getElementById(
+        "averageRating"
+      ).textContent =
+        publishedRatingCount
+          ? (
+              publishedRatingTotal /
+              publishedRatingCount
+            ).toFixed(1)
+          : "—";
+
+    }
+
+
+    /* =========================================================
+       FILTERS
+       ========================================================= */
+
+    function applyFilters() {
+
+      const search =
+        state.search
+          .trim()
+          .toLowerCase();
+
+      state.filteredReviews =
+        state.reviews.filter(
+          review => {
+
+            const status =
+              String(
+                review.status ||
+                "pending"
+              ).toLowerCase();
+
+            const rating =
+              String(
+                review.rating ||
+                ""
+              );
+
+
+            if (
+              state.status !==
+              "all" &&
+              status !==
+              state.status
+            ) {
+
+              return false;
+
+            }
+
+
+            if (
+              state.rating !==
+              "all" &&
+              rating !==
+              state.rating
+            ) {
+
+              return false;
+
+            }
+
+
+            if (!search) {
+
+              return true;
+
+            }
+
+
+            const searchable = [
+
+              review.name,
+
+              review.customerName,
+
+              review.service,
+
+              review.comment,
+
+              review.message
+
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+
+
+            return searchable.includes(
+              search
+            );
+
+          }
+        );
+
+
+      renderReviews();
+
+    }
+
+
+    /* =========================================================
+       RENDER REVIEWS
+       ========================================================= */
+
+    function renderReviews() {
+
+      const total =
+        state.filteredReviews.length;
+
+
+      resultCount.textContent =
+        total === 1
+          ? "1 review"
+          : `${total} reviews`;
+
+
+      if (
+        total === 0
+      ) {
+
+        reviewList.innerHTML = `
+
+          <div
+            class="empty-state"
+            style="grid-column: 1 / -1;"
+          >
+
+            <div class="empty-icon">
+              ★
+            </div>
+
+            <h3>
+              ${
+                state.reviews.length === 0
+                  ? "No reviews yet"
+                  : "No matching reviews"
+              }
+            </h3>
+
+            <p>
+              ${
+                state.reviews.length === 0
+                  ? "Customer reviews will appear here once the public review form is connected to Firebase."
+                  : "Try changing the search term or filters."
+              }
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+      reviewList.innerHTML =
+        state.filteredReviews
+          .map(
+            review =>
+              createReviewCard(
+                review
+              )
+          )
+          .join("");
+
+
+      reviewList
+        .querySelectorAll(
+          "[data-review-id]"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              () => {
+
+                openReview(
+                  button.dataset.reviewId
+                );
+
+              }
+            );
+
+          }
+        );
+
+    }
+
+
+    /* =========================================================
+       REVIEW CARD
+       ========================================================= */
+
+    function createReviewCard(
+      review
+    ) {
+
+      const name =
+        review.name ||
+        review.customerName ||
+        "Customer";
+
+
+      const service =
+        review.service ||
+        "LikeStar";
+
+
+      const comment =
+        review.comment ||
+        review.message ||
+        "No comment provided.";
+
+
+      const rating =
+        Number(
+          review.rating
+        ) || 0;
+
+
+      const status =
+        String(
+          review.status ||
+          "pending"
+        ).toLowerCase();
+
+
+      const reviewId =
+        review.id || "";
+
+
+      let actions = `
+
+        <button
+          type="button"
+          class="review-action view"
+          data-review-id="${escapeHTML(
+            reviewId
+          )}"
+        >
+          View
+        </button>
+
+      `;
+
+
+      if (
+        status === "pending"
+      ) {
+
+        actions += `
+
+          <button
+            type="button"
+            class="review-action approve"
+            data-quick-action="approve"
+            data-review-id="${escapeHTML(
+              reviewId
+            )}"
+          >
+            Publish
+          </button>
+
+          <button
+            type="button"
+            class="review-action reject"
+            data-quick-action="reject"
+            data-review-id="${escapeHTML(
+              reviewId
+            )}"
+          >
+            Reject
+          </button>
+
+        `;
+
+      }
+
+
+      if (
+        status === "published"
+      ) {
+
+        actions += `
+
+          <button
+            type="button"
+            class="review-action reject"
+            data-quick-action="hide"
+            data-review-id="${escapeHTML(
+              reviewId
+            )}"
+          >
+            Hide
+          </button>
+
+        `;
+
+      }
+
+
+      return `
+
+        <article class="review-item">
+
+          <div class="review-header">
+
+            <div class="review-customer">
+
+              <div class="review-avatar">
+                ${escapeHTML(
+                  getInitials(name)
+                )}
+              </div>
+
+              <div>
+
+                <div class="review-name">
+                  ${escapeHTML(name)}
+                </div>
+
+                <div class="review-service">
+                  ${escapeHTML(service)}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div
+              class="review-rating"
+              aria-label="${rating} out of 5 stars"
+            >
+
+              ${renderStars(rating)}
+
+              <span
+                class="review-rating-number"
+              >
+                ${rating}/5
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="review-text">
+            ${escapeHTML(comment)}
+          </div>
+
+
+          <div class="review-meta">
+
+            <span class="review-date">
+              ${escapeHTML(
+                formatDate(
+                  review.createdAt ||
+                  review.submittedAt
+                )
+              )}
+            </span>
+
+            <span
+              class="status ${getStatusClass(
+                status
+              )}"
+            >
+              ${getStatusLabel(status)}
+            </span>
+
+          </div>
+
+
+          <div class="review-actions">
+            ${actions}
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       QUICK ACTIONS
+       ========================================================= */
+
+    reviewList.addEventListener(
+      "click",
+      async event => {
+
+        const button =
+          event.target.closest(
+            "[data-quick-action]"
+          );
+
+        if (!button) {
+
+          return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        const id =
+          button.dataset.reviewId;
+
+        const action =
+          button.dataset.quickAction;
+
+
+        if (
+          !id ||
+          !action
+        ) {
+
+          return;
+
+        }
+
+
+        const review =
+          state.reviews.find(
+            item =>
+              item.id === id
+          );
+
+
+        if (!review) {
+
+          return;
+
+        }
+
+
+        let newStatus =
+          review.status ||
+          "pending";
+
+
+        if (
+          action === "approve"
+        ) {
+
+          newStatus =
+            "published";
+
+        }
+
+
+        if (
+          action === "reject"
+        ) {
+
+          newStatus =
+            "rejected";
+
+        }
+
+
+        if (
+          action === "hide"
+        ) {
+
+          newStatus =
+            "hidden";
+
+        }
+
+
+        await changeReviewStatus(
+          review,
+          newStatus
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    function openReview(
+      id
+    ) {
+
+      const review =
+        state.reviews.find(
+          item =>
+            item.id === id
+        );
+
+
+      if (!review) {
+
+        return;
+
+      }
+
+
+      state.selectedReview =
+        review;
+
+
+      const name =
+        review.name ||
+        review.customerName ||
+        "Customer";
+
+
+      const service =
+        review.service ||
+        "LikeStar";
+
+
+      const rating =
+        Number(
+          review.rating
+        ) || 0;
+
+
+      const comment =
+        review.comment ||
+        review.message ||
+        "No comment provided.";
+
+
+      const status =
+        String(
+          review.status ||
+          "pending"
+        ).toLowerCase();
+
+
+      document.getElementById(
+        "modalTitle"
+      ).textContent =
+        name;
+
+
+      document.getElementById(
+        "modalSubtitle"
+      ).textContent =
+        service;
+
+
+      document.getElementById(
+        "modalAvatar"
+      ).textContent =
+        getInitials(name);
+
+
+      document.getElementById(
+        "modalName"
+      ).textContent =
+        name;
+
+
+      document.getElementById(
+        "modalService"
+      ).textContent =
+        service;
+
+
+      document.getElementById(
+        "modalStars"
+      ).textContent =
+        renderStars(rating);
+
+
+      document.getElementById(
+        "modalReviewText"
+      ).textContent =
+        comment;
+
+
+      const modalStatus =
+        document.getElementById(
+          "modalStatus"
+        );
+
+
+      modalStatus.textContent =
+        getStatusLabel(status);
+
+
+      modalStatus.className =
+        `status ${getStatusClass(
+          status
+        )}`;
+
+
+      modalApprove.style.display =
+        status === "pending"
+          ? "inline-flex"
+          : "none";
+
+
+      modalReject.style.display =
+        status === "pending" ||
+        status === "published"
+          ? "inline-flex"
+          : "none";
+
+
+      reviewModal.classList.add(
+        "open"
+      );
+
+
+      reviewModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      document.body.classList.add(
+        "no-scroll"
+      );
+
+    }
+
+
+    function closeModal() {
+
+      reviewModal.classList.remove(
+        "open"
+      );
+
+
+      reviewModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+
+      state.selectedReview =
+        null;
+
+
+      document.body.classList.remove(
+        "no-scroll"
+      );
+
+    }
+
+
+    modalClose.addEventListener(
+      "click",
+      closeModal
+    );
+
+
+    reviewModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          reviewModal
+        ) {
+
+          closeModal();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       MODAL ACTIONS
+       ========================================================= */
+
+    modalApprove.addEventListener(
+      "click",
+      async () => {
+
+        if (
+          !state.selectedReview
+        ) {
+
+          return;
+
+        }
+
+
+        await changeReviewStatus(
+          state.selectedReview,
+          "published"
+        );
+
+      }
+    );
+
+
+    modalReject.addEventListener(
+      "click",
+      async () => {
+
+        if (
+          !state.selectedReview
+        ) {
+
+          return;
+
+        }
+
+
+        const status =
+          state.selectedReview.status;
+
+
+        const newStatus =
+          status === "published"
+            ? "hidden"
+            : "rejected";
+
+
+        await changeReviewStatus(
+          state.selectedReview,
+          newStatus
+        );
+
+      }
+    );
+
+
+    /* =========================================================
+       CHANGE STATUS
+       ========================================================= */
+
+    async function changeReviewStatus(
+      review,
+      newStatus
+    ) {
+
+      /*
+       * Firebase implementation:
+       *
+       * await updateDoc(
+       *   doc(
+       *     db,
+       *     "reviews",
+       *     review.id
+       *   ),
+       *   {
+       *     status: newStatus,
+       *     moderatedAt:
+       *       serverTimestamp(),
+       *     moderatedBy:
+       *       auth.currentUser.uid
+       *   }
+       * );
+       *
+       * Activity log:
+       *
+       * activityLogs/{logId}
+       * {
+       *   actorUid,
+       *   action,
+       *   targetType: "review",
+       *   targetId,
+       *   createdAt
+       * }
+       */
+
+
+      if (
+        !MANAGEMENT_CONFIG.firebaseConnected
+      ) {
+
+        alert(
+          "Firebase is not connected yet. This review was not changed."
+        );
+
+        return;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       SEARCH
+       ========================================================= */
+
+    searchInput.addEventListener(
+      "input",
+      () => {
+
+        state.search =
+          searchInput.value;
+
+        applyFilters();
+
+      }
+    );
+
+
+    statusFilter.addEventListener(
+      "change",
+      () => {
+
+        state.status =
+          statusFilter.value;
+
+        applyFilters();
+
+      }
+    );
+
+
+    ratingFilter.addEventListener(
+      "change",
+      () => {
+
+        state.rating =
+          ratingFilter.value;
+
+        applyFilters();
+
+      }
+    );
+
+
+    /* =========================================================
+       REFRESH
+       ========================================================= */
+
+    refreshButton.addEventListener(
+      "click",
+      async () => {
+
+        await loadReviews();
+
+      }
+    );
+
+
+    /* =========================================================
+       FIREBASE LOAD PLACEHOLDER
+       ========================================================= */
+
+    async function loadReviews() {
+
+      /*
+       * Later:
+       *
+       * Pending moderation:
+       *
+       * query(
+       *   collection(db, "reviews"),
+       *   where("status", "==", "pending"),
+       *   orderBy("createdAt", "desc"),
+       *   limit(25)
+       * )
+       *
+       *
+       * Published:
+       *
+       * query(
+       *   collection(db, "reviews"),
+       *   where("status", "==", "published"),
+       *   orderBy("createdAt", "desc"),
+       *   limit(25)
+       * )
+       *
+       *
+       * Do NOT download every review forever.
+       * Use bounded queries and pagination.
+       */
+
+
+      if (
+        !MANAGEMENT_CONFIG.firebaseConnected
+      ) {
+
+        state.reviews = [];
+
+        updateStats();
+
+        applyFilters();
+
+        return;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       EMPLOYEE
+       ========================================================= */
+
+    function initializeEmployee() {
+
+      const user =
+        MANAGEMENT_CONFIG.developmentUser;
+
+
+      const name =
+        user.name ||
+        "Admin User";
+
+
+      const role =
+        user.role ||
+        "owner";
+
+
+      document.getElementById(
+        "employeeName"
+      ).textContent =
+        name;
+
+
+      document.getElementById(
+        "employeeRole"
+      ).textContent =
+        role;
+
+
+      document.getElementById(
+        "employeeAvatar"
+      ).textContent =
+        getInitials(name);
+
+
+      document.body.classList.remove(
+        "role-owner",
+        "role-manager",
+        "role-staff",
+        "role-designer"
+      );
+
+
+      document.body.classList.add(
+        `role-${role}`
+      );
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    initializeEmployee();
+
+    loadReviews();
+
+  </script>
+
+</body>
+</html>
+

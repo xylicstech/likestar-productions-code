@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =====================================================
+         BASIC META
+    ====================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="LikeStar Publications Management — Trusted Organizations"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0057b8"
+    >
+
+    <title>Trusted Organizations — LikeStar Management</title>
+
+
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="images/like star logo.png"
+    >
+
+
+    <!-- =====================================================
+         FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         PAGE CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/management-organizations.css"
+    >
+
+</head>
+
+
+<body class="role-owner">
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR OVERLAY
+    ====================================================== -->
+
+    <div
+        class="sidebar-overlay"
+        id="sidebarOverlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+        aria-label="Management navigation"
+    >
+
+
+        <!-- BRAND -->
+
+        <div class="brand">
+
+            <a
+                href="management-dashboard.html"
+                aria-label="LikeStar Management Dashboard"
+            >
+
+                <img
+                    src="images/like star logo.png"
+                    alt="LikeStar Publications"
+                    onerror="
+                        this.style.display='none';
+                        const fallback = document.querySelector('.brand-fallback');
+                        if (fallback) fallback.style.display='block';
+                    "
+                >
+
+                <span
+                    class="brand-fallback"
+                    style="display:none;"
+                >
+                    LikeStar
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- SIDEBAR NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+
+            <!-- SECTION -->
+
+            <div class="nav-section">
+
+                <div class="nav-section-label">
+                    Management
+                </div>
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="management-dashboard.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ▦
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- QUOTES -->
+
+                <a
+                    href="management-quotes.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ⌁
+                    </span>
+
+                    <span>
+                        Quotes
+                    </span>
+
+                </a>
+
+
+                <!-- REVIEWS -->
+
+                <a
+                    href="management-reviews.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ★
+                    </span>
+
+                    <span>
+                        Reviews
+                    </span>
+
+                </a>
+
+
+                <!-- SERVICES -->
+
+                <a
+                    href="management-services.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ▤
+                    </span>
+
+                    <span>
+                        Services
+                    </span>
+
+                </a>
+
+
+                <!-- PORTFOLIO -->
+
+                <a
+                    href="management-portfolio.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ▧
+                    </span>
+
+                    <span>
+                        Portfolio
+                    </span>
+
+                </a>
+
+
+                <!-- ORGANIZATIONS -->
+
+                <a
+                    href="management-organizations.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ◈
+                    </span>
+
+                    <span>
+                        Organizations
+                    </span>
+
+                </a>
+
+
+                <!-- CUSTOMERS -->
+
+                <a
+                    href="management-customers.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ♙
+                    </span>
+
+                    <span>
+                        Customers
+                    </span>
+
+                </a>
+
+
+                <!-- EMPLOYEES -->
+
+                <a
+                    href="management-employees.html"
+                    class="nav-link owner-only"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ♧
+                    </span>
+
+                    <span>
+                        Employees
+                    </span>
+
+                </a>
+
+
+                <!-- ACTIVITY -->
+
+                <a
+                    href="management-activity.html"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ◷
+                    </span>
+
+                    <span>
+                        Activity
+                    </span>
+
+                </a>
+
+
+                <!-- SETTINGS -->
+
+                <a
+                    href="management-settings.html"
+                    class="nav-link owner-only"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ⚙
+                    </span>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="nav-section">
+
+                <div class="nav-section-label">
+                    Website
+                </div>
+
+
+                <a
+                    href="index.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="nav-link"
+                >
+
+                    <span
+                        class="nav-icon"
+                        aria-hidden="true"
+                    >
+                        ↗
+                    </span>
+
+                    <span>
+                        View Website
+                    </span>
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+
+            <!-- LEFT -->
+
+            <div class="topbar-left">
+
+
+                <!-- MOBILE MENU -->
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="mobileMenuToggle"
+                    aria-label="Open management menu"
+                    aria-expanded="false"
+                    aria-controls="sidebar"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    >
+
+                        <path d="M4 6h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 18h16"></path>
+
+                    </svg>
+
+                </button>
+
+
+                <!-- PAGE TITLE -->
+
+                <div class="topbar-heading">
+
+                    <div class="topbar-title">
+                        Trusted Organizations
+                    </div>
+
+                    <div class="topbar-subtitle">
+                        Manage organizations displayed on the public website.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div class="topbar-right">
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    aria-label="Notifications"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+
+                    </svg>
+
+                    <span
+                        class="notification-badge"
+                        aria-hidden="true"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <!-- EMPLOYEE -->
+
+                <div class="employee">
+
+
+                    <div
+                        class="employee-avatar"
+                        id="employeeAvatar"
+                    >
+                        AU
+                    </div>
+
+
+                    <div class="employee-details">
+
+                        <div
+                            class="employee-name"
+                            id="employeeName"
+                        >
+                            Admin User
+                        </div>
+
+                        <div
+                            class="employee-role"
+                            id="employeeRole"
+                        >
+                            Owner
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <div class="content">
+
+
+            <!-- =================================================
+                 PAGE HEADER
+            ================================================== -->
+
+            <section class="page-header">
+
+
+                <div class="page-header-copy">
+
+
+                    <span class="page-eyebrow">
+                        Website Content
+                    </span>
+
+
+                    <h1>
+                        Trusted Organizations
+                    </h1>
+
+
+                    <p>
+                        Add and manage the businesses and organizations
+                        whose logos appear in the
+                        “Businesses &amp; Organizations We Work With”
+                        section of the LikeStar website.
+                    </p>
+
+                </div>
+
+
+                <!-- ACTIONS -->
+
+                <div class="page-header-actions">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="refreshBtn"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+
+                            <path d="M20 11a8.1 8.1 0 0 0-14.9-4"></path>
+
+                            <path d="M4 4v5h5"></path>
+
+                            <path d="M4 13a8.1 8.1 0 0 0 14.9 4"></path>
+
+                            <path d="M20 20v-5h-5"></path>
+
+                        </svg>
+
+                        <span>
+                            Refresh
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="addOrganizationBtn"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            aria-hidden="true"
+                        >
+
+                            <path d="M12 5v14"></path>
+                            <path d="M5 12h14"></path>
+
+                        </svg>
+
+                        <span>
+                            Add Organization
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+            <section
+                class="stats-grid"
+                aria-label="Organization statistics"
+            >
+
+
+                <!-- TOTAL -->
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Total Organizations
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="totalOrganizations"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="stat-icon"
+                            aria-hidden="true"
+                        >
+                            ◈
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PUBLISHED -->
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Published
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="publishedOrganizations"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="stat-icon"
+                            aria-hidden="true"
+                        >
+                            ✓
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- DRAFT -->
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Drafts
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="draftOrganizations"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="stat-icon"
+                            aria-hidden="true"
+                        >
+                            ◷
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ARCHIVED -->
+
+                <article class="stat-card">
+
+                    <div class="stat-top">
+
+                        <div>
+
+                            <div class="stat-label">
+                                Archived
+                            </div>
+
+                            <div
+                                class="stat-value"
+                                id="archivedOrganizations"
+                            >
+                                0
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="stat-icon"
+                            aria-hidden="true"
+                        >
+                            ▱
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =================================================
+                 MAIN ORGANIZATION PANEL
+            ================================================== -->
+
+            <section class="panel">
+
+
+                <!-- =================================================
+                     PANEL HEADER
+                ================================================== -->
+
+                <div class="panel-header">
+
+
+                    <div>
+
+                        <div class="panel-title">
+                            Organizations
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Businesses and organizations displayed on LikeStar's website.
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary btn-sm"
+                        id="panelAddOrganizationBtn"
+                    >
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            aria-hidden="true"
+                        >
+
+                            <path d="M12 5v14"></path>
+                            <path d="M5 12h14"></path>
+
+                        </svg>
+
+                        Add Organization
+
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     TOOLBAR
+                ================================================== -->
+
+                <div class="toolbar">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-wrap">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+
+                            <circle
+                                cx="11"
+                                cy="11"
+                                r="7"
+                            ></circle>
+
+                            <path d="m20 20-4-4"></path>
+
+                        </svg>
+
+
+                        <input
+                            type="search"
+                            id="searchInput"
+                            class="search-input"
+                            placeholder="Search organizations..."
+                            autocomplete="off"
+                            aria-label="Search organizations"
+                        >
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <select
+                        id="statusFilter"
+                        class="filter-select"
+                        aria-label="Filter by status"
+                    >
+
+                        <option value="all">
+                            All statuses
+                        </option>
+
+                        <option value="published">
+                            Published
+                        </option>
+
+                        <option value="draft">
+                            Draft
+                        </option>
+
+                        <option value="archived">
+                            Archived
+                        </option>
+
+                    </select>
+
+
+                    <!-- RESET -->
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="resetFiltersBtn"
+                    >
+                        Reset
+                    </button>
+
+                </div>
+
+
+                <!-- =================================================
+                     RESULT BAR
+                ================================================== -->
+
+                <div class="result-bar">
+
+                    <div
+                        class="result-count"
+                        id="organizationCount"
+                    >
+                        0 organizations
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ORGANIZATION GRID
+                ================================================== -->
+
+                <div
+                    class="organization-grid"
+                    id="organizationGrid"
+                >
+
+
+                    <!-- INITIAL LOADING -->
+
+                    <div class="loading-state">
+
+                        <div
+                            class="loading-spinner"
+                            aria-hidden="true"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PAGINATION
+                ================================================== -->
+
+                <div
+                    class="pagination"
+                    id="pagination"
+                    aria-label="Organization pagination"
+                ></div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PAGE FOOTER
+            ================================================== -->
+
+            <footer class="page-footer">
+
+                LikeStar Publications Management
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     ADD / EDIT ORGANIZATION MODAL
+========================================================== -->
+
+<div
+    class="modal"
+    id="organizationModal"
+    hidden
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="organizationModalHeading"
+    >
+
+
+        <!-- HEADER -->
+
+        <div class="modal-header">
+
+
+            <div class="modal-heading">
+
+                <h2 class="modal-title">
+                    <span id="organizationModalHeading">
+                        Add Organization
+                    </span>
+                </h2>
+
+                <p class="modal-description">
+                    Add a business or organization to the LikeStar website.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeOrganizationModal"
+                aria-label="Close modal"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    aria-hidden="true"
+                >
+
+                    <path d="M6 6l12 12"></path>
+                    <path d="M18 6L6 18"></path>
+
+                </svg>
+
+            </button>
+
+        </div>
+
+
+        <!-- BODY -->
+
+        <div class="modal-body">
+
+
+            <form
+                id="organizationForm"
+                novalidate
+            >
+
+
+                <div class="form-grid">
+
+
+                    <!-- =================================================
+                         ORGANIZATION NAME
+                    ================================================== -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="organizationName"
+                        >
+
+                            Organization Name
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="organizationName"
+                            class="form-input"
+                            placeholder="e.g. Juaben Rural Bank"
+                            maxlength="120"
+                            autocomplete="organization"
+                            required
+                        >
+
+
+                        <div class="form-help">
+                            Use the official business or organization name.
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         LOGO UPLOAD
+                    ================================================== -->
+
+                    <div class="form-group full">
+
+                        <label class="form-label">
+
+                            Organization Logo
+
+                            <span class="required">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="image-upload">
+
+
+                            <input
+                                type="file"
+                                id="organizationLogo"
+                                accept=".svg,.png,.jpg,.jpeg,.webp,image/svg+xml,image/png,image/jpeg,image/webp"
+                            >
+
+
+                            <div class="image-upload-content">
+
+
+                                <div
+                                    class="image-upload-icon"
+                                    aria-hidden="true"
+                                >
+
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+
+                                        <path d="M12 16V4"></path>
+
+                                        <path d="m7 9 5-5 5 5"></path>
+
+                                        <path d="M5 20h14"></path>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <div class="upload-title">
+                                    Upload organization logo
+                                </div>
+
+
+                                <div class="upload-description">
+                                    SVG, PNG, JPG or WebP · Maximum 5MB
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PREVIEW -->
+
+                        <div
+                            class="logo-preview"
+                            id="logoPreview"
+                            hidden
+                        >
+
+                            <img
+                                id="logoPreviewImage"
+                                src=""
+                                alt="Organization logo preview"
+                            >
+
+                        </div>
+
+
+                        <div
+                            class="form-help"
+                            id="existingLogoHelp"
+                            hidden
+                        >
+                            The existing logo will remain unless you upload a new one.
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DISPLAY ORDER
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="displayOrder"
+                        >
+                            Display Order
+                        </label>
+
+
+                        <input
+                            type="number"
+                            id="displayOrder"
+                            class="form-input"
+                            min="1"
+                            max="999"
+                            value="1"
+                            inputmode="numeric"
+                        >
+
+
+                        <div class="form-help">
+                            Lower numbers appear first.
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STATUS
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="organizationStatus"
+                        >
+                            Status
+                        </label>
+
+
+                        <select
+                            id="organizationStatus"
+                            class="form-select"
+                        >
+
+                            <option value="draft">
+                                Draft
+                            </option>
+
+                            <option value="published">
+                                Published
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         ACTIVE / WEBSITE VISIBILITY
+                    ================================================== -->
+
+                    <div class="form-group full">
+
+
+                        <div class="toggle-row">
+
+
+                            <div class="toggle-copy">
+
+                                <div class="toggle-title">
+                                    Show on website
+                                </div>
+
+                                <div class="toggle-description">
+                                    Published organizations appear in the public
+                                    “Businesses &amp; Organizations We Work With”
+                                    section.
+                                </div>
+
+                            </div>
+
+
+                            <label class="toggle">
+
+                                <input
+                                    type="checkbox"
+                                    id="organizationActive"
+                                >
+
+                                <span class="toggle-slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     MODAL FOOTER
+                ================================================== -->
+
+                <div class="modal-footer">
+
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="cancelOrganizationBtn"
+                    >
+                        Cancel
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveOrganizationBtn"
+                    >
+                        Save Organization
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ARCHIVE CONFIRMATION MODAL
+========================================================== -->
+
+<div
+    class="modal"
+    id="archiveModal"
+    hidden
+    aria-hidden="true"
+>
+
+    <div
+        class="modal-dialog modal-sm"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="archiveModalTitle"
+    >
+
+
+        <div class="confirm-content">
+
+
+            <!-- ICON -->
+
+            <div
+                class="confirm-icon"
+                aria-hidden="true"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+
+                    <path d="M10.3 3.5 2.5 17a2 2 0 0 0 1.7 3h15.6a2 2 0 0 0 1.7-3L13.7 3.5a2 2 0 0 0-3.4 0Z"></path>
+
+                    <path d="M12 9v4"></path>
+
+                    <path d="M12 17h.01"></path>
+
+                </svg>
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2
+                class="confirm-title"
+                id="archiveModalTitle"
+            >
+                Archive Organization?
+            </h2>
+
+
+            <!-- DESCRIPTION -->
+
+            <p
+                class="confirm-text"
+                id="archiveModalText"
+            >
+                This organization will be removed from the public website.
+                The record will remain in the management system.
+            </p>
+
+
+            <!-- ACTIONS -->
+
+            <div class="modal-footer">
+
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelArchiveBtn"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="confirmArchiveBtn"
+                >
+                    Archive Organization
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script
+    type="module"
+    src="js/management-organizations.js"
+></script>
+
+
+</body>
+
+</html>
+

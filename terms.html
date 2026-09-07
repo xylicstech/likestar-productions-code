@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- ============================= -->
+  <!-- BASIC META -->
+  <!-- ============================= -->
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications Terms & Policies — information about our services, quotes, orders, payments, reviews, privacy and website usage."
+  >
+
+  <meta
+    name="theme-color"
+    content="#0057b8"
+  >
+
+  <title>Terms & Policies | LikeStar Publications</title>
+
+  <!-- ============================= -->
+  <!-- FONTS -->
+  <!-- ============================= -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- ============================= -->
+  <!-- STYLES -->
+  <!-- ============================= -->
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+
+    /* =========================================
+       TERMS PAGE
+    ========================================= */
+
+    .policy-page {
+      padding-top: 150px;
+      padding-bottom: 100px;
+    }
+
+    .policy-hero {
+      max-width: 850px;
+      margin-bottom: 60px;
+    }
+
+    .policy-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .policy-label span:first-child {
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .policy-hero h1 {
+      margin: 0 0 20px;
+
+      font-family: var(--font-heading);
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      color: var(--black);
+    }
+
+    .policy-hero h1 span {
+      color: var(--blue);
+    }
+
+    .policy-hero p {
+      max-width: 700px;
+      margin: 0;
+
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .policy-layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 70px;
+      align-items: start;
+    }
+
+    /* =========================================
+       TABLE OF CONTENTS
+    ========================================= */
+
+    .policy-sidebar {
+      position: sticky;
+      top: 120px;
+    }
+
+    .policy-sidebar-title {
+      margin-bottom: 16px;
+
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .policy-sidebar nav {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .policy-sidebar a {
+      display: block;
+      padding: 9px 12px;
+
+      border-left: 2px solid transparent;
+
+      font-size: 14px;
+      line-height: 1.4;
+      color: var(--text);
+
+      transition:
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .policy-sidebar a:hover {
+      color: var(--blue);
+      border-left-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    /* =========================================
+       POLICY CONTENT
+    ========================================= */
+
+    .policy-content {
+      min-width: 0;
+    }
+
+    .policy-section {
+      padding-bottom: 50px;
+      margin-bottom: 50px;
+
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: 120px;
+    }
+
+    .policy-section:last-child {
+      border-bottom: none;
+    }
+
+    .policy-section h2 {
+      margin: 0 0 18px;
+
+      font-family: var(--font-heading);
+      font-size: 28px;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      color: var(--black);
+    }
+
+    .policy-section h3 {
+      margin: 30px 0 10px;
+
+      font-family: var(--font-heading);
+      font-size: 18px;
+      line-height: 1.4;
+      color: var(--black);
+    }
+
+    .policy-section p {
+      margin: 0 0 16px;
+
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .policy-section ul {
+      margin: 0 0 18px;
+      padding-left: 22px;
+    }
+
+    .policy-section li {
+      margin-bottom: 9px;
+
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text);
+    }
+
+    .policy-section strong {
+      color: var(--black);
+    }
+
+    /* =========================================
+       INFO BOX
+    ========================================= */
+
+    .policy-notice {
+      margin-bottom: 50px;
+      padding: 24px 26px;
+
+      background: var(--blue-light);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-md);
+    }
+
+    .policy-notice strong {
+      display: block;
+      margin-bottom: 7px;
+
+      font-family: var(--font-heading);
+      color: var(--black);
+    }
+
+    .policy-notice p {
+      margin: 0;
+
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* =========================================
+       CONTACT BOX
+    ========================================= */
+
+    .policy-contact {
+      padding: 32px;
+
+      background: var(--black);
+      border-radius: var(--radius-lg);
+      color: var(--white);
+    }
+
+    .policy-contact h2 {
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+
+    .policy-contact p {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .policy-contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .policy-contact-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 16px;
+
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 10px;
+
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .policy-contact-links a:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    /* =========================================
+       LAST UPDATED
+    ========================================= */
+
+    .policy-updated {
+      margin-top: 18px !important;
+
+      font-size: 13px !important;
+      color: var(--muted) !important;
+    }
+
+    /* =========================================
+       TABLET
+    ========================================= */
+
+    @media (max-width: 900px) {
+
+      .policy-page {
+        padding-top: 125px;
+      }
+
+      .policy-layout {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .policy-sidebar {
+        position: static;
+      }
+
+      .policy-sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+    }
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 600px) {
+
+      .policy-page {
+        padding-top: 105px;
+        padding-bottom: 70px;
+      }
+
+      .policy-hero {
+        margin-bottom: 42px;
+      }
+
+      .policy-hero p {
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .policy-sidebar nav {
+        grid-template-columns: 1fr;
+      }
+
+      .policy-section {
+        padding-bottom: 38px;
+        margin-bottom: 38px;
+      }
+
+      .policy-section h2 {
+        font-size: 24px;
+      }
+
+      .policy-section p,
+      .policy-section li {
+        font-size: 14px;
+      }
+
+      .policy-contact {
+        padding: 25px 20px;
+      }
+
+      .policy-contact-links {
+        flex-direction: column;
+      }
+
+      .policy-contact-links a {
+        width: 100%;
+        justify-content: center;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ============================= -->
+  <!-- HEADER -->
+  <!-- ============================= -->
+
+  <header class="site-header" id="siteHeader">
+
+    <div class="container navbar">
+
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LikeStar Publications home"
+      >
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+        >
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mainNavigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav
+        class="nav-menu"
+        id="mainNavigation"
+        aria-label="Main navigation"
+      >
+
+        <a href="index.html">Home</a>
+
+        <a href="services.html">Services</a>
+
+        <a href="portfolio.html">Portfolio</a>
+
+        <a href="about.html">About</a>
+
+        <a href="review.html">Reviews</a>
+
+        <a
+          href="get-quote.html"
+          class="nav-cta"
+        >
+          Get a Quote
+          <span aria-hidden="true">↗</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ============================= -->
+  <!-- MAIN -->
+  <!-- ============================= -->
+
+  <main class="policy-page">
+
+    <div class="container">
+
+      <!-- PAGE INTRO -->
+
+      <div class="policy-hero">
+
+        <div class="policy-label">
+          <span></span>
+          <span>Terms & Policies</span>
+        </div>
+
+        <h1>
+          Clear terms.
+          <span>Better service.</span>
+        </h1>
+
+        <p>
+          These terms explain how LikeStar Publications
+          handles quotes, orders, payments, customer
+          feedback, privacy and use of this website.
+        </p>
+
+        <p class="policy-updated">
+          Last updated: September 5, 2026
+        </p>
+
+      </div>
+
+
+      <!-- NOTICE -->
+
+      <div class="policy-notice">
+
+        <strong>Please read before placing an order.</strong>
+
+        <p>
+          By requesting a quote, placing an order or using
+          the LikeStar Publications website, you agree to
+          the terms that apply to your interaction with us.
+          Specific prices, quantities, production details
+          and delivery arrangements will be confirmed with
+          you before an order is finalized.
+        </p>
+
+      </div>
+
+
+      <!-- POLICY LAYOUT -->
+
+      <div class="policy-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="policy-sidebar">
+
+          <div class="policy-sidebar-title">
+            On this page
+          </div>
+
+          <nav>
+
+            <a href="#general">
+              General Terms
+            </a>
+
+            <a href="#services">
+              Our Services
+            </a>
+
+            <a href="#quotes">
+              Quotes & Orders
+            </a>
+
+            <a href="#payments">
+              Payments
+            </a>
+
+            <a href="#cancellations">
+              Cancellations & Refunds
+            </a>
+
+            <a href="#customer-content">
+              Customer Content
+            </a>
+
+            <a href="#reviews">
+              Reviews
+            </a>
+
+            <a href="#privacy">
+              Privacy
+            </a>
+
+            <a href="#website">
+              Website Usage
+            </a>
+
+            <a href="#contact">
+              Contact
+            </a>
+
+          </nav>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <div class="policy-content">
+
+
+          <!-- ============================= -->
+          <!-- GENERAL TERMS -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="general"
+          >
+
+            <h2>1. General Terms</h2>
+
+            <p>
+              LikeStar Publications provides printing,
+              graphic design, customization, branding and
+              related services to individuals, businesses,
+              organizations and other customers.
+            </p>
+
+            <p>
+              These terms are intended to establish clear
+              expectations between LikeStar Publications
+              and its customers. Individual projects may
+              also have additional terms agreed upon before
+              production begins.
+            </p>
+
+            <p>
+              We reserve the right to update these policies
+              when necessary. The version published on this
+              website will indicate when the policy was last
+              updated.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- SERVICES -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="services"
+          >
+
+            <h2>2. Our Services</h2>
+
+            <p>
+              LikeStar Publications offers services including,
+              but not limited to:
+            </p>
+
+            <ul>
+
+              <li>T-shirt printing and customization</li>
+
+              <li>Cap customization</li>
+
+              <li>Banner production</li>
+
+              <li>Flyer and poster printing</li>
+
+              <li>Book printing</li>
+
+              <li>Passport photographs</li>
+
+              <li>Graphic design</li>
+
+              <li>Logo design</li>
+
+              <li>Business cards</li>
+
+              <li>Business branding</li>
+
+              <li>Custom printed products</li>
+
+            </ul>
+
+            <p>
+              Service availability, production methods,
+              materials, turnaround times and pricing may
+              vary depending on the requirements of each
+              project.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- QUOTES -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="quotes"
+          >
+
+            <h2>3. Quotes & Orders</h2>
+
+            <p>
+              A quote request submitted through our website,
+              WhatsApp, phone or another communication channel
+              is a request for pricing information. It does
+              not automatically create an order.
+            </p>
+
+            <p>
+              Before production begins, we may confirm:
+            </p>
+
+            <ul>
+
+              <li>Product or service required</li>
+
+              <li>Quantity</li>
+
+              <li>Materials or specifications</li>
+
+              <li>Design requirements</li>
+
+              <li>Production timeline</li>
+
+              <li>Delivery or collection arrangements</li>
+
+              <li>Final price</li>
+
+            </ul>
+
+            <p>
+              An order is considered confirmed only after the
+              required details have been agreed and any required
+              payment or deposit has been received.
+            </p>
+
+            <p>
+              Customers are responsible for checking spelling,
+              names, numbers, logos, contact information,
+              colours and other important details supplied for
+              production before approval.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- PAYMENTS -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="payments"
+          >
+
+            <h2>4. Payments</h2>
+
+            <p>
+              Payment requirements depend on the type and
+              size of the project. LikeStar Publications may
+              require a deposit or full payment before
+              production begins.
+            </p>
+
+            <p>
+              The payment amount and accepted payment method
+              will be communicated to the customer before
+              the order is finalized.
+            </p>
+
+            <p>
+              Production may not begin until the required
+              payment has been confirmed.
+            </p>
+
+            <p>
+              Where an outstanding balance remains, the
+              completed order may be held until the balance
+              has been settled.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- CANCELLATIONS -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="cancellations"
+          >
+
+            <h2>5. Cancellations & Refunds</h2>
+
+            <p>
+              Cancellation and refund eligibility depends on
+              the stage of the order.
+            </p>
+
+            <p>
+              If production has not started, a cancellation
+              may be possible depending on the project and
+              any costs already incurred.
+            </p>
+
+            <p>
+              Once production, printing, customization or
+              material preparation has started, cancellation
+              may not be possible or the customer may be
+              responsible for costs already incurred.
+            </p>
+
+            <p>
+              Customized products made specifically for a
+              customer may not be eligible for a refund when
+              the issue is a change of mind after production
+              has started.
+            </p>
+
+            <p>
+              If LikeStar makes an error that differs materially
+              from the approved specifications, we will review
+              the issue and determine an appropriate solution.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- CUSTOMER CONTENT -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="customer-content"
+          >
+
+            <h2>6. Customer-Provided Content & Designs</h2>
+
+            <p>
+              Customers may provide logos, photographs,
+              artwork, text, designs and other materials for
+              use in their projects.
+            </p>
+
+            <p>
+              Customers are responsible for ensuring that they
+              have the necessary rights or permission to use
+              materials they provide to LikeStar Publications.
+            </p>
+
+            <p>
+              Customers must not knowingly provide content that
+              infringes another person's copyright, trademark,
+              privacy rights or other legal rights.
+            </p>
+
+            <p>
+              LikeStar Publications may refuse a project when
+              the requested content appears to involve unlawful
+              activity or may create unreasonable legal or
+              operational risk.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- REVIEWS -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="reviews"
+          >
+
+            <h2>7. Customer Reviews & Feedback</h2>
+
+            <p>
+              Customers may submit ratings, comments and
+              feedback about their experience with LikeStar
+              Publications.
+            </p>
+
+            <p>
+              Reviews should be honest and based on the
+              customer's actual experience.
+            </p>
+
+            <p>
+              We may moderate reviews to remove content that
+              is abusive, unlawful, misleading, spam,
+              personally invasive or unrelated to the service.
+            </p>
+
+            <p>
+              A submitted review may not appear immediately
+              on the website because reviews may be reviewed
+              before publication.
+            </p>
+
+            <p>
+              By submitting a review, you give LikeStar
+              Publications permission to display the submitted
+              review on its website for business and
+              informational purposes.
+            </p>
+
+            <p>
+              We will not describe a review as a verified
+              customer review unless we have a reasonable
+              basis to verify the customer's relationship
+              with LikeStar Publications.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- PRIVACY -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="privacy"
+          >
+
+            <h2>8. Privacy</h2>
+
+            <p>
+              When you contact LikeStar Publications or request
+              a quote, we may receive information such as your
+              name, phone number, email address, project details
+              and information you voluntarily provide.
+            </p>
+
+            <p>
+              We use customer information primarily to:
+            </p>
+
+            <ul>
+
+              <li>Respond to enquiries and quote requests</li>
+
+              <li>Communicate about projects and orders</li>
+
+              <li>Provide requested services</li>
+
+              <li>Handle customer support</li>
+
+              <li>Improve our services and website</li>
+
+              <li>Manage customer feedback and reviews</li>
+
+            </ul>
+
+            <p>
+              We aim to collect only information reasonably
+              necessary for these purposes and to handle
+              customer information responsibly.
+            </p>
+
+            <p>
+              We do not ask customers to submit passwords,
+              payment-card PINs or other unnecessary sensitive
+              credentials through the website.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- WEBSITE -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="website"
+          >
+
+            <h2>9. Website Usage</h2>
+
+            <p>
+              The LikeStar Publications website is provided
+              to give customers information about our services,
+              portfolio, contact options and quote process.
+            </p>
+
+            <p>
+              You agree not to knowingly:
+            </p>
+
+            <ul>
+
+              <li>
+                Attempt to gain unauthorized access to the
+                website or its systems.
+              </li>
+
+              <li>
+                Interfere with the normal operation of the
+                website.
+              </li>
+
+              <li>
+                Submit malicious code, spam or fraudulent
+                information.
+              </li>
+
+              <li>
+                Use the website for unlawful purposes.
+              </li>
+
+              <li>
+                Copy or misuse website content, branding or
+                materials without appropriate permission.
+              </li>
+
+            </ul>
+
+            <p>
+              We may update, modify or temporarily suspend
+              parts of the website when necessary for
+              maintenance, security or business operations.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- DELIVERY -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="delivery"
+          >
+
+            <h2>10. Production, Pickup & Delivery</h2>
+
+            <p>
+              Production times depend on the type of work,
+              quantity, materials, design approval and current
+              workload.
+            </p>
+
+            <p>
+              Any estimated completion date communicated to
+              a customer is an estimate unless a specific
+              deadline has been expressly agreed.
+            </p>
+
+            <p>
+              Customers should provide accurate delivery or
+              pickup information where applicable.
+            </p>
+
+            <p>
+              Delivery charges, collection arrangements and
+              delivery timelines will be communicated according
+              to the individual order.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- LIABILITY -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="liability"
+          >
+
+            <h2>11. Service Limitations</h2>
+
+            <p>
+              LikeStar Publications will make reasonable
+              efforts to provide services according to the
+              specifications agreed with the customer.
+            </p>
+
+            <p>
+              However, minor variations may occur in printed
+              colours, materials, dimensions or finishing,
+              particularly where the final product is affected
+              by the characteristics of the selected material
+              or printing process.
+            </p>
+
+            <p>
+              Customers are encouraged to request clarification
+              or a proof where appropriate before production.
+            </p>
+
+            <p>
+              Nothing in these terms is intended to exclude
+              rights or protections that cannot lawfully be
+              excluded under applicable law.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- CHANGES -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section"
+            id="changes"
+          >
+
+            <h2>12. Changes to These Policies</h2>
+
+            <p>
+              LikeStar Publications may update these terms and
+              policies from time to time to reflect changes in
+              our services, website, business operations or
+              applicable requirements.
+            </p>
+
+            <p>
+              When we make significant changes, we may update
+              the date shown at the top of this page.
+            </p>
+
+          </section>
+
+
+          <!-- ============================= -->
+          <!-- CONTACT -->
+          <!-- ============================= -->
+
+          <section
+            class="policy-section policy-contact"
+            id="contact"
+          >
+
+            <h2>Questions about these terms?</h2>
+
+            <p>
+              If you have a question about a quote, order,
+              payment, review or any part of these policies,
+              contact LikeStar Publications directly.
+            </p>
+
+            <div class="policy-contact-links">
+
+              <a
+                href="https://wa.me/233530543423"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+                <span aria-hidden="true">↗</span>
+              </a>
+
+              <a href="tel:0209004412">
+                020 900 4412
+              </a>
+
+              <a href="mailto:likestarpublication@gmail.com">
+                Email
+              </a>
+
+            </div>
+
+          </section>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- ============================= -->
+  <!-- FOOTER -->
+  <!-- ============================= -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-main">
+
+        <div class="footer-brand">
+
+          <a
+            href="index.html"
+            class="logo"
+          >
+            <img
+              src="images/like star logo.png"
+              alt="LikeStar Publications"
+            >
+          </a>
+
+          <p>
+            Printing, customization and branding
+            solutions built to make your ideas stand out.
+          </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+          <div>
+
+            <h4>Explore</h4>
+
+            <a href="index.html">
+              Home
+            </a>
+
+            <a href="services.html">
+              Services
+            </a>
+
+            <a href="portfolio.html">
+              Portfolio
+            </a>
+
+            <a href="about.html">
+              About
+            </a>
+
+          </div>
+
+
+          <div>
+
+            <h4>Contact</h4>
+
+            <a
+              href="https://wa.me/233530543423"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp
+            </a>
+
+            <a href="tel:0209004412">
+              020 900 4412
+            </a>
+
+            <a href="mailto:likestarpublication@gmail.com">
+              Email
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © <span id="currentYear"></span>
+          LikeStar Publications. All rights reserved.
+        </span>
+
+        <div>
+
+          <a href="terms.html">
+            Terms & Policies
+          </a>
+
+          <a href="review.html">
+            Reviews
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- ============================= -->
+  <!-- MAIN JS -->
+  <!-- ============================= -->
+
+  <script src="js/main.js"></script>
+
+</body>
+</html>

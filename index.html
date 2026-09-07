@@ -1,0 +1,2795 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <!-- =======================================================
+       BASIC META
+  ======================================================== -->
+
+  <meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+<meta
+name="description"
+content="LikeStar Publications provides professional printing, customization, graphic design and branding services in Ghana."
+
+>
+
+<meta
+name="keywords"
+content="LikeStar Publications, printing Ghana, T-shirt printing, graphic design, branding, banners, flyers, business cards, custom printing"
+
+>
+
+<meta
+name="author"
+content="LikeStar Publications"
+
+>
+
+<meta
+name="theme-color"
+content="#0057b8"
+
+>
+
+  <!-- =======================================================
+       TITLE
+  ======================================================== -->
+
+  <title>
+    LikeStar Publications | Printing, Design & Branding
+  </title>
+
+  <!-- =======================================================
+       FAVICON
+  ======================================================== -->
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="images/like star logo.png"
+  >
+
+  <!-- =======================================================
+       STYLESHEET
+  ======================================================== -->
+
+  <link
+    rel="stylesheet"
+    href="css/style.css"
+  >
+
+  <!-- =======================================================
+       HEADER ACCOUNT STYLES
+  ======================================================== -->
+
+  <style>
+
+    /* ========================================================
+       DESKTOP HEADER STRUCTURE
+    ========================================================= */
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      width: calc(100% - 64px);
+      max-width: none;
+
+      margin-inline: auto;
+    }
+
+    .navbar .logo {
+      flex: 0 0 auto;
+    }
+
+    .navbar .logo img {
+      display: block;
+      width: auto;
+      height: 48px;
+      object-fit: contain;
+    }
+
+
+    /* ========================================================
+       RIGHT HEADER AREA
+    ========================================================= */
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      gap: 26px;
+
+      margin-left: auto;
+    }
+
+
+    /* ========================================================
+       NAVIGATION
+    ========================================================= */
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      gap: 28px;
+    }
+
+    .nav-menu .nav-link {
+      white-space: nowrap;
+    }
+
+
+    /* ========================================================
+       CUSTOMER ACCOUNT
+    ========================================================= */
+
+    .customer-account {
+      position: relative;
+
+      flex: 0 0 auto;
+    }
+
+
+    /* ========================================================
+       SIGN IN
+    ========================================================= */
+
+    .account-login {
+      min-height: 42px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      padding: 0 12px;
+
+      border-radius: 10px;
+
+      color: var(--black);
+
+      font-size: 14px;
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      transition:
+        color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .account-login:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .account-login-icon {
+      width: 18px;
+      height: 18px;
+
+      display: grid;
+      place-items: center;
+    }
+
+    .account-login-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+
+    /* ========================================================
+       LOGGED-IN ACCOUNT BUTTON
+    ========================================================= */
+
+    .account-profile {
+      min-height: 44px;
+
+      display: inline-flex;
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 4px 9px 4px 5px;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: var(--white);
+      color: var(--black);
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .account-profile:hover,
+    .account-profile[aria-expanded="true"] {
+      background: var(--light);
+      border-color: #cdd8e6;
+      box-shadow: var(--shadow-sm);
+    }
+
+
+    /* ========================================================
+       ACCOUNT AVATAR
+    ========================================================= */
+
+    .account-avatar {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      flex: 0 0 34px;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .account-avatar img {
+      display: none;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .account-avatar-fallback {
+      display: grid;
+      place-items: center;
+
+      width: 100%;
+      height: 100%;
+    }
+
+    .account-name {
+      max-width: 105px;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .account-chevron {
+      width: 15px;
+      height: 15px;
+
+      transition:
+        transform 0.2s ease;
+    }
+
+    .account-profile[aria-expanded="true"]
+    .account-chevron {
+      transform: rotate(180deg);
+    }
+
+
+    /* ========================================================
+       ACCOUNT DROPDOWN
+    ========================================================= */
+
+    .account-dropdown {
+      position: absolute;
+
+      top: calc(100% + 12px);
+      right: 0;
+
+      width: 285px;
+
+      padding: 8px;
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      background: var(--white);
+
+      box-shadow:
+        0 20px 50px rgba(11, 23, 40, 0.14);
+
+      z-index: 1000;
+    }
+
+
+    /* ========================================================
+       DROPDOWN HEADER
+    ========================================================= */
+
+    .account-dropdown-header {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 11px;
+    }
+
+    .account-dropdown-avatar {
+      width: 42px;
+      height: 42px;
+
+      display: grid;
+      place-items: center;
+
+      flex: 0 0 42px;
+
+      overflow: hidden;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .account-dropdown-avatar img {
+      display: none;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    .account-dropdown-identity {
+      min-width: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 3px;
+    }
+
+    .account-dropdown-identity strong {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-size: 14px;
+
+      color: var(--black);
+    }
+
+    .account-dropdown-identity span {
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      font-size: 12px;
+
+      color: var(--muted);
+    }
+
+
+    /* ========================================================
+       DROPDOWN DIVIDER
+    ========================================================= */
+
+    .account-dropdown-divider {
+      height: 1px;
+
+      margin: 6px 5px;
+
+      background: var(--border);
+    }
+
+
+    /* ========================================================
+       DROPDOWN LINKS
+    ========================================================= */
+
+    .account-dropdown-link {
+      width: 100%;
+      min-height: 44px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      padding: 0 11px;
+
+      border: 0;
+      border-radius: 9px;
+
+      background: transparent;
+
+      color: var(--text);
+
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        background 0.18s ease,
+        color 0.18s ease;
+    }
+
+    .account-dropdown-link:hover {
+      background: var(--light);
+      color: var(--blue);
+    }
+
+    .account-dropdown-link svg {
+      width: 17px;
+      height: 17px;
+
+      flex: 0 0 17px;
+    }
+
+    .account-logout {
+      color: #b42318;
+    }
+
+    .account-logout:hover {
+      background: #fff5f5;
+      color: #b42318;
+    }
+
+
+    /* ========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .navbar {
+        width: calc(100% - 36px);
+      }
+
+      .navbar-right {
+        gap: 0;
+      }
+
+      .navbar .logo img {
+        height: 43px;
+      }
+
+      /*
+         The account lives inside the mobile navigation.
+      */
+
+      .nav-menu .customer-account {
+        width: 100%;
+      }
+
+      .nav-menu .account-login,
+      .nav-menu .account-profile {
+        width: 100%;
+
+        justify-content: flex-start;
+      }
+
+      .nav-menu .account-login {
+        min-height: 50px;
+
+        padding-inline: 14px;
+      }
+
+      .nav-menu .account-profile {
+        min-height: 52px;
+
+        padding: 7px 10px;
+      }
+
+      .nav-menu .account-name {
+        max-width: none;
+      }
+
+      .nav-menu .account-dropdown {
+        position: static;
+
+        width: 100%;
+
+        margin-top: 7px;
+
+        box-shadow: none;
+
+        border-color: var(--border);
+      }
+
+    }
+
+
+    /* ========================================================
+       SMALL PHONES
+    ========================================================= */
+
+    @media (max-width: 480px) {
+
+      .navbar {
+        width: calc(100% - 28px);
+      }
+
+      .navbar .logo img {
+        height: 39px;
+      }
+
+    }
+
+  </style>
+
+  <!-- =======================================================
+     HEADER
+======================================================= -->
+
+<header class="site-header">
+
+  <nav
+    class="navbar"
+    aria-label="Main navigation"
+  >
+
+    <!-- =================================================
+         LOGO
+    ================================================== -->
+
+    <a
+      href="index.html"
+      class="logo"
+      aria-label="LikeStar Publications home"
+    >
+      <img
+        src="images/like star logo.png"
+        alt="LikeStar Publications"
+      >
+    </a>
+
+
+    <!-- =================================================
+         RIGHT HEADER AREA
+    ================================================== -->
+
+    <div class="navbar-right">
+
+
+      <!-- =================================================
+           MAIN NAVIGATION
+      ================================================== -->
+
+      <div
+        class="nav-menu"
+        id="navMenu"
+      >
+
+        <!-- HOME -->
+
+        <a
+          href="index.html"
+          class="nav-link active"
+        >
+          Home
+        </a>
+
+
+        <!-- SERVICES -->
+
+        <a
+          href="services.html"
+          class="nav-link"
+        >
+          Services
+        </a>
+
+
+        <!-- OUR WORK -->
+
+        <a
+          href="portfolio.html"
+          class="nav-link"
+        >
+          Our Work
+        </a>
+
+
+        <!-- ABOUT -->
+
+        <a
+          href="about.html"
+          class="nav-link"
+        >
+          About
+        </a>
+
+
+        <!-- GET A QUOTE -->
+
+        <a
+          href="get-quote.html"
+          class="nav-button"
+        >
+          Get a Quote
+        </a>
+
+
+        <!-- =================================================
+             CUSTOMER ACCOUNT
+        ================================================== -->
+
+        <div
+          class="customer-account"
+          id="customerAccount"
+        >
+
+
+          <!-- =============================================
+               LOGGED OUT
+          ============================================== -->
+
+          <a
+            href="customer-login.html"
+            class="account-login"
+            id="accountLogin"
+          >
+
+            <span
+              class="account-login-icon"
+              aria-hidden="true"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+
+                <path
+                  d="M20 21a8 8 0 0 0-16 0"
+                ></path>
+
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                ></circle>
+
+              </svg>
+
+            </span>
+
+            <span>
+              Sign in
+            </span>
+
+          </a>
+
+
+          <!-- =============================================
+               LOGGED IN
+          ============================================== -->
+
+          <button
+            type="button"
+            class="account-profile"
+            id="accountProfile"
+            aria-expanded="false"
+            aria-haspopup="true"
+            hidden
+          >
+
+            <span class="account-avatar">
+
+              <img
+                id="accountAvatar"
+                src=""
+                alt=""
+              >
+
+              <span
+                class="account-avatar-fallback"
+                id="accountAvatarFallback"
+              >
+                ?
+              </span>
+
+            </span>
+
+
+            <span
+              class="account-name"
+              id="accountName"
+            >
+              Account
+            </span>
+
+
+            <svg
+              class="account-chevron"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+
+              <path
+                d="m6 9 6 6 6-6"
+              ></path>
+
+            </svg>
+
+          </button>
+
+
+          <!-- =============================================
+               ACCOUNT DROPDOWN
+          ============================================== -->
+
+          <div
+            class="account-dropdown"
+            id="accountDropdown"
+            hidden
+          >
+
+
+            <!-- ACCOUNT IDENTITY -->
+
+            <div class="account-dropdown-header">
+
+              <div class="account-dropdown-avatar">
+
+                <img
+                  id="dropdownAvatar"
+                  src=""
+                  alt=""
+                >
+
+                <span
+                  id="dropdownAvatarFallback"
+                >
+                  ?
+                </span>
+
+              </div>
+
+
+              <div class="account-dropdown-identity">
+
+                <strong
+                  id="dropdownName"
+                >
+                  Customer
+                </strong>
+
+                <span
+                  id="dropdownEmail"
+                >
+                  Customer account
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- DIVIDER -->
+
+            <div
+              class="account-dropdown-divider"
+            ></div>
+
+
+            <!-- DASHBOARD -->
+
+            <a
+              href="customer-dashboard.html"
+              class="account-dropdown-link"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <rect
+                  x="3"
+                  y="3"
+                  width="7"
+                  height="7"
+                  rx="1"
+                ></rect>
+
+                <rect
+                  x="14"
+                  y="3"
+                  width="7"
+                  height="7"
+                  rx="1"
+                ></rect>
+
+                <rect
+                  x="3"
+                  y="14"
+                  width="7"
+                  height="7"
+                  rx="1"
+                ></rect>
+
+                <rect
+                  x="14"
+                  y="14"
+                  width="7"
+                  height="7"
+                  rx="1"
+                ></rect>
+
+              </svg>
+
+              <span>
+                Dashboard
+              </span>
+
+            </a>
+
+
+            <!-- MY PROFILE -->
+
+            <a
+              href="customer-profile.html"
+              class="account-dropdown-link"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <circle
+                  cx="12"
+                  cy="8"
+                  r="4"
+                ></circle>
+
+                <path
+                  d="M4 21a8 8 0 0 1 16 0"
+                ></path>
+
+              </svg>
+
+              <span>
+                My Profile
+              </span>
+
+            </a>
+
+
+            <!-- DIVIDER -->
+
+            <div
+              class="account-dropdown-divider"
+            ></div>
+
+
+            <!-- SIGN OUT -->
+
+            <button
+              type="button"
+              class="account-dropdown-link account-logout"
+              id="accountLogout"
+            >
+
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+
+                <path
+                  d="M10 17l5-5-5-5"
+                ></path>
+
+                <path
+                  d="M15 12H3"
+                ></path>
+
+                <path
+                  d="M21 19V5a2 2 0 0 0-2-2h-7"
+                ></path>
+
+              </svg>
+
+              <span>
+                Sign out
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           MOBILE MENU BUTTON
+      ================================================== -->
+
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
+
+  </nav>
+
+</header>
+
+  <!-- =======================================================
+       MAIN
+  ======================================================== -->
+
+  <main>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section
+  class="hero hero-image"
+  id="home"
+>
+
+  <div
+    class="hero-background"
+    aria-hidden="true"
+  >
+
+    <img
+      src="images/ChatGPT Image Sep 5, 2026, 02_33_56 AM.png"
+      alt=""
+      fetchpriority="high"
+    >
+
+  </div>
+
+
+  <div
+    class="hero-overlay"
+    aria-hidden="true"
+  ></div>
+
+
+  <div class="container hero-content-wrapper">
+
+    <div class="hero-content">
+
+      <div class="hero-badge">
+
+        <span></span>
+
+        Printing • Customization • Branding
+
+      </div>
+
+
+      <h1>
+
+        Bring your ideas
+        <span>to life.</span>
+
+      </h1>
+
+
+      <div class="hero-actions">
+
+        <a
+          href="get-quote.html"
+          class="btn btn-orange"
+        >
+
+          Get a Quote
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://wa.me/233530543423"
+          class="btn btn-outline-light"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          WhatsApp Us
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <div class="hero-highlights">
+
+        <div>
+
+          <strong>
+            PRINT
+          </strong>
+
+          <span>
+            Quality Results
+          </span>
+
+        </div>
+
+
+        <div class="highlight-line"></div>
+
+
+        <div>
+
+          <strong>
+            DESIGN
+          </strong>
+
+          <span>
+            Creative Solutions
+          </span>
+
+        </div>
+
+
+        <div class="highlight-line"></div>
+
+
+        <div>
+
+          <strong>
+            BRAND
+          </strong>
+
+          <span>
+            Built to Stand Out
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- HERO MARQUEE -->
+
+  <div class="hero-bottom">
+
+    <div class="hero-marquee">
+
+      <div class="hero-marquee-track">
+
+        <span>
+          T-Shirt Printing
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Graphic Design
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Business Branding
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Banners & Posters
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Business Cards
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Custom Products
+        </span>
+
+        <span>•</span>
+
+
+        <!-- DUPLICATE -->
+
+        <span>
+          T-Shirt Printing
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Graphic Design
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Business Branding
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Banners & Posters
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Business Cards
+        </span>
+
+        <span>•</span>
+
+        <span>
+          Custom Products
+        </span>
+
+        <span>•</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICES
+====================================================== -->
+
+<section
+  class="services section"
+  id="services"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+
+        <span>
+          01
+        </span>
+
+        <span>
+          What we do
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+
+          Everything you need
+          <span>in one place.</span>
+
+        </h2>
+
+        <p>
+          Choose a service and request a quote.
+        </p>
+
+      </div>
+
+    </div>
+   
+
+    <div class="service-list">
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="T-Shirt Printing"
+      >
+
+        <span class="service-number">01</span>
+
+        <span class="service-name">
+          T-Shirt Printing
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Cap Customization"
+      >
+
+        <span class="service-number">02</span>
+
+        <span class="service-name">
+          Cap Customization
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Banners"
+      >
+
+        <span class="service-number">03</span>
+
+        <span class="service-name">
+          Banners
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Flyers & Posters"
+      >
+
+        <span class="service-number">04</span>
+
+        <span class="service-name">
+          Flyers & Posters
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Book Printing"
+      >
+
+        <span class="service-number">05</span>
+
+        <span class="service-name">
+          Book Printing
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Passport Pictures"
+      >
+
+        <span class="service-number">06</span>
+
+        <span class="service-name">
+          Passport Pictures
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Graphic Design"
+      >
+
+        <span class="service-number">07</span>
+
+        <span class="service-name">
+          Graphic Design
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Logo Design"
+      >
+
+        <span class="service-number">08</span>
+
+        <span class="service-name">
+          Logo Design
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Business Cards"
+      >
+
+        <span class="service-number">09</span>
+
+        <span class="service-name">
+          Business Cards
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Business Branding"
+      >
+
+        <span class="service-number">10</span>
+
+        <span class="service-name">
+          Business Branding
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="get-quote.html"
+        class="service-item"
+        data-service="Custom Products"
+      >
+
+        <span class="service-number">11</span>
+
+        <span class="service-name">
+          Custom Products
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+
+      </a>
+
+
+      <a
+        href="service.html"
+        class="service-item service-item-more"
+      >
+
+        <span class="service-number">12</span>
+
+        <span class="service-name">
+          View All Services
+        </span>
+
+        <span
+          class="service-arrow"
+          aria-hidden="true"
+        >
+          →
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUOTE STRIP
+====================================================== -->
+
+<section class="quote-strip">
+
+  <div class="container">
+
+    <div class="quote-strip-inner">
+
+      <div>
+
+        <span class="quote-strip-label">
+          HAVE A PROJECT IN MIND?
+        </span>
+
+        <h2>
+          Let's make it happen.
+        </h2>
+
+      </div>
+
+
+      <a
+        href="get-quote.html"
+        class="btn btn-outline-light"
+      >
+
+        Get a Quote
+
+        <span aria-hidden="true">
+          ↗
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURED WORK
+====================================================== -->
+
+<section
+  class="work section"
+  id="work"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+
+        <span>
+          02
+        </span>
+
+        <span>
+          Our work
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+
+          Work that speaks
+          <span>for itself.</span>
+
+        </h2>
+
+        <p>
+
+          From everyday print materials to custom
+          branding projects, we help turn ideas into
+          professional finished work.
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="work-grid">
+
+
+      <!-- WORK 01 -->
+
+      <a
+        href="portfolio.html"
+        class="work-card work-large"
+      >
+
+        <div class="work-image">
+
+          <img
+            src="assets/images/work-01.jpg"
+            alt="LikeStar branding project"
+            loading="lazy"
+          >
+
+          <div class="work-overlay">
+
+            <span>
+              Branding
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="work-info">
+
+          <div>
+
+            <span>
+              FEATURED WORK
+            </span>
+
+            <h3>
+              Explore our work
+            </h3>
+
+          </div>
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- WORK 02 -->
+
+      <a
+        href="portfolio.html"
+        class="work-card"
+      >
+
+        <div class="work-image">
+
+          <img
+            src="assets/images/work-02.jpg"
+            alt="Custom T-shirt printing project"
+            loading="lazy"
+          >
+
+          <div class="work-overlay">
+
+            <span>
+              Custom Apparel
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="work-info">
+
+          <div>
+
+            <span>
+              PRINT
+            </span>
+
+            <h3>
+              Custom T-Shirts
+            </h3>
+
+          </div>
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- WORK 03 -->
+
+      <a
+        href="portfolio.html"
+        class="work-card"
+      >
+
+        <div class="work-image">
+
+          <img
+            src="assets/images/work-03.jpg"
+            alt="Printed materials project"
+            loading="lazy"
+          >
+
+          <div class="work-overlay">
+
+            <span>
+              Print Design
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="work-info">
+
+          <div>
+
+            <span>
+              PRINT
+            </span>
+
+            <h3>
+              Printed Materials
+            </h3>
+
+          </div>
+
+          <span aria-hidden="true">
+            ↗
+          </span>
+
+        </div>
+
+      </a>
+
+    </div>
+
+
+    <div class="center-link">
+
+      <a
+        href="portfolio.html"
+        class="text-link"
+      >
+
+        View full portfolio
+
+        <span aria-hidden="true">
+          →
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+   
+    <!-- =======================================================
+     TRUSTED ORGANIZATIONS
+======================================================= -->
+
+<section class="trusted-section" id="trusted">
+
+  <div class="container">
+
+
+<!-- SECTION INTRO -->
+<div class="trusted-header">
+
+  <span class="section-eyebrow">
+    TRUSTED BY
+  </span>
+
+  <h2 class="trusted-title">
+    Businesses &amp; Organizations We Work With
+  </h2>
+
+  <p class="trusted-description">
+    From growing businesses to established organizations,
+    LikeStar Publications helps bring brands, ideas, and
+    campaigns to life through quality printing and
+    customization.
+  </p>
+
+</div>
+
+
+<!-- DYNAMIC ORGANIZATION LOGOS
+     Loaded from Firestore -->
+<div
+  class="trusted-logos"
+  id="trustedOrganizations"
+  aria-label="Businesses and organizations LikeStar Publications works with"
+>
+
+  <!-- Loading state -->
+  <div
+    class="trusted-loading"
+    id="trustedOrganizationsLoading"
+    aria-live="polite"
+  >
+    Loading organizations...
+  </div>
+
+</div>
+
+
+<!-- Empty state
+     Hidden by default and shown by JavaScript
+     when there are no published organizations. -->
+<div
+  class="trusted-empty"
+  id="trustedOrganizationsEmpty"
+  hidden
+>
+  <p>
+    We are proud to work with businesses and organizations
+    across Ghana.
+  </p>
+</div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CUSTOMER REVIEWS
+====================================================== -->
+
+<section
+  class="reviews section"
+  id="reviews"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+
+        <span>
+          03
+        </span>
+
+        <span>
+          Customer reviews
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+
+          What our customers
+          <span>have to say.</span>
+
+        </h2>
+
+        <p>
+
+          Real experiences from people and businesses
+          who have worked with LikeStar Publications.
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="reviews-summary">
+
+      <div class="reviews-rating">
+
+        <strong id="averageRating">
+          —
+        </strong>
+
+        <div
+          class="rating-stars"
+          id="averageRatingStars"
+          aria-label="Average customer rating"
+        >
+
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+          <span>★</span>
+
+        </div>
+
+        <span
+          id="reviewCount"
+          class="review-count"
+        >
+          No reviews yet
+        </span>
+
+      </div>
+
+
+      <a
+        href="review.html"
+        class="btn btn-dark"
+      >
+
+        Leave a Review
+
+        <span aria-hidden="true">
+          ↗
+        </span>
+
+      </a>
+
+    </div>
+
+
+    <div
+      class="reviews-grid"
+      id="reviewsGrid"
+    >
+
+
+      <!-- REVIEW PLACEHOLDER 01 -->
+
+      <article class="review-card">
+
+        <div class="review-card-top">
+
+          <div
+            class="review-stars"
+            aria-label="Customer rating"
+          >
+
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+
+          </div>
+
+        </div>
+
+
+        <p class="review-text">
+
+          Customer reviews will appear here once
+          LikeStar starts receiving customer feedback.
+
+        </p>
+
+
+        <div class="review-author">
+
+          <div class="review-avatar">
+            ?
+          </div>
+
+          <div>
+
+            <strong>
+              Your customer
+            </strong>
+
+            <span>
+              Customer feedback
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW PLACEHOLDER 02 -->
+
+      <article class="review-card">
+
+        <div class="review-card-top">
+
+          <div
+            class="review-stars"
+            aria-label="Customer rating"
+          >
+
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+
+          </div>
+
+        </div>
+
+
+        <p class="review-text">
+
+          Have you worked with LikeStar?
+          Share your experience and help future
+          customers make a confident decision.
+
+        </p>
+
+
+        <div class="review-author">
+
+          <div class="review-avatar">
+            ?
+          </div>
+
+          <div>
+
+            <strong>
+              Be our first reviewer
+            </strong>
+
+            <span>
+              Customer feedback
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- REVIEW PLACEHOLDER 03 -->
+
+      <article class="review-card">
+
+        <div class="review-card-top">
+
+          <div
+            class="review-stars"
+            aria-label="Customer rating"
+          >
+
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+
+          </div>
+
+        </div>
+
+
+        <p class="review-text">
+
+          Your feedback can help us improve our
+          service and help other customers know
+          what to expect.
+
+        </p>
+
+
+        <div class="review-author">
+
+          <div class="review-avatar">
+            ?
+          </div>
+
+          <div>
+
+            <strong>
+              Share your experience
+            </strong>
+
+            <span>
+              Customer feedback
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div
+      class="review-request"
+      id="leave-review"
+    >
+
+      <div>
+
+        <span class="review-request-label">
+          WORKED WITH LIKESTAR?
+        </span>
+
+        <h3>
+          Tell us how we did.
+        </h3>
+
+        <p>
+          Your rating and feedback will help us
+          improve and help future customers.
+        </p>
+
+      </div>
+
+
+      <a
+        href="review.html"
+        class="btn btn-orange"
+      >
+
+        Leave a Review
+
+        <span aria-hidden="true">
+          ↗
+        </span>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WHY LIKESTAR
+====================================================== -->
+
+<section
+  class="why section"
+  id="why"
+>
+
+  <div class="container">
+
+    <div class="why-grid">
+
+
+      <div>
+
+        <div class="section-label">
+
+          <span>
+            04
+          </span>
+
+          <span>
+            Why LikeStar
+          </span>
+
+        </div>
+
+
+        <h2>
+
+          More than
+          <span>just printing.</span>
+
+        </h2>
+
+
+        <p>
+
+          We combine printing, design, customization
+          and branding to make it easier to take an idea
+          from concept to finished product.
+
+        </p>
+
+
+        <a
+          href="about.html"
+          class="text-link"
+        >
+
+          Learn more about us
+
+          <span aria-hidden="true">
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <div class="why-list">
+
+
+        <div class="why-item">
+
+          <span>
+            01
+          </span>
+
+          <div>
+
+            <h3>
+              Quality-focused
+            </h3>
+
+            <p>
+              We pay attention to the details that make
+              the final product look professional.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="why-item">
+
+          <span>
+            02
+          </span>
+
+          <div>
+
+            <h3>
+              One place for your project
+            </h3>
+
+            <p>
+              Printing, customization, design and
+              branding can all be handled under one roof.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="why-item">
+
+          <span>
+            03
+          </span>
+
+          <div>
+
+            <h3>
+              Built around your needs
+            </h3>
+
+            <p>
+              Whether it is one custom item or a larger
+              branding project, we work around the job.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="why-item">
+
+          <span>
+            04
+          </span>
+
+          <div>
+
+            <h3>
+              Straightforward service
+            </h3>
+
+            <p>
+              Tell us what you need, receive a quote,
+              approve the work and let us handle the rest.
+            </p>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROCESS
+====================================================== -->
+
+<section
+  class="process section"
+  id="process"
+>
+
+  <div class="container">
+
+    <div class="section-heading">
+
+      <div class="section-label">
+
+        <span>
+          05
+        </span>
+
+        <span>
+          How it works
+        </span>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+
+          Simple from
+          <span>start to finish.</span>
+
+        </h2>
+
+        <p>
+
+          No complicated process. Just tell us what
+          you need and we will guide the project forward.
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="process-grid">
+
+
+      <div class="process-step">
+
+        <span>
+          01
+        </span>
+
+        <div class="process-icon">
+          ✦
+        </div>
+
+        <h3>
+          Tell us what you need
+        </h3>
+
+        <p>
+          Submit a quote request with the details
+          of your project.
+        </p>
+
+      </div>
+
+
+      <div class="process-step">
+
+        <span>
+          02
+        </span>
+
+        <div class="process-icon">
+          ₵
+        </div>
+
+        <h3>
+          Get your quote
+        </h3>
+
+        <p>
+          We review the request and provide pricing
+          based on your requirements.
+        </p>
+
+      </div>
+
+
+      <div class="process-step">
+
+        <span>
+          03
+        </span>
+
+        <div class="process-icon">
+          ✓
+        </div>
+
+        <h3>
+          Approve the project
+        </h3>
+
+        <p>
+          Once the details and price are confirmed,
+          we move forward with production.
+        </p>
+
+      </div>
+
+
+      <div class="process-step">
+
+        <span>
+          04
+        </span>
+
+        <div class="process-icon">
+          ↗
+        </div>
+
+        <h3>
+          Receive your work
+        </h3>
+
+        <p>
+          Your finished printing, customization,
+          design or branding project is ready.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL CTA
+====================================================== -->
+
+<section class="cta section">
+
+  <div class="container">
+
+    <div class="cta-box">
+
+
+      <div class="cta-content">
+
+        <div class="section-label">
+
+          <span>
+            06
+          </span>
+
+          <span>
+            Start your project
+          </span>
+
+        </div>
+
+
+        <h2>
+
+          Have an idea?
+          <span>Let's bring it to life.</span>
+
+        </h2>
+
+
+        <p>
+
+          Tell us what you need and get a quote
+          for your project.
+
+        </p>
+
+
+        <div class="cta-actions">
+
+          <a
+            href="get-quote.html"
+            class="btn btn-dark"
+          >
+
+            Get a Quote
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+
+          <a
+            href="https://wa.me/233530543423"
+            class="btn btn-outline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+
+            WhatsApp Us
+
+            <span aria-hidden="true">
+              ↗
+            </span>
+
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="cta-pattern"
+        aria-hidden="true"
+      >
+
+        <span>
+          LS
+        </span>
+
+        <div></div>
+        <div></div>
+        <div></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+  </main>
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <footer class="footer">
+
+
+<div class="container">
+
+  <div class="footer-grid">
+
+
+    <!-- BRAND -->
+
+    <div class="footer-brand">
+
+      <a
+        href="index.html"
+        class="logo"
+        aria-label="LikeStar Publications home"
+      >
+
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+        >
+
+      </a>
+
+
+      <p>
+
+        Printing, customization, graphic design
+        and branding solutions for businesses,
+        organizations and individuals.
+
+      </p>
+
+    </div>
+
+
+    <!-- COMPANY -->
+
+    <div class="footer-column">
+
+      <h4>
+        Company
+      </h4>
+
+      <a href="about.html">
+        About
+      </a>
+
+      <a href="services.html">
+        Services
+      </a>
+
+      <a href="portfolio.html">
+        Our Work
+      </a>
+
+      <a href="get-quote.html">
+        Get a Quote
+      </a>
+
+    </div>
+
+
+    <!-- SERVICES -->
+
+    <div class="footer-column">
+
+      <h4>
+        Services
+      </h4>
+
+      <a href="get-quote.html">
+        T-Shirt Printing
+      </a>
+
+      <a href="get-quote.html">
+        Graphic Design
+      </a>
+
+      <a href="get-quote.html">
+        Business Branding
+      </a>
+
+      <a href="get-quote.html">
+        Custom Products
+      </a>
+
+    </div>
+
+
+    <!-- CONTACT -->
+
+    <div class="footer-column">
+
+      <h4>
+        Get in touch
+      </h4>
+
+      <a href="tel:0209004412">
+        020 900 4412
+      </a>
+
+      <a
+        href="https://wa.me/233530543423"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+
+      <a
+        href="mailto:likestarpublication@gmail.com"
+      >
+        Email us
+      </a>
+
+      <a
+        href="get-quote.html"
+        class="footer-cta"
+      >
+        Start a project →
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+
+      ©
+      <span id="currentYear"></span>
+      LikeStar Publications.
+      All rights reserved.
+
+    </span>
+
+
+    <span>
+      Printing • Design • Branding
+    </span>
+
+  </div>
+
+</div>
+
+
+  </footer>
+
+  <!-- =======================================================
+       JAVASCRIPT
+  ======================================================== -->
+
+  <script
+    src="js/main.js"
+    defer
+  ></script>
+
+  <!-- =======================================================
+       CUSTOMER AUTH STATE
+  ======================================================== -->
+
+  <script
+    type="module"
+    src="js/home-auth.js"
+  ></script>
+
+  <!-- =======================================================
+       CURRENT YEAR FALLBACK
+  ======================================================== -->
+
+  <script>
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        const currentYear =
+          document.getElementById("currentYear");
+
+        if (currentYear) {
+
+          currentYear.textContent =
+            new Date().getFullYear();
+
+        }
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,3377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LikeStar Publications — Sales Management">
+  <title>Sales — LikeStar Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-light: #fff1e3;
+
+      --white: #fff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --success: #16834b;
+      --success-light: #eaf8f0;
+
+      --danger: #c0392b;
+      --danger-light: #fff0ee;
+
+      --purple: #6941c6;
+      --purple-light: #f3efff;
+
+      --warning: #a96b00;
+      --warning-light: #fff7df;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, .06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, .10);
+
+      --sidebar-width: 260px;
+      --topbar-height: 76px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition: .25s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 1000;
+
+      width: var(--sidebar-width);
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--white);
+      border-right: 1px solid var(--border);
+    }
+
+    .brand {
+      height: var(--topbar-height);
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 24px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand img {
+      width: 145px;
+      max-height: 46px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .brand-fallback {
+      display: none;
+
+      color: var(--blue);
+      font-family: var(--font-heading);
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 14px;
+    }
+
+    .nav-section {
+      margin-bottom: 24px;
+    }
+
+    .nav-section-title {
+      padding: 0 12px 8px;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-link {
+      min-height: 44px;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 0 12px;
+
+      border-radius: 11px;
+
+      color: var(--text);
+      font-weight: 600;
+
+      transition:
+        background var(--transition),
+        color var(--transition);
+    }
+
+    .nav-link:hover {
+      background: var(--light);
+      color: var(--blue);
+    }
+
+    .nav-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .nav-icon {
+      width: 20px;
+      flex: 0 0 20px;
+
+      display: grid;
+      place-items: center;
+
+      font-size: 15px;
+    }
+
+    .sidebar-footer {
+      padding: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 10px;
+
+      border-radius: 13px;
+      background: var(--light);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue);
+      color: var(--white);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .user-mini-text {
+      min-width: 0;
+    }
+
+    .user-mini-name {
+      overflow: hidden;
+
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-mini-role {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: capitalize;
+    }
+
+    /* =====================================================
+       MAIN / TOPBAR
+    ===================================================== */
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+
+      height: var(--topbar-height);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 0 32px;
+
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--border);
+
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-left,
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .page-context {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: var(--white);
+      color: var(--text);
+
+      transition: var(--transition);
+    }
+
+    .icon-button:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .topbar-user-info {
+      text-align: right;
+    }
+
+    .topbar-user-name {
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .topbar-user-role {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: capitalize;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+
+      display: none;
+
+      background: rgba(11, 23, 40, .42);
+    }
+
+    /* =====================================================
+       PAGE
+    ===================================================== */
+
+    .page {
+      padding: 34px 32px 50px;
+    }
+
+    .page-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin-bottom: 7px;
+
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .page-head h1 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: clamp(25px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -.035em;
+    }
+
+    .page-head p {
+      max-width: 700px;
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =====================================================
+       BUTTONS
+    ===================================================== */
+
+    .btn {
+      min-height: 42px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      padding: 0 15px;
+
+      border: 1px solid transparent;
+      border-radius: 10px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-small {
+      min-height: 35px;
+      padding: 0 11px;
+      font-size: 11px;
+    }
+
+    /* =====================================================
+       PANELS / STATS
+    ===================================================== */
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      padding: 19px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-icon {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .stat-card:nth-child(2) .stat-icon {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .stat-card:nth-child(3) .stat-icon {
+      background: var(--orange-light);
+      color: var(--orange);
+    }
+
+    .stat-card:nth-child(4) .stat-icon {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .stat-value {
+      margin-top: 9px;
+
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -.025em;
+    }
+
+    .stat-note {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =====================================================
+       TOOLBAR
+    ===================================================== */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      padding: 14px;
+
+      margin-bottom: 14px;
+    }
+
+    .search-wrap {
+      position: relative;
+      min-width: 230px;
+      flex: 1;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+
+      color: var(--muted);
+
+      transform: translateY(-50%);
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 42px;
+
+      padding: 0 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--white);
+      color: var(--text);
+
+      transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .search-wrap .form-control {
+      padding-left: 35px;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 87, 184, .10);
+    }
+
+    .toolbar-select {
+      width: auto;
+      min-width: 145px;
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .result-count {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* =====================================================
+       TABLE
+    ===================================================== */
+
+    .table-panel {
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 950px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 15px 16px;
+      border-bottom: 1px solid var(--border);
+
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #fbfcfe;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    tbody tr {
+      transition: background var(--transition);
+    }
+
+    tbody tr:hover {
+      background: #fbfdff;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .sale-id {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .customer-name {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .secondary-text {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .money {
+      color: var(--black);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .net-money {
+      color: var(--success);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .employee-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .employee-avatar {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .row-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .empty-state {
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 58px;
+      height: 58px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 14px;
+
+      border-radius: 16px;
+
+      background: var(--success-light);
+      color: var(--success);
+
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .empty-state h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      max-width: 450px;
+      margin: 6px auto 0;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(11, 23, 40, .58);
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      max-height: 92vh;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 20px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .modal-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--text);
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+
+      padding: 15px 20px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .detail-card {
+      padding: 15px;
+
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .detail-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .detail-label {
+      margin-bottom: 5px;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-value.regular {
+      font-weight: 500;
+    }
+
+    .revenue-highlight {
+      background: var(--success-light);
+      border-color: #c4ead2;
+    }
+
+    .revenue-highlight .detail-value {
+      color: var(--success);
+      font-size: 18px;
+    }
+
+    .not-connected {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      margin-bottom: 20px;
+      padding: 12px 14px;
+
+      border: 1px solid #ffd9b5;
+      border-radius: 11px;
+
+      background: var(--orange-light);
+      color: #8b4d00;
+
+      font-size: 11px;
+    }
+
+    .not-connected strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* =====================================================
+       PAGINATION
+    ===================================================== */
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      padding: 14px 16px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .pagination-info {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .pagination-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 1180px) {
+      :root {
+        --sidebar-width: 230px;
+      }
+
+      .page {
+        padding-inline: 24px;
+      }
+
+      .topbar {
+        padding-inline: 24px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-card.full {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu-button {
+        display: grid;
+      }
+
+      .topbar {
+        padding-inline: 18px;
+      }
+
+      .topbar-user-info {
+        display: none;
+      }
+
+      .page {
+        padding: 24px 18px 40px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-head {
+        flex-direction: column;
+      }
+
+      .page-head .btn {
+        width: 100%;
+      }
+
+      .stats-grid {
+        gap: 9px;
+      }
+
+      .stat-card {
+        padding: 14px;
+      }
+
+      .stat-value {
+        font-size: 21px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .search-wrap {
+        width: 100%;
+        min-width: 100%;
+      }
+
+      .toolbar-select {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .toolbar .btn {
+        flex: 1;
+      }
+
+      .result-count {
+        width: 100%;
+      }
+
+      .modal-backdrop {
+        padding: 8px;
+      }
+
+      .modal {
+        max-height: 96vh;
+        border-radius: 15px;
+      }
+
+      .modal-head,
+      .modal-body,
+      .modal-footer {
+        padding: 15px;
+      }
+
+      .pagination {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .pagination-actions {
+        width: 100%;
+      }
+
+      .pagination-actions .btn {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        padding-inline: 13px;
+      }
+
+      .modal-footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body class="role-owner">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="brand">
+      <img
+        src="images/like star logo.png"
+        alt="LikeStar Publications"
+        onerror="
+          this.style.display='none';
+          document.getElementById('brandFallback').style.display='block';
+        "
+      >
+
+      <span
+        class="brand-fallback"
+        id="brandFallback"
+      >
+        LikeStar
+      </span>
+    </div>
+
+    <div class="sidebar-scroll">
+
+      <div class="nav-section">
+        <div class="nav-section-title">Main</div>
+
+        <nav class="nav-list">
+
+          <a href="dashboard.html" class="nav-link">
+            <span class="nav-icon">⌂</span>
+            <span>Dashboard</span>
+          </a>
+
+          <a href="management-quotes.html" class="nav-link">
+            <span class="nav-icon">▤</span>
+            <span>Quotes</span>
+          </a>
+
+          <a
+            href="management-quote-tracking.html"
+            class="nav-link"
+          >
+            <span class="nav-icon">↗</span>
+            <span>Quote Tracking</span>
+          </a>
+
+          <a
+            href="management-sales.html"
+            class="nav-link active"
+            aria-current="page"
+          >
+            <span class="nav-icon">₵</span>
+            <span>Sales</span>
+          </a>
+
+          <a href="management-delivery.html" class="nav-link">
+            <span class="nav-icon">▣</span>
+            <span>Delivery</span>
+          </a>
+
+        </nav>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Content</div>
+
+        <nav class="nav-list">
+
+          <a href="management-reviews.html" class="nav-link">
+            <span class="nav-icon">★</span>
+            <span>Reviews</span>
+          </a>
+
+          <a href="management-services.html" class="nav-link">
+            <span class="nav-icon">☷</span>
+            <span>Services</span>
+          </a>
+
+          <a href="management-portfolio.html" class="nav-link">
+            <span class="nav-icon">▧</span>
+            <span>Portfolio</span>
+          </a>
+
+          <a href="management-customers.html" class="nav-link">
+            <span class="nav-icon">♙</span>
+            <span>Customers</span>
+          </a>
+
+        </nav>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Administration</div>
+
+        <nav class="nav-list">
+
+          <a
+            href="management-employees.html"
+            class="nav-link"
+            data-role-only="owner manager"
+          >
+            <span class="nav-icon">♙</span>
+            <span>Employees</span>
+          </a>
+
+          <a
+            href="management-activity.html"
+            class="nav-link"
+            data-role-only="owner manager"
+          >
+            <span class="nav-icon">◷</span>
+            <span>Activity Log</span>
+          </a>
+
+          <a href="management-settings.html" class="nav-link">
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+          </a>
+
+        </nav>
+      </div>
+
+    </div>
+
+    <div class="sidebar-footer">
+
+      <div class="user-mini">
+
+        <div class="avatar" id="sidebarAvatar">
+          AU
+        </div>
+
+        <div class="user-mini-text">
+
+          <div
+            class="user-mini-name"
+            id="sidebarUserName"
+          >
+            Admin User
+          </div>
+
+          <div
+            class="user-mini-role"
+            id="sidebarUserRole"
+          >
+            owner
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+  <div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+  ></div>
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <button
+          type="button"
+          class="icon-button mobile-menu-button"
+          id="mobileMenuButton"
+          aria-label="Open management menu"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <div class="page-context">
+          Management / Sales
+        </div>
+
+      </div>
+
+      <div class="topbar-right">
+
+        <button
+          type="button"
+          class="icon-button"
+          id="refreshButton"
+          title="Refresh sales"
+          aria-label="Refresh sales"
+        >
+          ↻
+        </button>
+
+        <button
+          type="button"
+          class="icon-button"
+          id="notificationButton"
+          title="Notifications"
+          aria-label="Notifications"
+        >
+          ♢
+        </button>
+
+        <div class="topbar-user">
+
+          <div class="topbar-user-info">
+
+            <div
+              class="topbar-user-name"
+              id="topbarUserName"
+            >
+              Admin User
+            </div>
+
+            <div
+              class="topbar-user-role"
+              id="topbarUserRole"
+            >
+              owner
+            </div>
+
+          </div>
+
+          <div
+            class="avatar"
+            id="topbarAvatar"
+          >
+            AU
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+    <section class="page">
+
+      <div class="page-head">
+
+        <div>
+
+          <div class="eyebrow">
+            Revenue management
+          </div>
+
+          <h1>
+            Sales
+          </h1>
+
+          <p>
+            Monitor completed sales and net revenue generated
+            from successful quote requests.
+          </p>
+
+        </div>
+
+        <a
+          href="management-quote-tracking.html"
+          class="btn btn-primary"
+        >
+          View Quote Pipeline
+        </a>
+
+      </div>
+
+      <!-- ===================================================
+           STATS
+      ==================================================== -->
+
+      <div class="stats-grid">
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+            <span class="stat-label">
+              Total Sales
+            </span>
+
+            <span class="stat-icon">
+              #
+            </span>
+          </div>
+
+          <div
+            class="stat-value"
+            id="statTotalSales"
+          >
+            0
+          </div>
+
+          <div class="stat-note">
+            Completed transactions
+          </div>
+
+        </article>
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+            <span class="stat-label">
+              Net Revenue
+            </span>
+
+            <span class="stat-icon">
+              ₵
+            </span>
+          </div>
+
+          <div
+            class="stat-value"
+            id="statRevenue"
+          >
+            GH₵ 0.00
+          </div>
+
+          <div class="stat-note">
+            After discounts
+          </div>
+
+        </article>
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+            <span class="stat-label">
+              This Month
+            </span>
+
+            <span class="stat-icon">
+              M
+            </span>
+          </div>
+
+          <div
+            class="stat-value"
+            id="statMonth"
+          >
+            GH₵ 0.00
+          </div>
+
+          <div class="stat-note">
+            Current calendar month
+          </div>
+
+        </article>
+
+        <article class="stat-card">
+
+          <div class="stat-top">
+            <span class="stat-label">
+              Average Sale
+            </span>
+
+            <span class="stat-icon">
+              ÷
+            </span>
+          </div>
+
+          <div
+            class="stat-value"
+            id="statAverage"
+          >
+            GH₵ 0.00
+          </div>
+
+          <div class="stat-note">
+            Average net revenue per sale
+          </div>
+
+        </article>
+
+      </div>
+
+      <!-- ===================================================
+           FILTERS
+      ==================================================== -->
+
+      <section class="panel toolbar">
+
+        <div class="search-wrap">
+
+          <span class="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="search"
+            class="form-control"
+            id="salesSearch"
+            placeholder="Search customer, service or sale ID..."
+            autocomplete="off"
+          >
+
+        </div>
+
+        <select
+          class="form-control toolbar-select"
+          id="dateFilter"
+          aria-label="Filter sales by date"
+        >
+          <option value="all">
+            All time
+          </option>
+
+          <option value="today">
+            Today
+          </option>
+
+          <option value="week">
+            This week
+          </option>
+
+          <option value="month">
+            This month
+          </option>
+
+          <option value="year">
+            This year
+          </option>
+        </select>
+
+        <select
+          class="form-control toolbar-select"
+          id="serviceFilter"
+          aria-label="Filter sales by service"
+        >
+          <option value="all">
+            All services
+          </option>
+        </select>
+
+        <select
+          class="form-control toolbar-select"
+          id="employeeFilter"
+          aria-label="Filter sales by employee"
+        >
+          <option value="all">
+            All employees
+          </option>
+        </select>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="resetButton"
+        >
+          Reset
+        </button>
+
+        <span
+          class="result-count"
+          id="resultCount"
+        >
+          0 sales
+        </span>
+
+      </section>
+
+      <!-- ===================================================
+           SALES TABLE
+      ==================================================== -->
+
+      <section class="panel table-panel">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  Sale
+                </th>
+
+                <th>
+                  Customer
+                </th>
+
+                <th>
+                  Service
+                </th>
+
+                <th>
+                  Gross
+                </th>
+
+                <th>
+                  Discount
+                </th>
+
+                <th>
+                  Net Revenue
+                </th>
+
+                <th>
+                  Employee
+                </th>
+
+                <th>
+                  Sale Date
+                </th>
+
+                <th>
+                </th>
+
+              </tr>
+
+            </thead>
+
+            <tbody id="salesTableBody">
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div
+          class="empty-state"
+          id="emptyState"
+        >
+
+          <div class="empty-icon">
+            ₵
+          </div>
+
+          <h3>
+            No sales recorded yet
+          </h3>
+
+          <p>
+            Completed sales will appear here when quote requests
+            are marked as won and their financial details are
+            stored in Firestore.
+          </p>
+
+        </div>
+
+        <div
+          class="pagination"
+          id="pagination"
+          style="display:none;"
+        >
+
+          <div
+            class="pagination-info"
+            id="paginationInfo"
+          >
+            Showing 0 sales
+          </div>
+
+          <div class="pagination-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary btn-small"
+              id="previousButton"
+              disabled
+            >
+              ← Previous
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-secondary btn-small"
+              id="nextButton"
+              disabled
+            >
+              Next →
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       SALE DETAIL MODAL
+  ========================================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="saleModal"
+    aria-hidden="true"
+  >
+
+    <section
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="saleModalTitle"
+    >
+
+      <div class="modal-head">
+
+        <div>
+
+          <div
+            class="modal-title"
+            id="saleModalTitle"
+          >
+            Sale Details
+          </div>
+
+          <div
+            class="modal-subtitle"
+            id="saleModalSubtitle"
+          >
+            Completed sale
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close sale details"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div
+          class="not-connected"
+          id="firebaseNotice"
+        >
+
+          <div>
+
+            <strong>
+              Firebase is not connected yet.
+            </strong>
+
+            Sales are currently waiting for Firestore data.
+            No sales are being invented or stored locally.
+
+          </div>
+
+        </div>
+
+        <div class="detail-grid">
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Customer
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailCustomer"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Phone
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailPhone"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Service
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailService"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Sale Date
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailDate"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Gross Sale
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailGross"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Discount
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailDiscount"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card revenue-highlight">
+
+            <div class="detail-label">
+              Net Revenue
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailNet"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card">
+
+            <div class="detail-label">
+              Assigned Employee
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailEmployee"
+            >
+              —
+            </div>
+
+          </div>
+
+          <div class="detail-card full">
+
+            <div class="detail-label">
+              Quote ID
+            </div>
+
+            <div
+              class="detail-value"
+              id="detailQuoteId"
+            >
+              —
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="modalCancel"
+        >
+          Close
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+    /* =========================================================
+       LIKESTAR SALES MANAGEMENT
+    ========================================================= */
+
+    const MANAGEMENT_CONFIG = {
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+    };
+
+    /*
+     * IMPORTANT:
+     *
+     * Sales are intentionally not duplicated into another
+     * collection at this stage.
+     *
+     * The initial source of truth is:
+     *
+     * quotes/{quoteId}
+     *
+     * where:
+     *
+     * status === "won"
+     *
+     * and:
+     *
+     * netRevenue > 0
+     *
+     * This prevents Quote Tracking and Sales from becoming
+     * two independent systems that can disagree.
+     */
+
+    let saleRecords = [];
+
+    let employeeRecords = [];
+
+    let activeSaleId = null;
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const elements = {
+      sidebar:
+        document.getElementById("sidebar"),
+
+      sidebarOverlay:
+        document.getElementById("sidebarOverlay"),
+
+      mobileMenuButton:
+        document.getElementById("mobileMenuButton"),
+
+      refreshButton:
+        document.getElementById("refreshButton"),
+
+      notificationButton:
+        document.getElementById("notificationButton"),
+
+      search:
+        document.getElementById("salesSearch"),
+
+      dateFilter:
+        document.getElementById("dateFilter"),
+
+      serviceFilter:
+        document.getElementById("serviceFilter"),
+
+      employeeFilter:
+        document.getElementById("employeeFilter"),
+
+      resetButton:
+        document.getElementById("resetButton"),
+
+      tableBody:
+        document.getElementById("salesTableBody"),
+
+      emptyState:
+        document.getElementById("emptyState"),
+
+      resultCount:
+        document.getElementById("resultCount"),
+
+      pagination:
+        document.getElementById("pagination"),
+
+      paginationInfo:
+        document.getElementById("paginationInfo"),
+
+      previousButton:
+        document.getElementById("previousButton"),
+
+      nextButton:
+        document.getElementById("nextButton"),
+
+      modal:
+        document.getElementById("saleModal"),
+
+      modalClose:
+        document.getElementById("modalClose"),
+
+      modalCancel:
+        document.getElementById("modalCancel")
+    };
+
+    /* =========================================================
+       ROLE
+    ========================================================= */
+
+    function applyRole() {
+
+      const role =
+        MANAGEMENT_CONFIG
+          .developmentUser
+          .role ||
+        MANAGEMENT_CONFIG
+          .developmentRole ||
+        "staff";
+
+      document.body.classList.remove(
+        "role-owner",
+        "role-manager",
+        "role-staff",
+        "role-designer"
+      );
+
+      document.body.classList.add(
+        "role-" + role
+      );
+
+      const name =
+        MANAGEMENT_CONFIG
+          .developmentUser
+          .name ||
+        "Admin User";
+
+      const initials =
+        getInitials(name);
+
+      document.getElementById(
+        "sidebarUserName"
+      ).textContent = name;
+
+      document.getElementById(
+        "sidebarUserRole"
+      ).textContent = role;
+
+      document.getElementById(
+        "topbarUserName"
+      ).textContent = name;
+
+      document.getElementById(
+        "topbarUserRole"
+      ).textContent = role;
+
+      document.getElementById(
+        "sidebarAvatar"
+      ).textContent = initials;
+
+      document.getElementById(
+        "topbarAvatar"
+      ).textContent = initials;
+    }
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getInitials(name) {
+
+      const parts =
+        String(name || "User")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (!parts.length) {
+        return "U";
+      }
+
+      if (parts.length === 1) {
+        return parts[0]
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+      ).toUpperCase();
+    }
+
+    function toDate(value) {
+
+      if (!value) {
+        return null;
+      }
+
+      if (value instanceof Date) {
+        return value;
+      }
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+        return value.toDate();
+      }
+
+      if (
+        typeof value === "object" &&
+        typeof value.seconds === "number"
+      ) {
+        return new Date(
+          value.seconds * 1000
+        );
+      }
+
+      const parsed =
+        new Date(value);
+
+      return Number.isNaN(
+        parsed.getTime()
+      )
+        ? null
+        : parsed;
+    }
+
+    function formatDate(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return "—";
+      }
+
+      return date.toLocaleDateString(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+    function formatDateTime(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return "—";
+      }
+
+      return date.toLocaleString(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+    }
+
+    function formatMoney(
+      amount,
+      currency = "GHS"
+    ) {
+
+      const value =
+        Number(amount);
+
+      if (!Number.isFinite(value)) {
+        return "—";
+      }
+
+      const symbol =
+        currency === "GHS"
+          ? "GH₵"
+          : currency;
+
+      return (
+        symbol +
+        " " +
+        value.toLocaleString(
+          "en-GH",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+      );
+    }
+
+    function formatDiscount(record) {
+
+      const discount =
+        record.discount;
+
+      if (
+        !discount ||
+        !Number(discount.amount)
+      ) {
+        return "No discount";
+      }
+
+      if (
+        discount.type ===
+        "percentage"
+      ) {
+
+        return (
+          Number(
+            discount.value
+          ) +
+          "% · " +
+          formatMoney(
+            discount.amount,
+            record.currency ||
+            "GHS"
+          )
+        );
+      }
+
+      return formatMoney(
+        discount.amount,
+        record.currency ||
+        "GHS"
+      );
+    }
+
+    /* =========================================================
+       DATE FILTER
+    ========================================================= */
+
+    function matchesDateFilter(
+      record,
+      filter
+    ) {
+
+      if (filter === "all") {
+        return true;
+      }
+
+      const saleDate =
+        toDate(
+          record.wonAt ||
+          record.saleDate ||
+          record.createdAt
+        );
+
+      if (!saleDate) {
+        return false;
+      }
+
+      const now =
+        new Date();
+
+      if (filter === "today") {
+
+        return (
+          saleDate.toDateString() ===
+          now.toDateString()
+        );
+      }
+
+      if (filter === "week") {
+
+        const start =
+          new Date(now);
+
+        const day =
+          start.getDay();
+
+        const difference =
+          day === 0
+            ? 6
+            : day - 1;
+
+        start.setDate(
+          start.getDate() -
+          difference
+        );
+
+        start.setHours(
+          0,
+          0,
+          0,
+          0
+        );
+
+        return saleDate >= start;
+      }
+
+      if (filter === "month") {
+
+        return (
+          saleDate.getFullYear() ===
+          now.getFullYear() &&
+          saleDate.getMonth() ===
+          now.getMonth()
+        );
+      }
+
+      if (filter === "year") {
+
+        return (
+          saleDate.getFullYear() ===
+          now.getFullYear()
+        );
+      }
+
+      return true;
+    }
+
+    /* =========================================================
+       FILTERS
+    ========================================================= */
+
+    function getFilteredSales() {
+
+      const search =
+        elements.search.value
+          .trim()
+          .toLowerCase();
+
+      const dateFilter =
+        elements.dateFilter.value;
+
+      const service =
+        elements.serviceFilter.value;
+
+      const employee =
+        elements.employeeFilter.value;
+
+      return saleRecords.filter(
+        sale => {
+
+          if (
+            !matchesDateFilter(
+              sale,
+              dateFilter
+            )
+          ) {
+            return false;
+          }
+
+          if (
+            service !== "all" &&
+            String(
+              sale.serviceId || ""
+            ) !== service
+          ) {
+            return false;
+          }
+
+          if (
+            employee !== "all" &&
+            String(
+              sale.assignedTo || ""
+            ) !== employee
+          ) {
+            return false;
+          }
+
+          if (!search) {
+            return true;
+          }
+
+          const searchable = [
+            sale.id,
+            sale.quoteNumber,
+            sale.customerName,
+            sale.phone,
+            sale.serviceName,
+            sale.description
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+          return searchable.includes(
+            search
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       FILTER OPTIONS
+    ========================================================= */
+
+    function populateFilters() {
+
+      const serviceMap =
+        new Map();
+
+      saleRecords.forEach(
+        sale => {
+
+          if (
+            sale.serviceId &&
+            sale.serviceName
+          ) {
+
+            serviceMap.set(
+              sale.serviceId,
+              sale.serviceName
+            );
+          }
+        }
+      );
+
+      elements.serviceFilter.innerHTML =
+        `<option value="all">
+          All services
+        </option>`;
+
+      serviceMap.forEach(
+        (name, id) => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+          option.value = id;
+          option.textContent = name;
+
+          elements.serviceFilter.appendChild(
+            option
+          );
+        }
+      );
+
+      elements.employeeFilter.innerHTML =
+        `<option value="all">
+          All employees
+        </option>`;
+
+      employeeRecords.forEach(
+        employee => {
+
+          if (!employee.uid) {
+            return;
+          }
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+          option.value =
+            employee.uid;
+
+          option.textContent =
+            employee.name ||
+            employee.email ||
+            employee.uid;
+
+          elements.employeeFilter.appendChild(
+            option
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       RENDER TABLE
+    ========================================================= */
+
+    function renderSales() {
+
+      const records =
+        getFilteredSales();
+
+      elements.tableBody.innerHTML =
+        "";
+
+      elements.resultCount.textContent =
+        records.length +
+        (
+          records.length === 1
+            ? " sale"
+            : " sales"
+        );
+
+      if (!records.length) {
+
+        elements.emptyState.style.display =
+          "block";
+
+        elements.pagination.style.display =
+          "none";
+
+        return;
+      }
+
+      elements.emptyState.style.display =
+        "none";
+
+      elements.pagination.style.display =
+        "flex";
+
+      elements.paginationInfo.textContent =
+        "Showing " +
+        records.length +
+        " sale" +
+        (
+          records.length === 1
+            ? ""
+            : "s"
+        );
+
+      /*
+       * Pagination buttons are disabled for now because the
+       * development dataset is empty.
+       *
+       * Firebase cursor pagination will be connected when
+       * Firestore is enabled.
+       */
+
+      elements.previousButton.disabled =
+        true;
+
+      elements.nextButton.disabled =
+        true;
+
+      records.forEach(
+        sale => {
+
+          const row =
+            document.createElement("tr");
+
+          const saleDate =
+            sale.wonAt ||
+            sale.saleDate ||
+            sale.createdAt;
+
+          const employee =
+            sale.assignedToName ||
+            "Unassigned";
+
+          row.innerHTML = `
+
+            <td>
+
+              <div class="sale-id">
+                ${escapeHtml(
+                  sale.quoteNumber ||
+                  sale.id ||
+                  "Sale"
+                )}
+              </div>
+
+              <div class="secondary-text">
+                From won quote
+              </div>
+
+            </td>
+
+            <td>
+
+              <div class="customer-name">
+                ${escapeHtml(
+                  sale.customerName ||
+                  "Unknown customer"
+                )}
+              </div>
+
+              <div class="secondary-text">
+                ${escapeHtml(
+                  sale.phone ||
+                  "No phone"
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div>
+                ${escapeHtml(
+                  sale.serviceName ||
+                  "—"
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div class="money">
+                ${escapeHtml(
+                  formatMoney(
+                    sale.grossSaleAmount,
+                    sale.currency ||
+                    "GHS"
+                  )
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div>
+                ${escapeHtml(
+                  formatDiscount(
+                    sale
+                  )
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div class="net-money">
+                ${escapeHtml(
+                  formatMoney(
+                    sale.netRevenue,
+                    sale.currency ||
+                    "GHS"
+                  )
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div class="employee-cell">
+
+                <div class="employee-avatar">
+                  ${escapeHtml(
+                    getInitials(
+                      employee
+                    )
+                  )}
+                </div>
+
+                <span>
+                  ${escapeHtml(
+                    employee
+                  )}
+                </span>
+
+              </div>
+
+            </td>
+
+            <td>
+
+              <div>
+                ${escapeHtml(
+                  formatDate(
+                    saleDate
+                  )
+                )}
+              </div>
+
+            </td>
+
+            <td>
+
+              <div class="row-actions">
+
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-small"
+                  data-action="view"
+                  data-id="${escapeHtml(
+                    sale.id || ""
+                  )}"
+                >
+                  View
+                </button>
+
+              </div>
+
+            </td>
+
+          `;
+
+          elements.tableBody.appendChild(
+            row
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       STATS
+    ========================================================= */
+
+    function renderStats() {
+
+      const total =
+        saleRecords.length;
+
+      const revenue =
+        saleRecords.reduce(
+          (
+            sum,
+            sale
+          ) =>
+            sum +
+            (
+              Number(
+                sale.netRevenue
+              ) || 0
+            ),
+          0
+        );
+
+      const now =
+        new Date();
+
+      const monthlyRevenue =
+        saleRecords.reduce(
+          (
+            sum,
+            sale
+          ) => {
+
+            const date =
+              toDate(
+                sale.wonAt ||
+                sale.saleDate ||
+                sale.createdAt
+              );
+
+            if (
+              !date ||
+              date.getFullYear() !==
+                now.getFullYear() ||
+              date.getMonth() !==
+                now.getMonth()
+            ) {
+              return sum;
+            }
+
+            return (
+              sum +
+              (
+                Number(
+                  sale.netRevenue
+                ) || 0
+              )
+            );
+          },
+          0
+        );
+
+      const average =
+        total > 0
+          ? revenue / total
+          : 0;
+
+      document.getElementById(
+        "statTotalSales"
+      ).textContent =
+        total;
+
+      document.getElementById(
+        "statRevenue"
+      ).textContent =
+        formatMoney(
+          revenue
+        );
+
+      document.getElementById(
+        "statMonth"
+      ).textContent =
+        formatMoney(
+          monthlyRevenue
+        );
+
+      document.getElementById(
+        "statAverage"
+      ).textContent =
+        formatMoney(
+          average
+        );
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    function openSaleModal(id) {
+
+      const sale =
+        saleRecords.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if (!sale) {
+        return;
+      }
+
+      activeSaleId =
+        sale.id;
+
+      const saleNumber =
+        sale.quoteNumber ||
+        sale.id ||
+        "Sale Details";
+
+      elements.modal.querySelector(
+        "#saleModalTitle"
+      ).textContent =
+        saleNumber;
+
+      elements.modal.querySelector(
+        "#saleModalSubtitle"
+      ).textContent =
+        (
+          sale.customerName ||
+          "Customer"
+        ) +
+        " · " +
+        (
+          sale.serviceName ||
+          "Sale"
+        );
+
+      document.getElementById(
+        "detailCustomer"
+      ).textContent =
+        sale.customerName ||
+        "—";
+
+      document.getElementById(
+        "detailPhone"
+      ).textContent =
+        sale.phone ||
+        "—";
+
+      document.getElementById(
+        "detailService"
+      ).textContent =
+        sale.serviceName ||
+        "—";
+
+      document.getElementById(
+        "detailDate"
+      ).textContent =
+        formatDateTime(
+          sale.wonAt ||
+          sale.saleDate ||
+          sale.createdAt
+        );
+
+      document.getElementById(
+        "detailGross"
+      ).textContent =
+        formatMoney(
+          sale.grossSaleAmount,
+          sale.currency ||
+          "GHS"
+        );
+
+      document.getElementById(
+        "detailDiscount"
+      ).textContent =
+        formatDiscount(
+          sale
+        );
+
+      document.getElementById(
+        "detailNet"
+      ).textContent =
+        formatMoney(
+          sale.netRevenue,
+          sale.currency ||
+          "GHS"
+        );
+
+      document.getElementById(
+        "detailEmployee"
+      ).textContent =
+        sale.assignedToName ||
+        "Unassigned";
+
+      document.getElementById(
+        "detailQuoteId"
+      ).textContent =
+        sale.id ||
+        "—";
+
+      elements.modal.classList.add(
+        "open"
+      );
+
+      elements.modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "modal-open"
+      );
+    }
+
+    function closeModal() {
+
+      activeSaleId =
+        null;
+
+      elements.modal.classList.remove(
+        "open"
+      );
+
+      elements.modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "modal-open"
+      );
+    }
+
+    /* =========================================================
+       MOBILE SIDEBAR
+    ========================================================= */
+
+    function openSidebar() {
+
+      elements.sidebar.classList.add(
+        "open"
+      );
+
+      elements.sidebarOverlay.classList.add(
+        "open"
+      );
+
+      elements.mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+    function closeSidebar() {
+
+      elements.sidebar.classList.remove(
+        "open"
+      );
+
+      elements.sidebarOverlay.classList.remove(
+        "open"
+      );
+
+      elements.mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+
+    /* =========================================================
+       REFRESH
+    ========================================================= */
+
+    function refreshSales() {
+
+      /*
+       * Firebase implementation:
+       *
+       * Load only won quotes.
+       *
+       * Example:
+       *
+       * collection("quotes")
+       *   .where("status", "==", "won")
+       *   .orderBy("wonAt", "desc")
+       *   .limit(50)
+       *
+       * Then use cursor pagination for subsequent pages.
+       *
+       * Do not load the entire quotes collection.
+       */
+
+      renderStats();
+
+      renderSales();
+
+      if (
+        !MANAGEMENT_CONFIG
+          .firebaseConnected
+      ) {
+
+        console.info(
+          "LikeStar Sales: Firebase is not connected."
+        );
+      }
+    }
+
+    /* =========================================================
+       EVENTS
+    ========================================================= */
+
+    elements.mobileMenuButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          elements.sidebar.classList.contains(
+            "open"
+          )
+        ) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      }
+    );
+
+    elements.sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (
+          window.innerWidth >
+          900
+        ) {
+          closeSidebar();
+        }
+      }
+    );
+
+    [
+      elements.search,
+      elements.dateFilter,
+      elements.serviceFilter,
+      elements.employeeFilter
+    ].forEach(
+      control => {
+
+        control.addEventListener(
+          "input",
+          renderSales
+        );
+
+        control.addEventListener(
+          "change",
+          renderSales
+        );
+      }
+    );
+
+    elements.resetButton.addEventListener(
+      "click",
+      () => {
+
+        elements.search.value =
+          "";
+
+        elements.dateFilter.value =
+          "all";
+
+        elements.serviceFilter.value =
+          "all";
+
+        elements.employeeFilter.value =
+          "all";
+
+        renderSales();
+      }
+    );
+
+    elements.refreshButton.addEventListener(
+      "click",
+      refreshSales
+    );
+
+    elements.notificationButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          !MANAGEMENT_CONFIG
+            .firebaseConnected
+        ) {
+
+          alert(
+            "Notifications will become active after Firebase is connected."
+          );
+
+          return;
+        }
+      }
+    );
+
+    elements.tableBody.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(
+            "[data-action='view']"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        openSaleModal(
+          button.dataset.id
+        );
+      }
+    );
+
+    elements.modalClose.addEventListener(
+      "click",
+      closeModal
+    );
+
+    elements.modalCancel.addEventListener(
+      "click",
+      closeModal
+    );
+
+    elements.modal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          elements.modal
+        ) {
+          closeModal();
+        }
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          closeModal();
+          closeSidebar();
+        }
+      }
+    );
+
+    /* =========================================================
+       FIREBASE DATA MODEL
+    =========================================================
+
+      The first version intentionally uses WON QUOTES
+      as the sales source of truth.
+
+      quotes/{quoteId}
+
+      {
+        customerId: "customerDocumentId",
+        customerName: "Customer Name",
+        phone: "0200000000",
+        email: "customer@example.com",
+
+        serviceId: "serviceDocumentId",
+        serviceName: "T-Shirt Printing",
+
+        description: "50 branded T-shirts",
+
+        status: "won",
+
+        quotedAmount: 500,
+
+        grossSaleAmount: 500,
+
+        discount: {
+          type: "percentage",
+          value: 5,
+          amount: 25
+        },
+
+        netRevenue: 475,
+
+        currency: "GHS",
+
+        assignedTo: "firebase-auth-uid",
+        assignedToName: "Employee Name",
+
+        createdAt: Timestamp,
+        contactedAt: Timestamp,
+        quotedAt: Timestamp,
+        wonAt: Timestamp,
+
+        followUpAt: null,
+        lastContactedAt: Timestamp,
+
+        notes: "Customer confirmed order."
+      }
+
+
+      WHY NOT A SALES COLLECTION YET?
+
+      Because:
+
+      Quote
+        ↓
+      Won
+        ↓
+      Sale
+
+      is already a clean business relationship.
+
+      Creating:
+
+      quotes
+      +
+      sales
+
+      immediately introduces the possibility that a quote says
+      GH₵475 revenue while the sales collection says GH₵500.
+
+      The first architecture should therefore derive sales
+      from won quotes.
+
+      A dedicated sales collection can be introduced later if
+      accounting requirements become more complex.
+
+
+      FUTURE SALES FIELDS
+
+      When needed:
+
+      amountPaid
+      balanceDue
+      paymentStatus
+      productionCost
+      grossProfit
+
+      This allows:
+
+      netRevenue
+        - productionCost
+        =
+      grossProfit
+
+      and:
+
+      netRevenue
+        - amountPaid
+        =
+      balanceDue
+
+      Revenue is NOT profit.
+
+      Revenue is also NOT necessarily cash collected.
+
+
+      FIRESTORE QUERY
+
+      Initial bounded query:
+
+      collection("quotes")
+        .where("status", "==", "won")
+        .orderBy("wonAt", "desc")
+        .limit(50)
+
+
+      Larger datasets:
+
+      startAfter(lastDocument)
+        .limit(50)
+
+
+      Composite indexes may be required.
+
+
+      SECURITY
+
+      Firestore Security Rules must determine who can read
+      sales information.
+
+      Frontend role classes are only UI controls.
+
+      They are NOT security.
+
+
+      ACTIVITY LOG
+
+      Sales should not be manually deleted from this page.
+
+      Quote status changes and financial changes should create:
+
+      activityLogs/{logId}
+
+      {
+        action: "updated",
+        targetType: "quote",
+        targetId: quoteId,
+        targetName: quoteNumber,
+
+        performedBy: uid,
+        performedByName: employeeName,
+        performedByRole: employeeRole,
+
+        description: "Updated sale details",
+
+        createdAt: Timestamp,
+
+        metadata: {
+          previousNetRevenue: 450,
+          newNetRevenue: 475
+        }
+      }
+
+    ========================================================= */
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
+
+    applyRole();
+
+    populateFilters();
+
+    renderStats();
+
+    renderSales();
+
+  </script>
+
+</body>
+</html>

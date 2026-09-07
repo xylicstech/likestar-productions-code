@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications management settings."
+  >
+
+  <title>Settings — LikeStar Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+      --danger: #d92d20;
+      --danger-light: #fff1f0;
+      --success: #168a52;
+      --success-light: #eaf8f1;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, 0.06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar-width: 255px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       APP SHELL
+    ========================= */
+
+    .app {
+      min-height: 100vh;
+    }
+
+    /* =========================
+       SIDEBAR
+    ========================= */
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+
+      width: var(--sidebar-width);
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--white);
+      border-right: 1px solid var(--border);
+    }
+
+    .sidebar-brand {
+      min-height: 82px;
+      padding: 18px 22px;
+
+      display: flex;
+      align-items: center;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-brand img {
+      display: block;
+      width: 135px;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .sidebar-label {
+      padding: 22px 22px 10px;
+
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 12px 20px;
+    }
+
+    .nav-link {
+      min-height: 44px;
+      margin-bottom: 4px;
+      padding: 10px 12px;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      border-radius: 11px;
+
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .nav-link.active {
+      color: var(--blue);
+      background: var(--blue-light);
+      font-weight: 700;
+    }
+
+    .nav-icon {
+      width: 20px;
+      flex: 0 0 20px;
+
+      display: grid;
+      place-items: center;
+
+      font-size: 16px;
+    }
+
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .website-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      min-height: 42px;
+      padding: 10px 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .website-link:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    /* =========================
+       TOPBAR
+    ========================= */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+
+      height: 82px;
+      padding: 0 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--border);
+
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mobile-menu {
+      display: none;
+
+      width: 40px;
+      height: 40px;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+    }
+
+    .page-heading h1 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .page-heading p {
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .notification-btn {
+      position: relative;
+
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+
+      transition:
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .notification-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .notification-dot {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .employee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .employee-avatar {
+      width: 38px;
+      height: 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue);
+      color: var(--white);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .employee-info strong {
+      display: block;
+
+      color: var(--black);
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .employee-info span {
+      display: block;
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: capitalize;
+    }
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .content {
+      width: min(1180px, calc(100% - 64px));
+      margin: 0 auto;
+      padding: 34px 0 60px;
+    }
+
+    .settings-layout {
+      display: grid;
+      grid-template-columns: 205px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* =========================
+       SETTINGS NAV
+    ========================= */
+
+    .settings-nav {
+      position: sticky;
+      top: 106px;
+
+      padding: 8px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .settings-nav-title {
+      padding: 10px 10px 8px;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .settings-tab {
+      width: 100%;
+      padding: 10px 11px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      border: 0;
+      border-radius: 9px;
+
+      background: transparent;
+      color: var(--muted);
+
+      text-align: left;
+      font-size: 12px;
+      font-weight: 600;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .settings-tab:hover {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .settings-tab.active {
+      color: var(--blue);
+      background: var(--blue-light);
+      font-weight: 700;
+    }
+
+    /* =========================
+       SETTINGS CONTENT
+    ========================= */
+
+    .settings-content {
+      min-width: 0;
+    }
+
+    .settings-section {
+      display: none;
+    }
+
+    .settings-section.active {
+      display: block;
+    }
+
+    .section-intro {
+      margin-bottom: 20px;
+    }
+
+    .section-intro h2 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .section-intro p {
+      max-width: 680px;
+      margin-top: 6px;
+
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .settings-card {
+      margin-bottom: 18px;
+      padding: 24px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-heading {
+      margin-bottom: 20px;
+    }
+
+    .card-heading h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 15px;
+    }
+
+    .card-heading p {
+      margin-top: 4px;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .form-group {
+      min-width: 0;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      width: 100%;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--black);
+
+      outline: none;
+
+      transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .input,
+    .select {
+      min-height: 43px;
+      padding: 10px 12px;
+    }
+
+    .textarea {
+      min-height: 105px;
+      padding: 11px 12px;
+      resize: vertical;
+    }
+
+    .input:focus,
+    .textarea:focus,
+    .select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.10);
+    }
+
+    .input[disabled] {
+      background: var(--light);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .field-help {
+      margin-top: 5px;
+
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .save-row {
+      margin-top: 20px;
+      padding-top: 18px;
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .btn {
+      min-height: 41px;
+      padding: 9px 15px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+
+      border-radius: 9px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    /* =========================
+       TOGGLE ROWS
+    ========================= */
+
+    .toggle-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .toggle-row {
+      min-height: 66px;
+      padding: 14px 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toggle-row:first-child {
+      padding-top: 0;
+    }
+
+    .toggle-row:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .toggle-copy {
+      min-width: 0;
+    }
+
+    .toggle-copy strong {
+      display: block;
+
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .toggle-copy span {
+      display: block;
+      max-width: 620px;
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .switch {
+      position: relative;
+
+      width: 42px;
+      height: 24px;
+
+      flex: 0 0 42px;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+
+      border-radius: 999px;
+
+      background: #cbd5e1;
+
+      transition: background var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .slider::before {
+      content: "";
+
+      position: absolute;
+      top: 3px;
+      left: 3px;
+
+      width: 18px;
+      height: 18px;
+
+      border-radius: 50%;
+
+      background: var(--white);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+
+      transition: transform var(--transition-fast);
+    }
+
+    .switch input:checked + .slider {
+      background: var(--blue);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(18px);
+    }
+
+    /* =========================
+       SECURITY
+    ========================= */
+
+    .security-item {
+      padding: 17px 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .security-item:first-child {
+      padding-top: 0;
+    }
+
+    .security-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .security-copy strong {
+      display: block;
+
+      color: var(--black);
+      font-size: 12px;
+    }
+
+    .security-copy span {
+      display: block;
+      margin-top: 4px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .security-badge {
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      background: var(--success-light);
+      color: var(--success);
+
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .security-badge.neutral {
+      background: var(--light);
+      color: var(--muted);
+    }
+
+    /* =========================
+       DANGER
+    ========================= */
+
+    .danger-card {
+      border-color: #f2c8c5;
+      background: var(--danger-light);
+    }
+
+    .danger-card .card-heading h3 {
+      color: var(--danger);
+    }
+
+    .danger-card .card-heading p {
+      color: #8d4c47;
+    }
+
+    .danger-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-danger {
+      border: 1px solid var(--danger);
+      background: var(--white);
+      color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger);
+      color: var(--white);
+    }
+
+    /* =========================
+       SYSTEM STATUS
+    ========================= */
+
+    .system-status {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .status-box {
+      padding: 15px;
+
+      border: 1px solid var(--border);
+      border-radius: 12px;
+
+      background: var(--light);
+    }
+
+    .status-box strong {
+      display: block;
+
+      color: var(--black);
+      font-size: 12px;
+    }
+
+    .status-box span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      margin-top: 6px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .status-dot.offline {
+      background: var(--orange);
+    }
+
+    /* =========================
+       MOBILE OVERLAY
+    ========================= */
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+
+      background: rgba(11, 23, 40, 0.45);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .sidebar-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1100px) {
+      :root {
+        --sidebar-width: 230px;
+      }
+
+      .content {
+        width: min(100% - 42px, 1080px);
+      }
+
+      .settings-layout {
+        grid-template-columns: 185px minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        box-shadow: var(--shadow-md);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu {
+        display: flex;
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .settings-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .settings-nav {
+        position: static;
+
+        display: flex;
+        gap: 5px;
+
+        overflow-x: auto;
+        padding: 7px;
+      }
+
+      .settings-nav-title {
+        display: none;
+      }
+
+      .settings-tab {
+        width: auto;
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .content {
+        width: calc(100% - 30px);
+        padding-top: 24px;
+      }
+
+      .topbar {
+        height: 72px;
+        padding: 0 15px;
+      }
+
+      .page-heading h1 {
+        font-size: 18px;
+      }
+
+      .page-heading p {
+        display: none;
+      }
+
+      .employee-info {
+        display: none;
+      }
+
+      .topbar-right {
+        gap: 8px;
+      }
+
+      .settings-card {
+        padding: 18px;
+        border-radius: 15px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .system-status {
+        grid-template-columns: 1fr;
+      }
+
+      .toggle-row,
+      .security-item {
+        align-items: flex-start;
+      }
+
+      .save-row {
+        justify-content: stretch;
+      }
+
+      .save-row .btn {
+        flex: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- =========================
+         SIDEBAR OVERLAY
+    ========================= -->
+
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      aria-hidden="true"
+    ></div>
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Management navigation"
+    >
+
+      <div class="sidebar-brand">
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+        >
+      </div>
+
+      <div class="sidebar-label">
+        Management
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <a
+          href="management-dashboard.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">⌂</span>
+          <span>Dashboard</span>
+        </a>
+
+        <a
+          href="management-quotes.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">▤</span>
+          <span>Quotes</span>
+        </a>
+
+        <a
+          href="management-customers.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">♙</span>
+          <span>Customers</span>
+        </a>
+
+        <a
+          href="management-reviews.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">★</span>
+          <span>Reviews</span>
+        </a>
+
+        <a
+          href="management-services.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">▦</span>
+          <span>Services</span>
+        </a>
+
+        <a
+          href="management-portfolio.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">▧</span>
+          <span>Portfolio</span>
+        </a>
+
+        <a
+          href="management-employees.html"
+          class="nav-link"
+          data-role-only="owner"
+        >
+          <span class="nav-icon">♧</span>
+          <span>Employees</span>
+        </a>
+
+        <a
+          href="management-activity.html"
+          class="nav-link"
+          data-role-only="owner manager"
+        >
+          <span class="nav-icon">◷</span>
+          <span>Activity</span>
+        </a>
+
+        <a
+          href="management-settings.html"
+          class="nav-link active"
+          data-role-only="owner manager"
+        >
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-footer">
+        <a
+          href="index.html"
+          class="website-link"
+        >
+          ↗
+          <span>View Website</span>
+        </a>
+      </div>
+
+    </aside>
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+      <!-- =========================
+           TOPBAR
+      ========================= -->
+
+      <header class="topbar">
+
+        <div class="topbar-left">
+
+          <button
+            type="button"
+            class="mobile-menu"
+            id="mobileMenu"
+            aria-label="Open navigation"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+
+          <div class="page-heading">
+            <h1>Settings</h1>
+            <p>Manage LikeStar's business and management preferences.</p>
+          </div>
+
+        </div>
+
+        <div class="topbar-right">
+
+          <button
+            type="button"
+            class="notification-btn"
+            aria-label="Notifications"
+          >
+            ♢
+            <span class="notification-dot"></span>
+          </button>
+
+          <div class="employee">
+
+            <div
+              class="employee-avatar"
+              id="employeeAvatar"
+            >
+              AD
+            </div>
+
+            <div class="employee-info">
+              <strong id="employeeName">
+                Admin User
+              </strong>
+
+              <span id="employeeRole">
+                Owner
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- =========================
+           CONTENT
+      ========================= -->
+
+      <div class="content">
+
+        <div class="settings-layout">
+
+          <!-- SETTINGS NAV -->
+
+          <aside class="settings-nav">
+
+            <div class="settings-nav-title">
+              Settings
+            </div>
+
+            <button
+              type="button"
+              class="settings-tab active"
+              data-target="business"
+            >
+              <span>▣</span>
+              <span>Business</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="notifications"
+            >
+              <span>♢</span>
+              <span>Notifications</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="quotes"
+            >
+              <span>▤</span>
+              <span>Quotes</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="reviews"
+            >
+              <span>★</span>
+              <span>Reviews</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="website"
+            >
+              <span>◉</span>
+              <span>Website</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="security"
+            >
+              <span>⌕</span>
+              <span>Security</span>
+            </button>
+
+            <button
+              type="button"
+              class="settings-tab"
+              data-target="system"
+            >
+              <span>⚙</span>
+              <span>System</span>
+            </button>
+
+          </aside>
+
+          <!-- SETTINGS CONTENT -->
+
+          <div class="settings-content">
+
+            <!-- =========================
+                 BUSINESS
+            ========================= -->
+
+            <section
+              class="settings-section active"
+              id="settings-business"
+            >
+
+              <div class="section-intro">
+                <h2>Business information</h2>
+                <p>
+                  Keep the information used across the LikeStar website,
+                  quote requests and customer communication in one place.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Company details</h3>
+                  <p>
+                    Basic business information displayed to customers.
+                  </p>
+                </div>
+
+                <form
+                  class="settings-form"
+                  data-form="business"
+                >
+
+                  <div class="form-grid">
+
+                    <div class="form-group">
+                      <label for="businessName">
+                        Business Name
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessName"
+                        type="text"
+                        value="LikeStar Publications"
+                        autocomplete="organization"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessPhone">
+                        Phone Number
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessPhone"
+                        type="tel"
+                        value="0209004412"
+                        autocomplete="tel"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessEmail">
+                        Business Email
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessEmail"
+                        type="email"
+                        value="likestarpublication@gmail.com"
+                        autocomplete="email"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessWhatsapp">
+                        WhatsApp Number
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessWhatsapp"
+                        type="tel"
+                        value="233530543423"
+                      >
+
+                      <div class="field-help">
+                        Use the international format without the + sign.
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessAddress">
+                        Business Address
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessAddress"
+                        type="text"
+                        placeholder="Enter business address"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessCity">
+                        City
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessCity"
+                        type="text"
+                        placeholder="Enter city"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessCountry">
+                        Country
+                      </label>
+
+                      <input
+                        class="input"
+                        id="businessCountry"
+                        type="text"
+                        value="Ghana"
+                      >
+                    </div>
+
+                    <div class="form-group">
+                      <label for="businessCurrency">
+                        Currency
+                      </label>
+
+                      <select
+                        class="select"
+                        id="businessCurrency"
+                      >
+                        <option value="GHS" selected>
+                          Ghana Cedi (GHS)
+                        </option>
+
+                        <option value="USD">
+                          US Dollar (USD)
+                        </option>
+
+                        <option value="EUR">
+                          Euro (EUR)
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group full">
+                      <label for="businessDescription">
+                        Short Business Description
+                      </label>
+
+                      <textarea
+                        class="textarea"
+                        id="businessDescription"
+                        placeholder="Describe LikeStar Publications..."
+                      >Printing, graphic design, branding and custom printing services.</textarea>
+                    </div>
+
+                  </div>
+
+                  <div class="save-row">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-reset-form="business"
+                    >
+                      Reset
+                    </button>
+
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                    >
+                      Save Changes
+                    </button>
+                  </div>
+
+                </form>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 NOTIFICATIONS
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-notifications"
+            >
+
+              <div class="section-intro">
+                <h2>Notifications</h2>
+                <p>
+                  Control which management events should generate
+                  notifications for staff and managers.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Management notifications</h3>
+                  <p>
+                    These preferences can later be stored per employee.
+                  </p>
+                </div>
+
+                <div class="toggle-list">
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>New quote requests</strong>
+                      <span>
+                        Notify when a customer submits a new quote request.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-setting="notifyQuotes"
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>New customer reviews</strong>
+                      <span>
+                        Notify managers when a new review requires moderation.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-setting="notifyReviews"
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Employee activity</strong>
+                      <span>
+                        Notify owners about important employee management actions.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-setting="notifyEmployeeActivity"
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Security events</strong>
+                      <span>
+                        Notify about important authentication and account events.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                        data-setting="notifySecurity"
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Notification delivery</h3>
+                  <p>
+                    These options define where management notifications may be delivered.
+                  </p>
+                </div>
+
+                <div class="toggle-list">
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Dashboard notifications</strong>
+                      <span>
+                        Show notifications inside the management dashboard.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Email notifications</strong>
+                      <span>
+                        Email delivery will become available after the required backend service is connected.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        disabled
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 QUOTES
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-quotes"
+            >
+
+              <div class="section-intro">
+                <h2>Quote settings</h2>
+                <p>
+                  Define how incoming quote requests should behave in the
+                  management system.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Quote workflow</h3>
+                  <p>
+                    These settings control the operational flow, not customer permissions.
+                  </p>
+                </div>
+
+                <form
+                  class="settings-form"
+                  data-form="quotes"
+                >
+
+                  <div class="form-grid">
+
+                    <div class="form-group">
+                      <label for="defaultQuoteStatus">
+                        New Quote Status
+                      </label>
+
+                      <select
+                        class="select"
+                        id="defaultQuoteStatus"
+                      >
+                        <option value="new" selected>
+                          New
+                        </option>
+
+                        <option value="contacted">
+                          Contacted
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="quoteCurrency">
+                        Quote Currency
+                      </label>
+
+                      <select
+                        class="select"
+                        id="quoteCurrency"
+                      >
+                        <option value="GHS" selected>
+                          Ghana Cedi (GHS)
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="quoteExpiry">
+                        Quote Follow-up Period
+                      </label>
+
+                      <select
+                        class="select"
+                        id="quoteExpiry"
+                      >
+                        <option value="1">
+                          1 day
+                        </option>
+
+                        <option value="3" selected>
+                          3 days
+                        </option>
+
+                        <option value="7">
+                          7 days
+                        </option>
+
+                        <option value="14">
+                          14 days
+                        </option>
+                      </select>
+
+                      <div class="field-help">
+                        Used as an internal follow-up reminder period.
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="quotePage">
+                        Public Quote Page
+                      </label>
+
+                      <input
+                        class="input"
+                        id="quotePage"
+                        type="text"
+                        value="get-quote.html"
+                        disabled
+                      >
+                    </div>
+
+                  </div>
+
+                  <div class="save-row">
+
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                    >
+                      Reset
+                    </button>
+
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                    >
+                      Save Changes
+                    </button>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 REVIEWS
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-reviews"
+            >
+
+              <div class="section-intro">
+                <h2>Review settings</h2>
+                <p>
+                  Control how customer reviews are moderated before appearing publicly.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Moderation</h3>
+                  <p>
+                    Public reviews should be approved before they are displayed.
+                  </p>
+                </div>
+
+                <div class="toggle-list">
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Require approval</strong>
+                      <span>
+                        New customer reviews remain pending until a manager approves them.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Show public ratings</strong>
+                      <span>
+                        Display the approved average rating on the public website.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Allow customer names</strong>
+                      <span>
+                        Allow approved customer names to appear alongside testimonials.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Homepage testimonials</h3>
+                  <p>
+                    Configure how approved testimonials are selected for the homepage.
+                  </p>
+                </div>
+
+                <div class="form-grid">
+
+                  <div class="form-group">
+                    <label for="testimonialCount">
+                      Testimonials Shown
+                    </label>
+
+                    <select
+                      class="select"
+                      id="testimonialCount"
+                    >
+                      <option value="1">
+                        1
+                      </option>
+
+                      <option value="2">
+                        2
+                      </option>
+
+                      <option value="3" selected>
+                        3
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="testimonialSelection">
+                      Selection Method
+                    </label>
+
+                    <select
+                      class="select"
+                      id="testimonialSelection"
+                    >
+                      <option value="random" selected>
+                        Random approved reviews
+                      </option>
+
+                      <option value="recent">
+                        Most recent approved reviews
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 WEBSITE
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-website"
+            >
+
+              <div class="section-intro">
+                <h2>Website settings</h2>
+                <p>
+                  Manage public-facing behaviour that can safely be configured
+                  without editing the website code.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Public website</h3>
+                  <p>
+                    These controls will later be backed by Firestore.
+                  </p>
+                </div>
+
+                <div class="toggle-list">
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Website online</strong>
+                      <span>
+                        Keep the public LikeStar website available to visitors.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Accept quote requests</strong>
+                      <span>
+                        Allow customers to submit quote requests through the website.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Show portfolio</strong>
+                      <span>
+                        Display published portfolio projects on the public website.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="toggle-row">
+
+                    <div class="toggle-copy">
+                      <strong>Show customer reviews</strong>
+                      <span>
+                        Display approved customer testimonials on the public website.
+                      </span>
+                    </div>
+
+                    <label class="switch">
+                      <input
+                        type="checkbox"
+                        checked
+                      >
+                      <span class="slider"></span>
+                    </label>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Maintenance mode</h3>
+                  <p>
+                    Use this only when the public site needs temporary maintenance.
+                  </p>
+                </div>
+
+                <div class="toggle-row">
+
+                  <div class="toggle-copy">
+                    <strong>Maintenance mode</strong>
+                    <span>
+                      When implemented, visitors will see a maintenance message instead of the normal website.
+                    </span>
+                  </div>
+
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      data-setting="maintenanceMode"
+                    >
+                    <span class="slider"></span>
+                  </label>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 SECURITY
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-security"
+            >
+
+              <div class="section-intro">
+                <h2>Security</h2>
+                <p>
+                  Security controls for the management system. Authentication
+                  and authorization will be enforced through Firebase.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Authentication</h3>
+                  <p>
+                    Current security architecture for employee access.
+                  </p>
+                </div>
+
+                <div class="security-item">
+
+                  <div class="security-copy">
+                    <strong>Employee authentication</strong>
+                    <span>
+                      Firebase Authentication will identify each employee individually.
+                    </span>
+                  </div>
+
+                  <span class="security-badge">
+                    Planned
+                  </span>
+
+                </div>
+
+                <div class="security-item">
+
+                  <div class="security-copy">
+                    <strong>Role-based access</strong>
+                    <span>
+                      Owner, manager, staff and designer roles will control management permissions.
+                    </span>
+                  </div>
+
+                  <span class="security-badge">
+                    Planned
+                  </span>
+
+                </div>
+
+                <div class="security-item">
+
+                  <div class="security-copy">
+                    <strong>Firestore security rules</strong>
+                    <span>
+                      Sensitive operations must be protected server-side by Firestore Rules.
+                    </span>
+                  </div>
+
+                  <span class="security-badge">
+                    Required
+                  </span>
+
+                </div>
+
+                <div class="security-item">
+
+                  <div class="security-copy">
+                    <strong>Activity audit log</strong>
+                    <span>
+                      Important employee actions should be recorded in activityLogs.
+                    </span>
+                  </div>
+
+                  <span class="security-badge">
+                    Planned
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Session preferences</h3>
+                  <p>
+                    These settings can be enforced after Firebase Authentication is connected.
+                  </p>
+                </div>
+
+                <div class="form-grid">
+
+                  <div class="form-group">
+                    <label for="sessionDuration">
+                      Session Duration
+                    </label>
+
+                    <select
+                      class="select"
+                      id="sessionDuration"
+                    >
+                      <option value="1">
+                        1 hour
+                      </option>
+
+                      <option value="8" selected>
+                        8 hours
+                      </option>
+
+                      <option value="24">
+                        24 hours
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="passwordPolicy">
+                      Password Policy
+                    </label>
+
+                    <select
+                      class="select"
+                      id="passwordPolicy"
+                    >
+                      <option value="standard" selected>
+                        Standard secure password
+                      </option>
+
+                      <option value="strong">
+                        Strong password
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </section>
+
+            <!-- =========================
+                 SYSTEM
+            ========================= -->
+
+            <section
+              class="settings-section"
+              id="settings-system"
+            >
+
+              <div class="section-intro">
+                <h2>System</h2>
+                <p>
+                  Technical status and configuration information for the LikeStar
+                  management system.
+                </p>
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>System status</h3>
+                  <p>
+                    Current frontend configuration. Live backend status will appear here after connection.
+                  </p>
+                </div>
+
+                <div class="system-status">
+
+                  <div class="status-box">
+                    <strong>Management Interface</strong>
+                    <span>
+                      <i class="status-dot"></i>
+                      Operational
+                    </span>
+                  </div>
+
+                  <div class="status-box">
+                    <strong>Firebase</strong>
+                    <span>
+                      <i class="status-dot offline"></i>
+                      Not connected
+                    </span>
+                  </div>
+
+                  <div class="status-box">
+                    <strong>Firestore</strong>
+                    <span>
+                      <i class="status-dot offline"></i>
+                      Awaiting configuration
+                    </span>
+                  </div>
+
+                  <div class="status-box">
+                    <strong>Authentication</strong>
+                    <span>
+                      <i class="status-dot offline"></i>
+                      Awaiting configuration
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card">
+
+                <div class="card-heading">
+                  <h3>Configuration</h3>
+                  <p>
+                    Current frontend application information.
+                  </p>
+                </div>
+
+                <div class="form-grid">
+
+                  <div class="form-group">
+                    <label for="appName">
+                      Application
+                    </label>
+
+                    <input
+                      class="input"
+                      id="appName"
+                      type="text"
+                      value="LikeStar Management"
+                      disabled
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="environment">
+                      Environment
+                    </label>
+
+                    <input
+                      class="input"
+                      id="environment"
+                      type="text"
+                      value="Development / Firebase pending"
+                      disabled
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="frontendVersion">
+                      Frontend Version
+                    </label>
+
+                    <input
+                      class="input"
+                      id="frontendVersion"
+                      type="text"
+                      value="1.0.0"
+                      disabled
+                    >
+                  </div>
+
+                  <div class="form-group">
+                    <label for="lastUpdated">
+                      Page Updated
+                    </label>
+
+                    <input
+                      class="input"
+                      id="lastUpdated"
+                      type="text"
+                      value="September 5, 2026"
+                      disabled
+                    >
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="settings-card danger-card">
+
+                <div class="card-heading">
+                  <h3>Danger zone</h3>
+                  <p>
+                    These actions are intentionally disabled until the backend is connected.
+                    Permanent deletion should not be part of normal management workflows.
+                  </p>
+                </div>
+
+                <div class="danger-actions">
+
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="clearLocalSettings"
+                  >
+                    Clear Local Settings
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    id="resetFrontend"
+                  >
+                    Reset Frontend Preferences
+                  </button>
+
+                </div>
+
+              </div>
+
+            </section>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    /* =========================================================
+       MANAGEMENT SETTINGS
+       ========================================================= */
+
+    const MANAGEMENT_CONFIG = {
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+    };
+
+
+    /* =========================================================
+       DOM
+       ========================================================= */
+
+    const sidebar =
+      document.getElementById("sidebar");
+
+    const sidebarOverlay =
+      document.getElementById("sidebarOverlay");
+
+    const mobileMenu =
+      document.getElementById("mobileMenu");
+
+    const settingsTabs =
+      document.querySelectorAll(".settings-tab");
+
+    const settingsSections =
+      document.querySelectorAll(".settings-section");
+
+
+    /* =========================================================
+       ROLE
+       ========================================================= */
+
+    const currentRole =
+      MANAGEMENT_CONFIG.developmentRole;
+
+    document.body.classList.add(
+      `role-${currentRole}`
+    );
+
+
+    /*
+     * Settings should only be available to owner
+     * and manager accounts.
+     *
+     * Final enforcement must happen through
+     * Firebase Authentication + Firestore Rules.
+     */
+
+    if (
+      currentRole !== "owner" &&
+      currentRole !== "manager"
+    ) {
+      window.location.href =
+        "management-dashboard.html";
+    }
+
+
+    /* =========================================================
+       EMPLOYEE DISPLAY
+       ========================================================= */
+
+    const employeeName =
+      document.getElementById("employeeName");
+
+    const employeeRole =
+      document.getElementById("employeeRole");
+
+    const employeeAvatar =
+      document.getElementById("employeeAvatar");
+
+
+    function getInitials(name) {
+      if (!name) return "AD";
+
+      return name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map(word => word.charAt(0))
+        .join("")
+        .toUpperCase();
+    }
+
+
+    const user =
+      MANAGEMENT_CONFIG.developmentUser;
+
+    employeeName.textContent =
+      user.name || "Admin User";
+
+    employeeRole.textContent =
+      user.role || "owner";
+
+    employeeAvatar.textContent =
+      getInitials(user.name);
+
+
+    /* =========================================================
+       MOBILE SIDEBAR
+       ========================================================= */
+
+    function openSidebar() {
+      sidebar.classList.add("open");
+      sidebarOverlay.classList.add("visible");
+      mobileMenu.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+      document.body.classList.add("no-scroll");
+    }
+
+
+    function closeSidebar() {
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("visible");
+      mobileMenu.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+      document.body.classList.remove("no-scroll");
+    }
+
+
+    mobileMenu.addEventListener(
+      "click",
+      () => {
+        if (sidebar.classList.contains("open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      }
+    );
+
+
+    sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+        if (window.innerWidth > 900) {
+          closeSidebar();
+        }
+      }
+    );
+
+
+    /* =========================================================
+       SETTINGS TABS
+       ========================================================= */
+
+    function activateSettingsSection(target) {
+
+      settingsTabs.forEach(tab => {
+        tab.classList.toggle(
+          "active",
+          tab.dataset.target === target
+        );
+      });
+
+      settingsSections.forEach(section => {
+        section.classList.toggle(
+          "active",
+          section.id === `settings-${target}`
+        );
+      });
+
+      try {
+        sessionStorage.setItem(
+          "likeStarSettingsTab",
+          target
+        );
+      } catch (error) {
+        console.warn(
+          "Could not save settings tab.",
+          error
+        );
+      }
+    }
+
+
+    settingsTabs.forEach(tab => {
+
+      tab.addEventListener(
+        "click",
+        () => {
+          activateSettingsSection(
+            tab.dataset.target
+          );
+        }
+      );
+
+    });
+
+
+    /* =========================================================
+       RESTORE TAB
+       ========================================================= */
+
+    try {
+
+      const savedTab =
+        sessionStorage.getItem(
+          "likeStarSettingsTab"
+        );
+
+      if (
+        savedTab &&
+        Array.from(settingsTabs)
+          .some(tab => tab.dataset.target === savedTab)
+      ) {
+        activateSettingsSection(savedTab);
+      }
+
+    } catch (error) {
+      console.warn(
+        "Could not restore settings tab.",
+        error
+      );
+    }
+
+
+    /* =========================================================
+       FORMS
+       ========================================================= */
+
+    document
+      .querySelectorAll(".settings-form")
+      .forEach(form => {
+
+        form.addEventListener(
+          "submit",
+          event => {
+
+            event.preventDefault();
+
+            const formName =
+              form.dataset.form;
+
+            if (
+              !MANAGEMENT_CONFIG.firebaseConnected
+            ) {
+
+              showManagementMessage(
+                `${capitalize(formName)} settings are ready, but Firebase is not connected yet.`
+              );
+
+              return;
+            }
+
+            /*
+             * Future Firestore save:
+             *
+             * await updateDoc(
+             *   doc(db, "settings", "business"),
+             *   {
+             *     ...
+             *   }
+             * );
+             *
+             * Also create an activityLogs document.
+             */
+
+          }
+        );
+
+      });
+
+
+    /* =========================================================
+       CAPITALIZE
+       ========================================================= */
+
+    function capitalize(value) {
+      if (!value) return "";
+
+      return value.charAt(0).toUpperCase()
+        + value.slice(1);
+    }
+
+
+    /* =========================================================
+       RESET
+       ========================================================= */
+
+    document
+      .querySelectorAll("[data-reset-form]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const formName =
+              button.dataset.resetForm;
+
+            showManagementMessage(
+              `${capitalize(formName)} settings were not changed.`
+            );
+
+          }
+        );
+
+      });
+
+
+    /* =========================================================
+       TOGGLES
+       ========================================================= */
+
+    document
+      .querySelectorAll(
+        'input[type="checkbox"]:not(:disabled)'
+      )
+      .forEach(toggle => {
+
+        toggle.addEventListener(
+          "change",
+          () => {
+
+            if (
+              !MANAGEMENT_CONFIG.firebaseConnected
+            ) {
+
+              showManagementMessage(
+                "This preference is ready for Firebase, but the backend is not connected yet."
+              );
+
+            }
+
+          }
+        );
+
+      });
+
+
+    /* =========================================================
+       DANGER ZONE
+       ========================================================= */
+
+    document
+      .getElementById("clearLocalSettings")
+      .addEventListener(
+        "click",
+        () => {
+
+          const confirmed =
+            window.confirm(
+              "Clear local LikeStar management preferences from this browser?"
+            );
+
+          if (!confirmed) return;
+
+          try {
+            sessionStorage.removeItem(
+              "likeStarSettingsTab"
+            );
+          } catch (error) {
+            console.warn(error);
+          }
+
+          showManagementMessage(
+            "Local management preferences cleared."
+          );
+
+        }
+      );
+
+
+    document
+      .getElementById("resetFrontend")
+      .addEventListener(
+        "click",
+        () => {
+
+          showManagementMessage(
+            "Frontend reset controls will be enabled only after the management backend is connected."
+          );
+
+        }
+      );
+
+
+    /* =========================================================
+       MESSAGE
+       ========================================================= */
+
+    let messageTimer = null;
+
+
+    function showManagementMessage(message) {
+
+      let notice =
+        document.getElementById(
+          "managementNotice"
+        );
+
+      if (!notice) {
+
+        notice =
+          document.createElement("div");
+
+        notice.id =
+          "managementNotice";
+
+        Object.assign(
+          notice.style,
+          {
+            position: "fixed",
+            right: "22px",
+            bottom: "22px",
+            zIndex: "3000",
+            maxWidth: "360px",
+            padding: "13px 16px",
+            border: "1px solid #dce4ee",
+            borderRadius: "12px",
+            background: "#ffffff",
+            color: "#26364a",
+            boxShadow:
+              "0 18px 45px rgba(11, 23, 40, 0.14)",
+            fontFamily:
+              '"DM Sans", sans-serif',
+            fontSize: "12px",
+            fontWeight: "600"
+          }
+        );
+
+        document.body.appendChild(notice);
+      }
+
+      notice.textContent = message;
+
+      clearTimeout(messageTimer);
+
+      messageTimer =
+        setTimeout(
+          () => {
+            notice.remove();
+          },
+          4200
+        );
+    }
+
+
+    /* =========================================================
+       ESCAPE
+       ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Escape") {
+          closeSidebar();
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       FUTURE FIREBASE STRUCTURE
+       =========================================================
+
+       Recommended Firestore document:
+
+       settings/business
+       {
+         businessName,
+         phone,
+         email,
+         whatsapp,
+         address,
+         city,
+         country,
+         currency,
+         description,
+         updatedAt,
+         updatedBy
+       }
+
+       settings/notifications
+       {
+         notifyQuotes,
+         notifyReviews,
+         notifyEmployeeActivity,
+         notifySecurity,
+         dashboardNotifications,
+         emailNotifications
+       }
+
+       settings/quotes
+       {
+         defaultQuoteStatus,
+         currency,
+         followUpDays
+       }
+
+       settings/reviews
+       {
+         requireApproval,
+         showRatings,
+         showCustomerNames,
+         testimonialCount,
+         testimonialSelection
+       }
+
+       settings/website
+       {
+         websiteOnline,
+         acceptQuotes,
+         showPortfolio,
+         showReviews,
+         maintenanceMode
+       }
+
+       settings/security
+       {
+         sessionDuration,
+         passwordPolicy
+       }
+
+       IMPORTANT:
+
+       Settings should NOT be trusted merely because
+       this frontend hides controls.
+
+       Firebase Authentication identifies the employee.
+
+       Firestore Security Rules determine whether that
+       employee is actually allowed to change a setting.
+
+       Every important settings update should also create:
+
+       activityLogs/{logId}
+
+       {
+         action: "updated",
+         targetType: "settings",
+         targetId: "business",
+         targetName: "Business Settings",
+         performedBy: uid,
+         performedByName: employeeName,
+         performedByRole: employeeRole,
+         description: "Updated business settings",
+         createdAt: Timestamp
+       }
+
+       Employees should not be able to edit or delete
+       their own audit history.
+    */
+  </script>
+
+</body>
+</html>

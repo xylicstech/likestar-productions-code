@@ -1,0 +1,4674 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications management portfolio dashboard."
+  >
+
+  <title>Portfolio — LikeStar Management</title>
+
+  <!-- =========================================
+       FONTS
+  ========================================== -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <style>
+
+    /* =========================================
+       ROOT
+    ========================================= */
+
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --success: #138a52;
+      --success-light: #eaf8f1;
+
+      --warning: #b77900;
+      --warning-light: #fff7df;
+
+      --danger: #c93636;
+      --danger-light: #fff0f0;
+
+      --purple: #6b46c1;
+      --purple-light: #f3edff;
+
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+
+      --shadow-sm:
+        0 8px 25px rgba(11, 23, 40, 0.06);
+
+      --shadow-md:
+        0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar-width: 260px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+
+    /* =========================================
+       RESET
+    ========================================= */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background: var(--light);
+      color: var(--text);
+
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================================
+       APP
+    ========================================= */
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    .content {
+      width: min(
+        calc(100% - 64px),
+        1380px
+      );
+
+      margin: 0 auto;
+
+      padding: 32px 0 60px;
+    }
+
+
+    /* =========================================
+       SIDEBAR
+    ========================================= */
+
+    .sidebar {
+      position: fixed;
+      z-index: 100;
+
+      inset: 0 auto 0 0;
+
+      width: var(--sidebar-width);
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--white);
+
+      border-right: 1px solid var(--border);
+    }
+
+    .brand {
+      min-height: 82px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 20px 24px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand a {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .brand img {
+      width: auto;
+      max-width: 155px;
+      height: 44px;
+
+      object-fit: contain;
+    }
+
+    .brand-fallback {
+      display: none;
+
+      color: var(--blue);
+
+      font-family: var(--font-heading);
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .sidebar-label {
+      padding: 24px 24px 10px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      padding: 0 12px;
+
+      overflow-y: auto;
+    }
+
+    .nav-link {
+      min-height: 46px;
+
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-bottom: 4px;
+      padding: 0 13px;
+
+      border-radius: 11px;
+
+      color: var(--text);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .nav-link.active {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .nav-icon {
+      width: 20px;
+      flex: 0 0 20px;
+
+      display: inline-flex;
+      justify-content: center;
+
+      font-size: 16px;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+
+      padding: 16px 12px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .website-link {
+      color: var(--muted);
+    }
+
+    .website-link:hover {
+      color: var(--blue);
+    }
+
+
+    /* =========================================
+       MOBILE SIDEBAR
+    ========================================= */
+
+    .mobile-menu-toggle {
+      width: 42px;
+      height: 42px;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 19px;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      z-index: 90;
+
+      inset: 0;
+
+      background: rgba(11, 23, 40, 0.45);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+    /* =========================================
+       TOPBAR
+    ========================================= */
+
+    .topbar {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+
+      min-height: 82px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding: 16px 32px;
+
+      background: rgba(255, 255, 255, 0.96);
+
+      border-bottom: 1px solid var(--border);
+
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .page-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .page-subtitle {
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .notification-btn {
+      position: relative;
+
+      width: 42px;
+      height: 42px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 17px;
+    }
+
+    .notification-dot {
+      position: absolute;
+
+      top: 8px;
+      right: 8px;
+
+      width: 7px;
+      height: 7px;
+
+      border: 2px solid var(--white);
+      border-radius: 50%;
+
+      background: var(--orange);
+    }
+
+    .employee {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .employee-avatar {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .employee-info {
+      line-height: 1.25;
+    }
+
+    .employee-name {
+      color: var(--black);
+
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .employee-role {
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      text-transform: capitalize;
+    }
+
+
+    /* =========================================
+       PAGE HEADER
+    ========================================= */
+
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 24px;
+
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+
+      color: var(--blue);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .page-heading {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: clamp(27px, 3vw, 38px);
+
+      font-weight: 800;
+
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .page-description {
+      max-width: 650px;
+
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+
+      flex-shrink: 0;
+    }
+
+
+    /* =========================================
+       BUTTONS
+    ========================================= */
+
+    .btn {
+      min-height: 42px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      padding: 0 16px;
+
+      border: 1px solid transparent;
+      border-radius: 10px;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+      border-color: #cdd6e2;
+    }
+
+    .btn-danger {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .btn-success {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .btn-warning {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .btn-small {
+      min-height: 34px;
+
+      padding: 0 11px;
+
+      font-size: 11px;
+    }
+
+
+    /* =========================================
+       STATISTICS
+    ========================================= */
+
+    .stats-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+      gap: 16px;
+
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      min-height: 132px;
+
+      padding: 20px;
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-label {
+      color: var(--muted);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .stat-icon {
+      width: 35px;
+      height: 35px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 9px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 15px;
+    }
+
+    .stat-card:nth-child(2)
+    .stat-icon {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .stat-card:nth-child(3)
+    .stat-icon {
+      background: var(--warning-light);
+      color: var(--warning);
+    }
+
+    .stat-card:nth-child(4)
+    .stat-icon {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .stat-value {
+      margin-top: 14px;
+
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 28px;
+      font-weight: 800;
+
+      line-height: 1;
+    }
+
+    .stat-meta {
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+
+    /* =========================================
+       PANEL
+    ========================================= */
+
+    .panel {
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+
+    /* =========================================
+       TOOLBAR
+    ========================================= */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 16px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-wrap {
+      position: relative;
+
+      flex: 1;
+
+      min-width: 220px;
+    }
+
+    .search-icon {
+      position: absolute;
+
+      top: 50%;
+      left: 13px;
+
+      transform: translateY(-50%);
+
+      color: var(--muted);
+
+      font-size: 14px;
+
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 42px;
+
+      padding: 0 13px 0 37px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--light);
+      color: var(--text);
+
+      font-size: 12px;
+    }
+
+    .search-input:focus {
+      background: var(--white);
+      border-color: var(--blue);
+    }
+
+    .filter-select {
+      min-width: 145px;
+      height: 42px;
+
+      padding: 0 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .filter-select:focus {
+      border-color: var(--blue);
+    }
+
+
+    /* =========================================
+       PORTFOLIO GRID
+    ========================================= */
+
+    .portfolio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 18px 20px;
+    }
+
+    .panel-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .panel-count {
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+
+      padding: 0 20px 20px;
+    }
+
+
+    /* =========================================
+       PROJECT CARD
+    ========================================= */
+
+    .project-card {
+      overflow: hidden;
+
+      background: var(--white);
+
+      border: 1px solid var(--border);
+      border-radius: 16px;
+
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .project-card:hover {
+      transform: translateY(-2px);
+
+      border-color: #d3dce8;
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .project-image {
+      position: relative;
+
+      width: 100%;
+      aspect-ratio: 16 / 10;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue-light),
+          var(--light)
+        );
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      transition:
+        transform var(--transition-normal);
+    }
+
+    .project-card:hover
+    .project-image img {
+      transform: scale(1.03);
+    }
+
+    .project-image-placeholder {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--blue);
+
+      font-family: var(--font-heading);
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 0.05em;
+
+      text-transform: uppercase;
+    }
+
+    .project-status {
+      position: absolute;
+
+      top: 12px;
+      right: 12px;
+
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.94);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-transform: capitalize;
+    }
+
+    .project-status.published {
+      color: var(--success);
+    }
+
+    .project-status.draft {
+      color: var(--warning);
+    }
+
+    .project-status.archived {
+      color: var(--muted);
+    }
+
+    .project-content {
+      padding: 17px;
+    }
+
+    .project-category {
+      margin-bottom: 5px;
+
+      color: var(--blue);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+    }
+
+    .project-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 15px;
+      font-weight: 800;
+
+      line-height: 1.3;
+    }
+
+    .project-description {
+      display: -webkit-box;
+
+      margin-top: 7px;
+
+      overflow: hidden;
+
+      color: var(--muted);
+
+      font-size: 11px;
+
+      -webkit-box-orient: vertical;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-top: 15px;
+      padding-top: 13px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .project-date {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      width: 33px;
+      height: 33px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 13px;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .icon-btn:hover {
+      background: var(--blue-light);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+
+    /* =========================================
+       EMPTY STATE
+    ========================================= */
+
+    .empty-state {
+      grid-column: 1 / -1;
+
+      padding: 70px 24px;
+
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 54px;
+      height: 54px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 15px;
+
+      border-radius: 15px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 22px;
+    }
+
+    .empty-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-text {
+      max-width: 460px;
+
+      margin: 7px auto 0;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+
+    /* =========================================
+       MODAL
+    ========================================= */
+
+    .modal-backdrop {
+      position: fixed;
+      z-index: 300;
+
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 24px;
+
+      background: rgba(11, 23, 40, 0.55);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity var(--transition-normal),
+        visibility var(--transition-normal);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      width: min(760px, 100%);
+      max-height: calc(100vh - 48px);
+
+      overflow-y: auto;
+
+      background: var(--white);
+
+      border-radius: var(--radius-lg);
+
+      box-shadow: var(--shadow-md);
+
+      transform: translateY(12px) scale(0.98);
+
+      transition:
+        transform var(--transition-normal);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding: 22px 24px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-heading {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .modal-subheading {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .close-modal {
+      width: 36px;
+      height: 36px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 18px;
+    }
+
+    .close-modal:hover {
+      background: var(--light);
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+
+    /* =========================================
+       FORM
+    ========================================= */
+
+    .form-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      color: var(--black);
+
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .form-label span {
+      color: var(--danger);
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 12px;
+    }
+
+    .form-input,
+    .form-select {
+      height: 43px;
+
+      padding: 0 12px;
+    }
+
+    .form-textarea {
+      min-height: 105px;
+
+      padding: 12px;
+
+      resize: vertical;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--blue);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(0, 87, 184, 0.08);
+    }
+
+    .form-help {
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+
+    /* =========================================
+       IMAGE INPUT
+    ========================================= */
+
+    .image-upload {
+      position: relative;
+
+      min-height: 155px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      border: 1px dashed #cbd5e1;
+      border-radius: 13px;
+
+      background: var(--light);
+
+      text-align: center;
+
+      transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .image-upload:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .image-upload input {
+      position: absolute;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      cursor: pointer;
+
+      opacity: 0;
+    }
+
+    .upload-content {
+      pointer-events: none;
+    }
+
+    .upload-icon {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 8px;
+
+      border-radius: 11px;
+
+      background: var(--white);
+      color: var(--blue);
+
+      font-size: 18px;
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .upload-title {
+      color: var(--black);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .upload-text {
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .image-preview {
+      display: none;
+
+      width: 100%;
+      max-height: 220px;
+
+      margin-top: 12px;
+
+      overflow: hidden;
+
+      border-radius: 12px;
+    }
+
+    .image-preview.show {
+      display: block;
+    }
+
+    .image-preview img {
+      width: 100%;
+      max-height: 220px;
+
+      display: block;
+
+      object-fit: cover;
+    }
+
+
+    /* =========================================
+       TOGGLE
+    ========================================= */
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 14px;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: var(--light);
+    }
+
+    .toggle-text strong {
+      display: block;
+
+      color: var(--black);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .toggle-text span {
+      display: block;
+
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 10px;
+    }
+
+    .switch {
+      position: relative;
+
+      width: 43px;
+      height: 24px;
+
+      flex: 0 0 43px;
+    }
+
+    .switch input {
+      width: 0;
+      height: 0;
+
+      opacity: 0;
+    }
+
+    .slider {
+      position: absolute;
+
+      inset: 0;
+
+      border-radius: 999px;
+
+      background: #ccd5df;
+
+      transition:
+        background var(--transition-fast);
+    }
+
+    .slider::before {
+      content: "";
+
+      position: absolute;
+
+      width: 18px;
+      height: 18px;
+
+      left: 3px;
+      top: 3px;
+
+      border-radius: 50%;
+
+      background: var(--white);
+
+      box-shadow:
+        0 2px 5px
+        rgba(11, 23, 40, 0.15);
+
+      transition:
+        transform var(--transition-fast);
+    }
+
+    .switch input:checked + .slider {
+      background: var(--blue);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(19px);
+    }
+
+
+    /* =========================================
+       MODAL FOOTER
+    ========================================= */
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+
+      gap: 9px;
+
+      margin-top: 24px;
+      padding-top: 20px;
+
+      border-top: 1px solid var(--border);
+    }
+
+
+    /* =========================================
+       CONFIRM MODAL
+    ========================================= */
+
+    .confirm-modal {
+      width: min(450px, 100%);
+    }
+
+    .confirm-icon {
+      width: 48px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 15px;
+
+      border-radius: 13px;
+
+      background: var(--warning-light);
+      color: var(--warning);
+
+      font-size: 20px;
+    }
+
+    .confirm-title {
+      color: var(--black);
+
+      font-family: var(--font-heading);
+
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .confirm-text {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 12px;
+    }
+
+
+    /* =========================================
+       LOADING
+    ========================================= */
+
+    .loading-state {
+      grid-column: 1 / -1;
+
+      padding: 65px 20px;
+
+      color: var(--muted);
+
+      text-align: center;
+
+      font-size: 12px;
+    }
+
+    .spinner {
+      width: 17px;
+      height: 17px;
+
+      margin: 0 auto 9px;
+
+      border: 2px solid var(--border);
+      border-top-color: var(--blue);
+
+      border-radius: 50%;
+
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+
+      to {
+        transform: rotate(360deg);
+      }
+
+    }
+
+
+    /* =========================================
+       PAGINATION
+    ========================================= */
+
+    .table-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 15px 20px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .pagination-info {
+      color: var(--muted);
+
+      font-size: 11px;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-btn {
+      min-width: 34px;
+      height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 0 9px;
+
+      border: 1px solid var(--border);
+      border-radius: 8px;
+
+      background: var(--white);
+      color: var(--text);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .page-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+    }
+
+    .page-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
+
+    @media (max-width: 1200px) {
+
+      .stats-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .portfolio-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+
+      .content {
+        width: min(
+          calc(100% - 48px),
+          1380px
+        );
+      }
+
+    }
+
+
+    @media (max-width: 900px) {
+
+      .main {
+        margin-left: 0;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+
+        transition:
+          transform var(--transition-normal);
+
+        box-shadow: var(--shadow-md);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .mobile-menu-toggle {
+        display: inline-flex;
+      }
+
+      .topbar {
+        padding: 14px 20px;
+      }
+
+      .content {
+        width: calc(100% - 40px);
+
+        padding-top: 25px;
+      }
+
+    }
+
+
+    @media (max-width: 700px) {
+
+      .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .header-actions {
+        width: 100%;
+      }
+
+      .header-actions .btn {
+        flex: 1;
+      }
+
+      .toolbar {
+        flex-wrap: wrap;
+      }
+
+      .search-wrap {
+        flex: 1 1 100%;
+      }
+
+      .filter-select {
+        flex: 1;
+      }
+
+      .topbar-right {
+        gap: 8px;
+      }
+
+      .employee-info,
+      .notification-btn {
+        display: none;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+
+        padding-inline: 14px;
+      }
+
+      .portfolio-header {
+        padding-inline: 14px;
+      }
+
+      .table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .modal-backdrop {
+        padding: 12px;
+      }
+
+      .modal-body {
+        padding: 18px;
+      }
+
+    }
+
+
+    @media (max-width: 560px) {
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        width: calc(100% - 28px);
+
+        padding-bottom: 35px;
+      }
+
+      .topbar {
+        padding-inline: 14px;
+      }
+
+      .page-heading {
+        font-size: 28px;
+      }
+
+      .modal-footer {
+        flex-direction: column-reverse;
+      }
+
+      .modal-footer .btn {
+        width: 100%;
+      }
+
+    }
+
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+
+        transition-duration: 0.01ms !important;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body class="role-owner">
+
+  <div class="app">
+
+
+    <!-- =========================================
+         SIDEBAR OVERLAY
+    ========================================== -->
+
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      aria-hidden="true"
+    ></div>
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside
+      class="sidebar"
+      id="sidebar"
+      aria-label="Management navigation"
+    >
+
+      <div class="brand">
+
+        <a href="management-dashboard.html">
+
+          <img
+            src="images/like star logo.png"
+            alt="LikeStar Publications"
+            onerror="
+              this.style.display='none';
+              this.nextElementSibling.style.display='block';
+            "
+          >
+
+          <span class="brand-fallback">
+            LikeStar
+          </span>
+
+        </a>
+
+      </div>
+
+
+      <div class="sidebar-label">
+        Management
+      </div>
+
+
+      <nav class="sidebar-nav">
+
+        <a
+          href="management-dashboard.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">⌂</span>
+          <span>Dashboard</span>
+        </a>
+
+
+        <a
+          href="management-quotes.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">▤</span>
+          <span>Quotes</span>
+        </a>
+
+
+        <a
+          href="management-reviews.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">★</span>
+          <span>Reviews</span>
+        </a>
+
+
+        <a
+          href="management-services.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">▦</span>
+          <span>Services</span>
+        </a>
+
+
+        <a
+          href="management-portfolio.html"
+          class="nav-link active"
+          aria-current="page"
+        >
+          <span class="nav-icon">▧</span>
+          <span>Portfolio</span>
+        </a>
+
+
+        <a
+          href="management-customers.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">♙</span>
+          <span>Customers</span>
+        </a>
+
+
+        <div data-role-only="owner manager">
+
+          <a
+            href="management-employees.html"
+            class="nav-link"
+          >
+            <span class="nav-icon">♧</span>
+            <span>Employees</span>
+          </a>
+
+        </div>
+
+
+        <a
+          href="management-activity.html"
+          class="nav-link"
+        >
+          <span class="nav-icon">◷</span>
+          <span>Activity</span>
+        </a>
+
+
+        <div data-role-only="owner manager">
+
+          <a
+            href="management-settings.html"
+            class="nav-link"
+          >
+            <span class="nav-icon">⚙</span>
+            <span>Settings</span>
+          </a>
+
+        </div>
+
+      </nav>
+
+
+      <div class="sidebar-bottom">
+
+        <a
+          href="index.html"
+          class="nav-link website-link"
+        >
+          <span class="nav-icon">↗</span>
+          <span>View Website</span>
+        </a>
+
+      </div>
+
+    </aside>
+
+
+    <!-- =========================================
+         MAIN
+    ========================================== -->
+
+    <main class="main">
+
+
+      <!-- =======================================
+           TOPBAR
+      ======================================== -->
+
+      <header class="topbar">
+
+        <div class="topbar-left">
+
+          <button
+            type="button"
+            class="mobile-menu-toggle"
+            id="mobileMenuToggle"
+            aria-label="Open management menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+
+
+          <div>
+
+            <div class="page-title">
+              Portfolio
+            </div>
+
+            <div class="page-subtitle">
+              Manage the work displayed on the public website.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+          <button
+            type="button"
+            class="notification-btn"
+            aria-label="Notifications"
+          >
+            ♢
+
+            <span class="notification-dot"></span>
+          </button>
+
+
+          <div class="employee">
+
+            <div
+              class="employee-avatar"
+              id="employeeAvatar"
+            >
+              AU
+            </div>
+
+
+            <div class="employee-info">
+
+              <div
+                class="employee-name"
+                id="employeeName"
+              >
+                Admin User
+              </div>
+
+
+              <div
+                class="employee-role"
+                id="employeeRole"
+              >
+                owner
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+
+      <!-- =======================================
+           CONTENT
+      ======================================== -->
+
+      <div class="content">
+
+
+        <!-- =====================================
+             PAGE HEADER
+        ====================================== -->
+
+        <section class="page-header">
+
+          <div>
+
+            <div class="eyebrow">
+              Portfolio management
+            </div>
+
+
+            <h1 class="page-heading">
+              Showcase the work.
+            </h1>
+
+
+            <p class="page-description">
+              Add completed projects, control what visitors
+              see and keep LikeStar's public portfolio current.
+            </p>
+
+          </div>
+
+
+          <div class="header-actions">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="refreshPortfolio"
+            >
+              ↻
+              Refresh
+            </button>
+
+
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="addProject"
+            >
+              +
+              Add Project
+            </button>
+
+          </div>
+
+        </section>
+
+
+        <!-- =====================================
+             STATISTICS
+        ====================================== -->
+
+        <section
+          class="stats-grid"
+          aria-label="Portfolio statistics"
+        >
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Total Projects
+              </div>
+
+              <div class="stat-icon">
+                ▧
+              </div>
+
+            </div>
+
+
+            <div
+              class="stat-value"
+              id="totalProjects"
+            >
+              0
+            </div>
+
+
+            <div class="stat-meta">
+              Portfolio records
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Published
+              </div>
+
+              <div class="stat-icon">
+                ✓
+              </div>
+
+            </div>
+
+
+            <div
+              class="stat-value"
+              id="publishedProjects"
+            >
+              0
+            </div>
+
+
+            <div class="stat-meta">
+              Visible on the website
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Drafts
+              </div>
+
+              <div class="stat-icon">
+                ◷
+              </div>
+
+            </div>
+
+
+            <div
+              class="stat-value"
+              id="draftProjects"
+            >
+              0
+            </div>
+
+
+            <div class="stat-meta">
+              Not publicly visible
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <div class="stat-label">
+                Archived
+              </div>
+
+              <div class="stat-icon">
+                ▱
+              </div>
+
+            </div>
+
+
+            <div
+              class="stat-value"
+              id="archivedProjects"
+            >
+              0
+            </div>
+
+
+            <div class="stat-meta">
+              Removed from public view
+            </div>
+
+          </article>
+
+        </section>
+
+
+        <!-- =====================================
+             PORTFOLIO PANEL
+        ====================================== -->
+
+        <section class="panel">
+
+
+          <div class="toolbar">
+
+            <div class="search-wrap">
+
+              <span
+                class="search-icon"
+                aria-hidden="true"
+              >
+                ⌕
+              </span>
+
+
+              <input
+                type="search"
+                class="search-input"
+                id="portfolioSearch"
+                placeholder="Search projects or categories..."
+                autocomplete="off"
+              >
+
+            </div>
+
+
+            <select
+              class="filter-select"
+              id="statusFilter"
+              aria-label="Filter portfolio projects by status"
+            >
+
+              <option value="all">
+                All statuses
+              </option>
+
+              <option value="published">
+                Published
+              </option>
+
+              <option value="draft">
+                Draft
+              </option>
+
+              <option value="archived">
+                Archived
+              </option>
+
+            </select>
+
+
+            <select
+              class="filter-select"
+              id="categoryFilter"
+              aria-label="Filter portfolio projects by category"
+            >
+
+              <option value="all">
+                All categories
+              </option>
+
+            </select>
+
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="resetFilters"
+            >
+              Reset
+            </button>
+
+          </div>
+
+
+          <div class="portfolio-header">
+
+            <div>
+
+              <div class="panel-title">
+                Portfolio projects
+              </div>
+
+
+              <div
+                class="panel-count"
+                id="projectCount"
+              >
+                0 projects
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="portfolio-grid"
+            id="portfolioGrid"
+          >
+
+            <div class="loading-state">
+
+              <div class="spinner"></div>
+
+              Loading portfolio...
+
+            </div>
+
+          </div>
+
+
+          <div class="table-footer">
+
+            <div
+              class="pagination-info"
+              id="paginationInfo"
+            >
+              No portfolio records loaded.
+            </div>
+
+
+            <div class="pagination">
+
+              <button
+                type="button"
+                class="page-btn"
+                id="previousPage"
+                disabled
+              >
+                ‹
+              </button>
+
+
+              <button
+                type="button"
+                class="page-btn active"
+                id="currentPage"
+              >
+                1
+              </button>
+
+
+              <button
+                type="button"
+                class="page-btn"
+                id="nextPage"
+                disabled
+              >
+                ›
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =========================================
+       ADD / EDIT PROJECT MODAL
+  ========================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="projectModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="projectModalTitle"
+    >
+
+      <div class="modal-header">
+
+        <div>
+
+          <div
+            class="modal-heading"
+            id="projectModalTitle"
+          >
+            Add Portfolio Project
+          </div>
+
+
+          <div class="modal-subheading">
+            Create a project for the public LikeStar portfolio.
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="close-modal"
+          id="closeProjectModal"
+          aria-label="Close project form"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="modal-body">
+
+        <form id="projectForm">
+
+
+          <div class="form-grid">
+
+
+            <!-- PROJECT TITLE -->
+
+            <div class="form-group full">
+
+              <label
+                class="form-label"
+                for="projectTitle"
+              >
+                Project Name
+                <span>*</span>
+              </label>
+
+
+              <input
+                type="text"
+                class="form-input"
+                id="projectTitle"
+                name="title"
+                placeholder="e.g. Custom T-Shirt Campaign"
+                maxlength="120"
+                required
+              >
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="form-group">
+
+              <label
+                class="form-label"
+                for="projectCategory"
+              >
+                Category
+                <span>*</span>
+              </label>
+
+
+              <select
+                class="form-select"
+                id="projectCategory"
+                name="category"
+                required
+              >
+
+                <option value="">
+                  Select category
+                </option>
+
+                <option value="T-Shirt Printing">
+                  T-Shirt Printing
+                </option>
+
+                <option value="Cap Customization">
+                  Cap Customization
+                </option>
+
+                <option value="Banners">
+                  Banners
+                </option>
+
+                <option value="Flyers & Posters">
+                  Flyers & Posters
+                </option>
+
+                <option value="Book Printing">
+                  Book Printing
+                </option>
+
+                <option value="Graphic Design">
+                  Graphic Design
+                </option>
+
+                <option value="Logo Design">
+                  Logo Design
+                </option>
+
+                <option value="Business Branding">
+                  Business Branding
+                </option>
+
+                <option value="Custom Products">
+                  Custom Products
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- DISPLAY ORDER -->
+
+            <div class="form-group">
+
+              <label
+                class="form-label"
+                for="projectOrder"
+              >
+                Display Order
+              </label>
+
+
+              <input
+                type="number"
+                class="form-input"
+                id="projectOrder"
+                name="displayOrder"
+                value="1"
+                min="1"
+                step="1"
+              >
+
+
+              <div class="form-help">
+                Lower numbers appear first.
+              </div>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group full">
+
+              <label
+                class="form-label"
+                for="projectDescription"
+              >
+                Description
+              </label>
+
+
+              <textarea
+                class="form-textarea"
+                id="projectDescription"
+                name="description"
+                maxlength="500"
+                placeholder="Briefly describe the project..."
+              ></textarea>
+
+            </div>
+
+
+            <!-- IMAGE -->
+
+            <div class="form-group full">
+
+              <label class="form-label">
+                Project Image
+              </label>
+
+
+              <div class="image-upload">
+
+                <input
+                  type="file"
+                  id="projectImage"
+                  accept="image/jpeg,image/png,image/webp"
+                >
+
+
+                <div class="upload-content">
+
+                  <div class="upload-icon">
+                    ↑
+                  </div>
+
+
+                  <div class="upload-title">
+                    Choose project image
+                  </div>
+
+
+                  <div class="upload-text">
+                    JPG, PNG or WebP
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div
+                class="image-preview"
+                id="imagePreview"
+              >
+
+                <img
+                  id="imagePreviewImage"
+                  src=""
+                  alt="Project image preview"
+                >
+
+              </div>
+
+
+              <div class="form-help">
+                Firebase Storage or Cloudinary can be connected
+                here later. The frontend currently does not upload anything.
+              </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+
+              <label
+                class="form-label"
+                for="projectStatus"
+              >
+                Status
+              </label>
+
+
+              <select
+                class="form-select"
+                id="projectStatus"
+                name="status"
+              >
+
+                <option value="draft">
+                  Draft
+                </option>
+
+                <option value="published">
+                  Published
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- FEATURED -->
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Public Display
+              </label>
+
+
+              <div class="toggle-row">
+
+                <div class="toggle-text">
+
+                  <strong>
+                    Show on website
+                  </strong>
+
+                  <span>
+                    Allow visitors to see this project.
+                  </span>
+
+                </div>
+
+
+                <label class="switch">
+
+                  <input
+                    type="checkbox"
+                    id="projectPublic"
+                    checked
+                  >
+
+                  <span class="slider"></span>
+
+                </label>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div class="modal-footer">
+
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="cancelProject"
+            >
+              Cancel
+            </button>
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+            >
+              Save Project
+            </button>
+
+          </div>
+
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       ARCHIVE CONFIRMATION
+  ========================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="archiveModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal confirm-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="archiveTitle"
+    >
+
+      <div class="modal-body">
+
+        <div class="confirm-icon">
+          !
+        </div>
+
+
+        <div
+          class="confirm-title"
+          id="archiveTitle"
+        >
+          Archive this project?
+        </div>
+
+
+        <p class="confirm-text">
+          The project will be removed from the public portfolio
+          but kept in the management system. This is safer than
+          permanently deleting the record.
+        </p>
+
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="cancelArchive"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="button"
+            class="btn btn-danger"
+            id="confirmArchive"
+          >
+            Archive Project
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       JAVASCRIPT
+  ========================================== -->
+
+  <script>
+
+    /* =========================================
+       CONFIG
+    ========================================= */
+
+    const MANAGEMENT_CONFIG = {
+
+      firebaseConnected: false,
+
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+
+    };
+
+
+    /* =========================================
+       STATE
+    ========================================= */
+
+    const state = {
+
+      projects: [],
+
+      filteredProjects: [],
+
+      currentPage: 1,
+
+      pageSize: 9,
+
+      editingProjectId: null,
+
+      archiveProjectId: null
+
+    };
+
+
+    /* =========================================
+       DOM
+    ========================================= */
+
+    const sidebar =
+      document.getElementById(
+        "sidebar"
+      );
+
+    const sidebarOverlay =
+      document.getElementById(
+        "sidebarOverlay"
+      );
+
+    const mobileMenuToggle =
+      document.getElementById(
+        "mobileMenuToggle"
+      );
+
+    const portfolioGrid =
+      document.getElementById(
+        "portfolioGrid"
+      );
+
+    const portfolioSearch =
+      document.getElementById(
+        "portfolioSearch"
+      );
+
+    const statusFilter =
+      document.getElementById(
+        "statusFilter"
+      );
+
+    const categoryFilter =
+      document.getElementById(
+        "categoryFilter"
+      );
+
+    const projectModal =
+      document.getElementById(
+        "projectModal"
+      );
+
+    const archiveModal =
+      document.getElementById(
+        "archiveModal"
+      );
+
+
+    /* =========================================
+       HELPERS
+    ========================================= */
+
+    function escapeHTML(value) {
+
+      return String(value ?? "")
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function getInitials(name) {
+
+      const safeName =
+        String(
+          name || "Admin User"
+        ).trim();
+
+      const parts =
+        safeName
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (!parts.length) {
+        return "AU";
+      }
+
+      if (parts.length === 1) {
+
+        return parts[0]
+          .slice(0, 2)
+          .toUpperCase();
+
+      }
+
+      return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+      ).toUpperCase();
+
+    }
+
+
+    function formatDate(value) {
+
+      if (!value) {
+        return "—";
+      }
+
+      let date;
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+
+        date =
+          value.toDate();
+
+      } else {
+
+        date =
+          new Date(value);
+
+      }
+
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+
+        return "—";
+
+      }
+
+
+      return date.toLocaleDateString(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+    function normalizeStatus(
+      status
+    ) {
+
+      const value =
+        String(
+          status || "draft"
+        ).toLowerCase();
+
+      if (
+        value === "published" ||
+        value === "archived"
+      ) {
+
+        return value;
+
+      }
+
+      return "draft";
+
+    }
+
+
+    /* =========================================
+       SIDEBAR
+    ========================================= */
+
+    function openSidebar() {
+
+      sidebar.classList.add(
+        "open"
+      );
+
+      sidebarOverlay.classList.add(
+        "open"
+      );
+
+      mobileMenuToggle.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+
+
+    function closeSidebar() {
+
+      sidebar.classList.remove(
+        "open"
+      );
+
+      sidebarOverlay.classList.remove(
+        "open"
+      );
+
+      mobileMenuToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    }
+
+
+    mobileMenuToggle.addEventListener(
+      "click",
+      () => {
+
+        if (
+          sidebar.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeSidebar();
+
+        } else {
+
+          openSidebar();
+
+        }
+
+      }
+    );
+
+
+    sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (
+          window.innerWidth > 900
+        ) {
+
+          closeSidebar();
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       EMPLOYEE
+    ========================================= */
+
+    function initializeEmployee() {
+
+      const user =
+        MANAGEMENT_CONFIG.developmentUser;
+
+      const name =
+        user.name ||
+        "Admin User";
+
+      const role =
+        user.role ||
+        "owner";
+
+
+      document.getElementById(
+        "employeeName"
+      ).textContent =
+        name;
+
+
+      document.getElementById(
+        "employeeRole"
+      ).textContent =
+        role;
+
+
+      document.getElementById(
+        "employeeAvatar"
+      ).textContent =
+        getInitials(name);
+
+
+      document.body.className =
+        "role-" + role;
+
+    }
+
+
+    /* =========================================
+       FIREBASE LOADING
+    ========================================= */
+
+    async function loadPortfolio() {
+
+      if (
+        !MANAGEMENT_CONFIG.firebaseConnected
+      ) {
+
+        state.projects = [];
+
+        renderStatistics();
+
+        buildCategoryFilter();
+
+        applyFilters();
+
+        return;
+
+      }
+
+
+      /*
+       * FIREBASE IMPLEMENTATION
+       * ------------------------
+       *
+       * Collection:
+       *
+       * portfolio/{projectId}
+       *
+       * Recommended public query:
+       *
+       * where("status", "==", "published")
+       * where("active", "==", true)
+       * orderBy("displayOrder", "asc")
+       *
+       * Management query should be bounded.
+       *
+       * Do not download an unlimited
+       * portfolio collection.
+       *
+       * For larger portfolios use:
+       *
+       * limit()
+       * startAfter()
+       *
+       * cursor pagination.
+       *
+       * Images should NOT be stored as
+       * large base64 strings in Firestore.
+       *
+       * Store the image URL and metadata
+       * instead.
+       */
+
+
+      console.warn(
+        "Firebase portfolio loading has not been connected yet."
+      );
+
+    }
+
+
+    /* =========================================
+       STATISTICS
+    ========================================= */
+
+    function renderStatistics() {
+
+      const projects =
+        state.projects;
+
+
+      const total =
+        projects.length;
+
+
+      const published =
+        projects.filter(
+          project =>
+            normalizeStatus(
+              project.status
+            ) === "published"
+        ).length;
+
+
+      const draft =
+        projects.filter(
+          project =>
+            normalizeStatus(
+              project.status
+            ) === "draft"
+        ).length;
+
+
+      const archived =
+        projects.filter(
+          project =>
+            normalizeStatus(
+              project.status
+            ) === "archived"
+        ).length;
+
+
+      document.getElementById(
+        "totalProjects"
+      ).textContent =
+        total;
+
+
+      document.getElementById(
+        "publishedProjects"
+      ).textContent =
+        published;
+
+
+      document.getElementById(
+        "draftProjects"
+      ).textContent =
+        draft;
+
+
+      document.getElementById(
+        "archivedProjects"
+      ).textContent =
+        archived;
+
+    }
+
+
+    /* =========================================
+       CATEGORY FILTER
+    ========================================= */
+
+    function buildCategoryFilter() {
+
+      const categories =
+        [
+          ...new Set(
+            state.projects
+              .map(
+                project =>
+                  project.category
+              )
+              .filter(Boolean)
+          )
+        ]
+        .sort();
+
+
+      categoryFilter.innerHTML =
+        `
+          <option value="all">
+            All categories
+          </option>
+        `;
+
+
+      categories.forEach(
+        category => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+          option.value =
+            category;
+
+          option.textContent =
+            category;
+
+          categoryFilter.appendChild(
+            option
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================
+       FILTERS
+    ========================================= */
+
+    function applyFilters() {
+
+      const search =
+        portfolioSearch.value
+          .trim()
+          .toLowerCase();
+
+
+      const status =
+        statusFilter.value;
+
+
+      const category =
+        categoryFilter.value;
+
+
+      state.filteredProjects =
+        state.projects.filter(
+          project => {
+
+            const title =
+              String(
+                project.title || ""
+              ).toLowerCase();
+
+
+            const description =
+              String(
+                project.description || ""
+              ).toLowerCase();
+
+
+            const projectCategory =
+              String(
+                project.category || ""
+              ).toLowerCase();
+
+
+            const matchesSearch =
+              !search ||
+              title.includes(search) ||
+              description.includes(search) ||
+              projectCategory.includes(search);
+
+
+            const matchesStatus =
+              status === "all" ||
+              normalizeStatus(
+                project.status
+              ) === status;
+
+
+            const matchesCategory =
+              category === "all" ||
+              String(
+                project.category || ""
+              ) === category;
+
+
+            return (
+              matchesSearch &&
+              matchesStatus &&
+              matchesCategory
+            );
+
+          }
+        );
+
+
+      state.currentPage = 1;
+
+      renderPortfolio();
+
+    }
+
+
+    portfolioSearch.addEventListener(
+      "input",
+      applyFilters
+    );
+
+
+    statusFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+
+    categoryFilter.addEventListener(
+      "change",
+      applyFilters
+    );
+
+
+    document
+      .getElementById(
+        "resetFilters"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          portfolioSearch.value = "";
+
+          statusFilter.value =
+            "all";
+
+          categoryFilter.value =
+            "all";
+
+          applyFilters();
+
+        }
+      );
+
+
+    /* =========================================
+       PORTFOLIO RENDER
+    ========================================= */
+
+    function renderPortfolio() {
+
+      const projects =
+        state.filteredProjects;
+
+
+      document.getElementById(
+        "projectCount"
+      ).textContent =
+        `${projects.length} ${
+          projects.length === 1
+            ? "project"
+            : "projects"
+        }`;
+
+
+      if (!projects.length) {
+
+        portfolioGrid.innerHTML = `
+
+          <div class="empty-state">
+
+            <div class="empty-icon">
+              ▧
+            </div>
+
+            <div class="empty-title">
+              No portfolio projects
+            </div>
+
+            <p class="empty-text">
+              Add completed LikeStar work here.
+              Once Firebase is connected, published
+              projects can appear automatically on
+              the public portfolio page.
+            </p>
+
+          </div>
+
+        `;
+
+
+        updatePagination(
+          0,
+          0
+        );
+
+        return;
+
+      }
+
+
+      const totalPages =
+        Math.ceil(
+          projects.length /
+          state.pageSize
+        );
+
+
+      if (
+        state.currentPage >
+        totalPages
+      ) {
+
+        state.currentPage =
+          totalPages;
+
+      }
+
+
+      const start =
+        (
+          state.currentPage - 1
+        ) *
+        state.pageSize;
+
+
+      const end =
+        start +
+        state.pageSize;
+
+
+      const pageProjects =
+        projects.slice(
+          start,
+          end
+        );
+
+
+      portfolioGrid.innerHTML =
+        pageProjects
+          .map(
+            renderProjectCard
+          )
+          .join("");
+
+
+      updatePagination(
+        projects.length,
+        totalPages,
+        start,
+        end
+      );
+
+    }
+
+
+    function renderProjectCard(
+      project
+    ) {
+
+      const status =
+        normalizeStatus(
+          project.status
+        );
+
+
+      const title =
+        project.title ||
+        "Untitled Project";
+
+
+      const category =
+        project.category ||
+        "Uncategorized";
+
+
+      const description =
+        project.description ||
+        "No project description added.";
+
+
+      const imageUrl =
+        project.imageUrl ||
+        project.image ||
+        "";
+
+
+      const image =
+        imageUrl
+          ? `
+              <img
+                src="${escapeHTML(
+                  imageUrl
+                )}"
+                alt="${escapeHTML(
+                  title
+                )}"
+                loading="lazy"
+              >
+            `
+          : `
+              <div class="project-image-placeholder">
+                LikeStar
+              </div>
+            `;
+
+
+      return `
+
+        <article
+          class="project-card"
+          data-id="${escapeHTML(
+            project.id || ""
+          )}"
+        >
+
+          <div class="project-image">
+
+            ${image}
+
+            <span
+              class="project-status ${escapeHTML(
+                status
+              )}"
+            >
+              ${escapeHTML(status)}
+            </span>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <div class="project-category">
+              ${escapeHTML(category)}
+            </div>
+
+
+            <div class="project-title">
+              ${escapeHTML(title)}
+            </div>
+
+
+            <div class="project-description">
+              ${escapeHTML(description)}
+            </div>
+
+
+            <div class="project-meta">
+
+              <div class="project-date">
+                ${escapeHTML(
+                  formatDate(
+                    project.createdAt
+                  )
+                )}
+              </div>
+
+
+              <div class="project-actions">
+
+                <button
+                  type="button"
+                  class="icon-btn"
+                  title="Edit project"
+                  aria-label="Edit project"
+                  data-action="edit"
+                  data-id="${escapeHTML(
+                    project.id || ""
+                  )}"
+                >
+                  ✎
+                </button>
+
+
+                <button
+                  type="button"
+                  class="icon-btn"
+                  title="Archive project"
+                  aria-label="Archive project"
+                  data-action="archive"
+                  data-id="${escapeHTML(
+                    project.id || ""
+                  )}"
+                >
+                  ▱
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    /* =========================================
+       PROJECT ACTIONS
+    ========================================= */
+
+    portfolioGrid.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(
+            "[data-action]"
+          );
+
+
+        if (!button) {
+          return;
+        }
+
+
+        const action =
+          button.dataset.action;
+
+
+        const id =
+          button.dataset.id;
+
+
+        if (
+          action === "edit"
+        ) {
+
+          openEditProject(
+            id
+          );
+
+        }
+
+
+        if (
+          action === "archive"
+        ) {
+
+          openArchiveModal(
+            id
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =========================================
+       ADD PROJECT
+    ========================================= */
+
+    document
+      .getElementById(
+        "addProject"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          openAddProject();
+
+        }
+      );
+
+
+    function openAddProject() {
+
+      state.editingProjectId =
+        null;
+
+
+      document.getElementById(
+        "projectModalTitle"
+      ).textContent =
+        "Add Portfolio Project";
+
+
+      document.getElementById(
+        "projectForm"
+      ).reset();
+
+
+      document.getElementById(
+        "projectOrder"
+      ).value =
+        "1";
+
+
+      document.getElementById(
+        "projectStatus"
+      ).value =
+        "draft";
+
+
+      document.getElementById(
+        "projectPublic"
+      ).checked =
+        true;
+
+
+      clearImagePreview();
+
+
+      openModal(
+        projectModal
+      );
+
+    }
+
+
+    /* =========================================
+       EDIT PROJECT
+    ========================================= */
+
+    function openEditProject(
+      id
+    ) {
+
+      const project =
+        state.projects.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if (!project) {
+        return;
+      }
+
+
+      state.editingProjectId =
+        id;
+
+
+      document.getElementById(
+        "projectModalTitle"
+      ).textContent =
+        "Edit Portfolio Project";
+
+
+      document.getElementById(
+        "projectTitle"
+      ).value =
+        project.title || "";
+
+
+      document.getElementById(
+        "projectCategory"
+      ).value =
+        project.category || "";
+
+
+      document.getElementById(
+        "projectOrder"
+      ).value =
+        Number(
+          project.displayOrder || 1
+        );
+
+
+      document.getElementById(
+        "projectDescription"
+      ).value =
+        project.description || "";
+
+
+      document.getElementById(
+        "projectStatus"
+      ).value =
+        (
+          project.status === "published"
+            ? "published"
+            : "draft"
+        );
+
+
+      document.getElementById(
+        "projectPublic"
+      ).checked =
+        project.active !== false;
+
+
+      if (
+        project.imageUrl ||
+        project.image
+      ) {
+
+        showImagePreview(
+          project.imageUrl ||
+          project.image
+        );
+
+      } else {
+
+        clearImagePreview();
+
+      }
+
+
+      openModal(
+        projectModal
+      );
+
+    }
+
+
+    /* =========================================
+       PROJECT FORM
+    ========================================= */
+
+    document
+      .getElementById(
+        "projectForm"
+      )
+      .addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          if (
+            !MANAGEMENT_CONFIG
+              .firebaseConnected
+          ) {
+
+            alert(
+              "Firebase is not connected yet. The project was not saved."
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * FIREBASE WRITE
+           * --------------
+           *
+           * Create:
+           *
+           * addDoc(
+           *   collection(db, "portfolio"),
+           *   {
+           *     title,
+           *     category,
+           *     description,
+           *     imageUrl,
+           *     displayOrder,
+           *     status,
+           *     active,
+           *     createdAt: serverTimestamp(),
+           *     updatedAt: serverTimestamp(),
+           *     createdBy: auth.currentUser.uid
+           *   }
+           * )
+           *
+           * Update:
+           *
+           * updateDoc(
+           *   doc(db, "portfolio", id),
+           *   {
+           *     ...fields,
+           *     updatedAt: serverTimestamp(),
+           *     updatedBy: auth.currentUser.uid
+           *   }
+           * )
+           *
+           * Also create an activityLogs
+           * document for the action.
+           */
+
+
+          const submitButton =
+            event.submitter;
+
+
+          submitButton.disabled =
+            true;
+
+
+          submitButton.textContent =
+            "Saving...";
+
+
+          try {
+
+            await saveProject();
+
+          } finally {
+
+            submitButton.disabled =
+              false;
+
+            submitButton.textContent =
+              "Save Project";
+
+          }
+
+        }
+      );
+
+
+    async function saveProject() {
+
+      console.log(
+        "Portfolio project save placeholder.",
+        {
+          editingProjectId:
+            state.editingProjectId
+        }
+      );
+
+
+      /*
+       * Actual Firestore save will be
+       * implemented when Firebase config
+       * is connected.
+       */
+
+    }
+
+
+    /* =========================================
+       IMAGE PREVIEW
+    ========================================= */
+
+    document
+      .getElementById(
+        "projectImage"
+      )
+      .addEventListener(
+        "change",
+        event => {
+
+          const file =
+            event.target.files?.[0];
+
+
+          if (!file) {
+
+            clearImagePreview();
+
+            return;
+
+          }
+
+
+          if (
+            !file.type.startsWith(
+              "image/"
+            )
+          ) {
+
+            alert(
+              "Please select an image file."
+            );
+
+            event.target.value = "";
+
+            clearImagePreview();
+
+            return;
+
+          }
+
+
+          const reader =
+            new FileReader();
+
+
+          reader.onload =
+            event => {
+
+              showImagePreview(
+                event.target.result
+              );
+
+            };
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+      );
+
+
+    function showImagePreview(
+      src
+    ) {
+
+      const preview =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      const image =
+        document.getElementById(
+          "imagePreviewImage"
+        );
+
+
+      image.src =
+        src;
+
+
+      preview.classList.add(
+        "show"
+      );
+
+    }
+
+
+    function clearImagePreview() {
+
+      const preview =
+        document.getElementById(
+          "imagePreview"
+        );
+
+
+      const image =
+        document.getElementById(
+          "imagePreviewImage"
+        );
+
+
+      image.src =
+        "";
+
+
+      preview.classList.remove(
+        "show"
+      );
+
+    }
+
+
+    /* =========================================
+       ARCHIVE
+    ========================================= */
+
+    function openArchiveModal(
+      id
+    ) {
+
+      const project =
+        state.projects.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+
+      if (!project) {
+        return;
+      }
+
+
+      state.archiveProjectId =
+        id;
+
+
+      document.getElementById(
+        "archiveTitle"
+      ).textContent =
+        `Archive "${project.title || "this project"}"?`;
+
+
+      openModal(
+        archiveModal
+      );
+
+    }
+
+
+    document
+      .getElementById(
+        "confirmArchive"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          if (
+            !MANAGEMENT_CONFIG
+              .firebaseConnected
+          ) {
+
+            alert(
+              "Firebase is not connected yet. The project was not archived."
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * Do not permanently delete.
+           *
+           * Update:
+           *
+           * status: "archived"
+           * active: false
+           * updatedAt: serverTimestamp()
+           * updatedBy: auth.currentUser.uid
+           *
+           * Then create an activity log.
+           */
+
+
+          closeModal(
+            archiveModal
+          );
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "cancelArchive"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          closeModal(
+            archiveModal
+          );
+
+        }
+      );
+
+
+    /* =========================================
+       MODAL CONTROLS
+    ========================================= */
+
+    function openModal(
+      modal
+    ) {
+
+      modal.classList.add(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+    }
+
+
+    function closeModal(
+      modal
+    ) {
+
+      modal.classList.remove(
+        "open"
+      );
+
+      modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
+
+    }
+
+
+    document
+      .getElementById(
+        "closeProjectModal"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          closeModal(
+            projectModal
+          );
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "cancelProject"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          closeModal(
+            projectModal
+          );
+
+        }
+      );
+
+
+    projectModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          projectModal
+        ) {
+
+          closeModal(
+            projectModal
+          );
+
+        }
+
+      }
+    );
+
+
+    archiveModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          archiveModal
+        ) {
+
+          closeModal(
+            archiveModal
+          );
+
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key !== "Escape"
+        ) {
+
+          return;
+
+        }
+
+
+        closeModal(
+          projectModal
+        );
+
+
+        closeModal(
+          archiveModal
+        );
+
+
+        closeSidebar();
+
+      }
+    );
+
+
+    /* =========================================
+       PAGINATION
+    ========================================= */
+
+    function updatePagination(
+      total,
+      totalPages,
+      start = 0,
+      end = 0
+    ) {
+
+      const paginationInfo =
+        document.getElementById(
+          "paginationInfo"
+        );
+
+
+      const currentPage =
+        document.getElementById(
+          "currentPage"
+        );
+
+
+      const previous =
+        document.getElementById(
+          "previousPage"
+        );
+
+
+      const next =
+        document.getElementById(
+          "nextPage"
+        );
+
+
+      if (!total) {
+
+        paginationInfo.textContent =
+          "No portfolio records loaded.";
+
+        currentPage.textContent =
+          "1";
+
+        previous.disabled =
+          true;
+
+        next.disabled =
+          true;
+
+        return;
+
+      }
+
+
+      paginationInfo.textContent =
+        `Showing ${
+          start + 1
+        }–${
+          Math.min(
+            end,
+            total
+          )
+        } of ${
+          total
+        } projects`;
+
+
+      currentPage.textContent =
+        state.currentPage;
+
+
+      previous.disabled =
+        state.currentPage <= 1;
+
+
+      next.disabled =
+        state.currentPage >=
+        totalPages;
+
+    }
+
+
+    document
+      .getElementById(
+        "previousPage"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          if (
+            state.currentPage <= 1
+          ) {
+
+            return;
+
+          }
+
+
+          state.currentPage--;
+
+          renderPortfolio();
+
+        }
+      );
+
+
+    document
+      .getElementById(
+        "nextPage"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          const totalPages =
+            Math.ceil(
+              state.filteredProjects.length /
+              state.pageSize
+            );
+
+
+          if (
+            state.currentPage >=
+            totalPages
+          ) {
+
+            return;
+
+          }
+
+
+          state.currentPage++;
+
+          renderPortfolio();
+
+        }
+      );
+
+
+    /* =========================================
+       REFRESH
+    ========================================= */
+
+    document
+      .getElementById(
+        "refreshPortfolio"
+      )
+      .addEventListener(
+        "click",
+        async () => {
+
+          const button =
+            document.getElementById(
+              "refreshPortfolio"
+            );
+
+
+          button.disabled =
+            true;
+
+
+          button.innerHTML =
+            "↻ Refreshing...";
+
+
+          try {
+
+            await loadPortfolio();
+
+          } finally {
+
+            button.disabled =
+              false;
+
+            button.innerHTML =
+              "↻ Refresh";
+
+          }
+
+        }
+      );
+
+
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+
+    initializeEmployee();
+
+    loadPortfolio();
+
+  </script>
+
+</body>
+</html>
+
+

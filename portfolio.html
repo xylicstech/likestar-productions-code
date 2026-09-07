@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Explore LikeStar's portfolio of printing, branding, graphic design, custom apparel, signage and creative projects."
+  >
+
+  <title>Our Work — LikeStar</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Portfolio CSS -->
+  <link rel="stylesheet" href="css/portfolio.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="site-header">
+
+    <div class="container navbar">
+
+      <a href="index.html" class="logo" aria-label="LikeStar Home">
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar"
+        >
+      </a>
+
+      <nav
+        class="nav-menu"
+        id="navMenu"
+        aria-label="Main navigation"
+      >
+
+        <a href="index.html" class="nav-link">
+          Home
+        </a>
+
+        <a href="index.html#services" class="nav-link">
+          Services
+        </a>
+
+        <a
+          href="portfolio.html"
+          class="nav-link active"
+        >
+          Our Work
+        </a>
+
+        <a href="index.html#about" class="nav-link">
+          About
+        </a>
+
+        <a href="index.html#contact" class="nav-button">
+          Get a Quote
+        </a>
+
+      </nav>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        type="button"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       HERO
+  ====================================================== -->
+
+  <main>
+
+    <section class="portfolio-hero">
+
+      <div class="container">
+
+        <div class="portfolio-hero-content">
+
+          <span class="hero-label">
+            <span></span>
+            Our Portfolio
+          </span>
+
+          <h1>
+            Work that makes
+            <span>businesses stand out.</span>
+          </h1>
+
+          <p>
+            Explore some of the printing, branding, design,
+            customization and creative projects we've delivered
+            for businesses, organizations and individuals.
+          </p>
+
+          <div class="hero-stats">
+
+            <div>
+              <strong>100+</strong>
+              <span>Projects Delivered</span>
+            </div>
+
+            <div class="stat-line"></div>
+
+            <div>
+              <strong>6+</strong>
+              <span>Creative Services</span>
+            </div>
+
+            <div class="stat-line"></div>
+
+            <div>
+              <strong>Ghana</strong>
+              <span>Based & Serving</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-decoration hero-decoration-one"></div>
+      <div class="hero-decoration hero-decoration-two"></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PORTFOLIO
+    ====================================================== -->
+
+    <section class="portfolio-section">
+
+      <div class="container">
+
+        <!-- Heading -->
+
+        <div class="portfolio-heading">
+
+          <div>
+
+            <span class="section-label">
+              <span>●</span>
+              Selected Work
+            </span>
+
+            <h2>
+              Explore our
+              <span>creative work.</span>
+            </h2>
+
+          </div>
+
+          <p>
+            Browse our work by category and see how we help
+            brands turn ideas into professional, memorable
+            visual experiences.
+          </p>
+
+        </div>
+
+
+        <!-- =================================================
+             FILTERS
+        ================================================== -->
+
+        <div
+          class="portfolio-filters"
+          role="tablist"
+          aria-label="Portfolio categories"
+        >
+
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            type="button"
+          >
+            All Work
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="printing"
+            type="button"
+          >
+            Printing
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="branding"
+            type="button"
+          >
+            Branding
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="design"
+            type="button"
+          >
+            Graphic Design
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="apparel"
+            type="button"
+          >
+            Custom Apparel
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="signage"
+            type="button"
+          >
+            Signage
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="corporate"
+            type="button"
+          >
+            Corporate
+          </button>
+
+          <button
+            class="filter-btn"
+            data-filter="organizations"
+            type="button"
+          >
+            Organizations
+          </button>
+
+        </div>
+
+
+        <!-- =================================================
+             PROJECT GRID
+        ================================================== -->
+
+        <div class="portfolio-grid" id="portfolioGrid">
+
+
+          <!-- PROJECT 1 -->
+
+          <article
+            class="portfolio-card portfolio-large"
+            data-category="branding corporate"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/juaben-rural-bank.jpg"
+                alt="Juaben Rural Bank branding project"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Branding</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Juaben Rural Bank"
+                  data-category="Branding & Corporate"
+                  data-image="images/portfolio/juaben-rural-bank.jpg"
+                  data-description="Corporate branding and creative production work delivered for Juaben Rural Bank."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Corporate Branding</span>
+
+                <h3>
+                  Juaben Rural Bank
+                </h3>
+              </div>
+
+              <span class="project-number">
+                01
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 2 -->
+
+          <article
+            class="portfolio-card"
+            data-category="printing organizations"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/church-of-pentecost.jpg"
+                alt="Church of Pentecost printing project"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Printing</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Church of Pentecost"
+                  data-category="Printing & Organization"
+                  data-image="images/portfolio/church-of-pentecost.jpg"
+                  data-description="Professional printing and creative production work for Church of Pentecost."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Organization</span>
+
+                <h3>
+                  Church of Pentecost
+                </h3>
+              </div>
+
+              <span class="project-number">
+                02
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 3 -->
+
+          <article
+            class="portfolio-card"
+            data-category="apparel printing"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/custom-tshirts.jpg"
+                alt="Custom branded T-shirt project"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Apparel</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Custom T-Shirt Collection"
+                  data-category="Custom Apparel"
+                  data-image="images/portfolio/custom-tshirts.jpg"
+                  data-description="Custom branded T-shirts produced for a client campaign."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Custom Apparel</span>
+
+                <h3>
+                  Branded T-Shirt Collection
+                </h3>
+              </div>
+
+              <span class="project-number">
+                03
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 4 -->
+
+          <article
+            class="portfolio-card"
+            data-category="design branding"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/business-flyer.jpg"
+                alt="Business flyer design"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Design</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Business Promotional Design"
+                  data-category="Graphic Design"
+                  data-image="images/portfolio/business-flyer.jpg"
+                  data-description="Promotional graphic design created for business marketing."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Graphic Design</span>
+
+                <h3>
+                  Promotional Campaign
+                </h3>
+              </div>
+
+              <span class="project-number">
+                04
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 5 -->
+
+          <article
+            class="portfolio-card"
+            data-category="signage corporate"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/business-signage.jpg"
+                alt="Business signage project"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Signage</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Business Signage"
+                  data-category="Signage & Branding"
+                  data-image="images/portfolio/business-signage.jpg"
+                  data-description="Professional signage and visual branding produced for a business."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Large Format</span>
+
+                <h3>
+                  Business Signage
+                </h3>
+              </div>
+
+              <span class="project-number">
+                05
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 6 -->
+
+          <article
+            class="portfolio-card portfolio-large"
+            data-category="branding design"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/brand-identity.jpg"
+                alt="Brand identity project"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Brand Identity</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Complete Brand Identity"
+                  data-category="Branding & Design"
+                  data-image="images/portfolio/brand-identity.jpg"
+                  data-description="Complete visual identity created to give a growing business a stronger and more professional presence."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Brand Identity</span>
+
+                <h3>
+                  Complete Brand Identity
+                </h3>
+              </div>
+
+              <span class="project-number">
+                06
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 7 -->
+
+          <article
+            class="portfolio-card"
+            data-category="printing"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/business-cards.jpg"
+                alt="Business card printing"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Printing</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Premium Business Cards"
+                  data-category="Print Production"
+                  data-image="images/portfolio/business-cards.jpg"
+                  data-description="Premium business card design and print production."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Print Production</span>
+
+                <h3>
+                  Premium Business Cards
+                </h3>
+              </div>
+
+              <span class="project-number">
+                07
+              </span>
+
+            </div>
+
+          </article>
+
+
+          <!-- PROJECT 8 -->
+
+          <article
+            class="portfolio-card"
+            data-category="apparel organizations"
+          >
+
+            <div class="portfolio-image">
+
+              <img
+                src="images/portfolio/event-shirts.jpg"
+                alt="Event T-shirt printing"
+                loading="lazy"
+              >
+
+              <div class="portfolio-overlay">
+
+                <span>Apparel</span>
+
+                <button
+                  class="view-project"
+                  type="button"
+                  data-title="Event Apparel"
+                  data-category="Custom Apparel"
+                  data-image="images/portfolio/event-shirts.jpg"
+                  data-description="Custom event apparel produced for an organization."
+                >
+                  View Project
+                  <span>↗</span>
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="portfolio-info">
+
+              <div>
+                <span>Organization</span>
+
+                <h3>
+                  Event Apparel
+                </h3>
+              </div>
+
+              <span class="project-number">
+                08
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <div
+          class="portfolio-empty"
+          id="portfolioEmpty"
+        >
+
+          <div class="empty-icon">
+            ✦
+          </div>
+
+          <h3>
+            More projects coming soon
+          </h3>
+
+          <p>
+            We're continuously adding new LikeStar projects
+            to our portfolio.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+    ====================================================== -->
+
+    <section class="portfolio-cta">
+
+      <div class="container">
+
+        <div class="portfolio-cta-box">
+
+          <div class="cta-content">
+
+            <span class="section-label">
+              <span>●</span>
+              Start Your Project
+            </span>
+
+            <h2>
+              Have a project
+              <span>in mind?</span>
+            </h2>
+
+            <p>
+              Whether you need printing, branding, custom
+              apparel, design or a complete creative solution,
+              let's bring your idea to life.
+            </p>
+
+            <div class="cta-actions">
+
+              <a
+                href="index.html#contact"
+                class="btn btn-white"
+              >
+                Get a Quote
+                <span>↗</span>
+              </a>
+
+              <a
+                href="https://wa.me/233000000000"
+                class="btn btn-outline-white"
+                target="_blank"
+                rel="noopener"
+              >
+                WhatsApp Us
+              </a>
+
+            </div>
+
+          </div>
+
+          <div class="cta-decoration">
+            LIKESTAR
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       PROJECT MODAL
+  ====================================================== -->
+
+  <div
+    class="project-modal"
+    id="projectModal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div
+      class="modal-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <button
+        class="modal-close"
+        id="modalClose"
+        type="button"
+        aria-label="Close project"
+      >
+        ×
+      </button>
+
+      <div class="modal-image">
+
+        <img
+          id="modalImage"
+          src=""
+          alt=""
+        >
+
+      </div>
+
+      <div class="modal-content">
+
+        <span id="modalCategory">
+          Project
+        </span>
+
+        <h2 id="modalTitle">
+          Project Title
+        </h2>
+
+        <p id="modalDescription">
+          Project description.
+        </p>
+
+        <a
+          href="index.html#contact"
+          class="modal-cta"
+        >
+          Start a Similar Project
+          <span>↗</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <a href="index.html" class="logo">
+
+            <img
+              src="images/like star logo.png"
+              alt="LikeStar"
+            >
+
+          </a>
+
+          <p>
+            Printing, customization, design and branding
+            solutions built to help businesses and
+            organizations stand out.
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Explore</h4>
+
+          <a href="index.html">
+            Home
+          </a>
+
+          <a href="index.html#services">
+            Services
+          </a>
+
+          <a href="portfolio.html">
+            Our Work
+          </a>
+
+          <a href="index.html#about">
+            About
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Services</h4>
+
+          <a href="index.html#services">
+            Printing
+          </a>
+
+          <a href="index.html#services">
+            Branding
+          </a>
+
+          <a href="index.html#services">
+            Customization
+          </a>
+
+          <a href="index.html#services">
+            Graphic Design
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Start a Project</h4>
+
+          <a
+            href="index.html#contact"
+            class="footer-cta"
+          >
+            Get a Quote →
+          </a>
+
+          <a
+            href="https://wa.me/233530543423"
+            target="_blank"
+            rel="noopener"
+          >
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-bottom">
+
+        <span>
+          © <span id="currentYear"></span> LikeStar.
+          All rights reserved.
+        </span>
+
+        <span>
+          Printing • Design • Branding
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <script src="js/portfolio.js"></script>
+
+</body>
+</html>

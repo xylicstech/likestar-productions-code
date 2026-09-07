@@ -1,0 +1,4739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="LikeStar Publications — Quote Tracking Management"
+  >
+
+  <title>Quote Tracking — LikeStar Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --blue: #0057b8;
+      --blue-dark: #003b7a;
+      --blue-light: #eaf4ff;
+
+      --orange: #ff7a00;
+      --orange-dark: #df6500;
+      --orange-light: #fff1e3;
+
+      --white: #ffffff;
+      --black: #0b1728;
+      --text: #26364a;
+      --muted: #718096;
+
+      --border: #e6ebf2;
+      --light: #f7f9fc;
+
+      --success: #16834b;
+      --success-light: #eaf8f0;
+
+      --warning: #a96b00;
+      --warning-light: #fff7df;
+
+      --danger: #c0392b;
+      --danger-light: #fff0ee;
+
+      --purple: #6941c6;
+      --purple-light: #f3efff;
+
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+
+      --shadow-sm: 0 8px 25px rgba(11, 23, 40, 0.06);
+      --shadow-md: 0 18px 45px rgba(11, 23, 40, 0.10);
+
+      --sidebar-width: 260px;
+      --topbar-height: 76px;
+
+      --font-body: "DM Sans", sans-serif;
+      --font-heading: "Plus Jakarta Sans", sans-serif;
+
+      --transition-fast: 0.2s ease;
+      --transition-normal: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--light);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================================================
+       APP SHELL
+    ========================================================= */
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 1000;
+
+      width: var(--sidebar-width);
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--white);
+      border-right: 1px solid var(--border);
+    }
+
+    .brand {
+      height: var(--topbar-height);
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 24px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand img {
+      width: 145px;
+      max-height: 46px;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    .brand-fallback {
+      display: none;
+      font-family: var(--font-heading);
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .sidebar-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 14px;
+    }
+
+    .nav-section {
+      margin-bottom: 24px;
+    }
+
+    .nav-section-title {
+      padding: 0 12px 8px;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    .nav-link {
+      min-height: 44px;
+
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      padding: 0 12px;
+
+      border-radius: 11px;
+
+      color: var(--text);
+      font-weight: 600;
+
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      background: var(--light);
+      color: var(--blue);
+    }
+
+    .nav-link.active {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .nav-icon {
+      width: 20px;
+      flex: 0 0 20px;
+
+      display: grid;
+      place-items: center;
+
+      font-size: 16px;
+    }
+
+    .sidebar-footer {
+      padding: 14px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .user-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 10px;
+      border-radius: 13px;
+
+      background: var(--light);
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue);
+      color: var(--white);
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .user-mini-text {
+      min-width: 0;
+    }
+
+    .user-mini-name {
+      overflow: hidden;
+
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-mini-role {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: capitalize;
+    }
+
+    .main {
+      min-height: 100vh;
+      margin-left: var(--sidebar-width);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+
+      height: var(--topbar-height);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+
+      padding: 0 32px;
+
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .page-context {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 11px;
+
+      background: var(--white);
+      color: var(--text);
+
+      transition:
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .icon-button:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .topbar-user-info {
+      text-align: right;
+    }
+
+    .topbar-user-name {
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .topbar-user-role {
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: capitalize;
+    }
+
+    .mobile-menu-button {
+      display: none;
+    }
+
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+
+      display: none;
+
+      background: rgba(11, 23, 40, 0.42);
+    }
+
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
+    .page {
+      padding: 34px 32px 50px;
+    }
+
+    .page-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      margin-bottom: 7px;
+
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .page-head h1 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: clamp(25px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+    }
+
+    .page-head p {
+      max-width: 720px;
+      margin-top: 7px;
+
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================================================
+       BUTTONS
+    ========================================================= */
+
+    .btn {
+      min-height: 42px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      padding: 0 15px;
+
+      border: 1px solid transparent;
+      border-radius: 10px;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      transition:
+        transform var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: var(--white);
+    }
+
+    .btn-warning {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .btn-small {
+      min-height: 36px;
+      padding: 0 11px;
+      font-size: 12px;
+    }
+
+    /* =========================================================
+       STATS
+    ========================================================= */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      min-width: 0;
+
+      padding: 19px;
+
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stat-icon {
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 9px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .stat-value {
+      margin-top: 9px;
+
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .stat-note {
+      margin-top: 4px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       PIPELINE
+    ========================================================= */
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .panel-head {
+      min-height: 64px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      padding: 15px 19px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .panel-title {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .panel-subtitle {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .pipeline-panel {
+      margin-bottom: 22px;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0;
+
+      padding: 18px;
+    }
+
+    .pipeline-stage {
+      position: relative;
+
+      min-height: 106px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px 10px;
+
+      text-align: center;
+    }
+
+    .pipeline-stage:not(:last-child)::after {
+      content: "→";
+
+      position: absolute;
+      top: 50%;
+      right: -5px;
+
+      color: #aab4c2;
+      font-size: 18px;
+      font-weight: 700;
+
+      transform: translateY(-50%);
+    }
+
+    .pipeline-dot {
+      width: 35px;
+      height: 35px;
+
+      display: grid;
+      place-items: center;
+
+      margin-bottom: 8px;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .pipeline-stage[data-stage="contacted"] .pipeline-dot {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .pipeline-stage[data-stage="quoted"] .pipeline-dot {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .pipeline-stage[data-stage="won"] .pipeline-dot {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .pipeline-stage[data-stage="lost"] .pipeline-dot {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .pipeline-name {
+      color: var(--black);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .pipeline-count {
+      margin-top: 2px;
+
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       TOOLBAR
+    ========================================================= */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      padding: 14px;
+
+      margin-bottom: 14px;
+    }
+
+    .search-wrap {
+      position: relative;
+      min-width: 230px;
+      flex: 1;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+
+      color: var(--muted);
+      font-size: 13px;
+
+      transform: translateY(-50%);
+    }
+
+    .form-control {
+      width: 100%;
+      min-height: 42px;
+
+      padding: 0 12px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      outline: none;
+
+      background: var(--white);
+      color: var(--text);
+
+      transition:
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .search-wrap .form-control {
+      padding-left: 35px;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(0, 87, 184, 0.10);
+    }
+
+    .toolbar-select {
+      width: auto;
+      min-width: 145px;
+    }
+
+    .toolbar-spacer {
+      flex: 1;
+    }
+
+    .result-count {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    .table-panel {
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1020px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 15px 16px;
+
+      border-bottom: 1px solid var(--border);
+
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #fbfcfe;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    tbody tr {
+      transition: background var(--transition-fast);
+    }
+
+    tbody tr:hover {
+      background: #fbfdff;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .request-id {
+      color: var(--blue);
+      font-weight: 800;
+    }
+
+    .customer-name {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .customer-phone {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .service-name {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .money {
+      color: var(--black);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .muted-cell {
+      color: var(--muted);
+    }
+
+    .employee-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .employee-avatar {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 28px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status-badge::before {
+      content: "";
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: currentColor;
+    }
+
+    .status-new {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .status-contacted {
+      background: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .status-quoted {
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+
+    .status-won {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .status-lost {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .followup {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .followup.due {
+      color: var(--danger);
+    }
+
+    .followup.upcoming {
+      color: var(--warning);
+    }
+
+    .followup.none {
+      color: var(--muted);
+    }
+
+    .row-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .empty-state {
+      padding: 60px 24px;
+
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 58px;
+      height: 58px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 14px;
+
+      border-radius: 16px;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .empty-state h3 {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .empty-state p {
+      max-width: 440px;
+      margin: 6px auto 0;
+
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background: rgba(11, 23, 40, 0.58);
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      width: min(900px, 100%);
+      max-height: min(850px, 92vh);
+
+      overflow: hidden;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+
+      padding: 20px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .modal-subtitle {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--text);
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      padding: 15px 20px;
+
+      border-top: 1px solid var(--border);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .detail-card {
+      padding: 15px;
+
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+    }
+
+    .detail-card.full {
+      grid-column: 1 / -1;
+    }
+
+    .detail-label {
+      margin-bottom: 5px;
+
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      color: var(--black);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-value.regular {
+      font-weight: 500;
+    }
+
+    .description-box {
+      white-space: pre-wrap;
+      line-height: 1.65;
+    }
+
+    .modal-section {
+      margin-top: 22px;
+    }
+
+    .modal-section:first-child {
+      margin-top: 0;
+    }
+
+    .modal-section-title {
+      margin-bottom: 10px;
+
+      color: var(--black);
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .workflow-step {
+      min-height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 7px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--white);
+      color: var(--muted);
+
+      font-size: 10px;
+      font-weight: 800;
+
+      text-align: center;
+    }
+
+    .workflow-step.active {
+      background: var(--blue-light);
+      border-color: #bddcff;
+      color: var(--blue);
+    }
+
+    .workflow-step.won-active {
+      background: var(--success-light);
+      border-color: #bce8ce;
+      color: var(--success);
+    }
+
+    .workflow-step.lost-active {
+      background: var(--danger-light);
+      border-color: #f2c5bf;
+      color: var(--danger);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+    }
+
+    .timeline-item {
+      position: relative;
+
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+
+      padding-bottom: 17px;
+    }
+
+    .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline-item:not(:last-child)::before {
+      content: "";
+
+      position: absolute;
+      top: 17px;
+      bottom: 0;
+      left: 11px;
+
+      width: 1px;
+
+      background: var(--border);
+    }
+
+    .timeline-dot {
+      position: relative;
+      z-index: 1;
+
+      width: 23px;
+      height: 23px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background: var(--blue-light);
+      color: var(--blue);
+
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .timeline-title {
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .timeline-date {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .not-connected {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+
+      padding: 12px 14px;
+
+      border: 1px solid #ffd9b5;
+      border-radius: 11px;
+
+      background: var(--orange-light);
+      color: #8b4d00;
+
+      font-size: 11px;
+    }
+
+    .not-connected strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      padding-top: 11px;
+      resize: vertical;
+    }
+
+    /* =========================================================
+       ROLE VISIBILITY
+    ========================================================= */
+
+    [data-role-only] {
+      display: none;
+    }
+
+    body.role-owner [data-role-only~="owner"],
+    body.role-manager [data-role-only~="manager"],
+    body.role-staff [data-role-only~="staff"] {
+      display: inline-flex;
+    }
+
+    body.role-owner .role-block[data-role-only~="owner"],
+    body.role-manager .role-block[data-role-only~="manager"],
+    body.role-staff .role-block[data-role-only~="staff"] {
+      display: block;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1180px) {
+      :root {
+        --sidebar-width: 230px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .page {
+        padding-inline: 24px;
+      }
+
+      .topbar {
+        padding-inline: 24px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .pipeline {
+        grid-template-columns: repeat(5, minmax(110px, 1fr));
+        overflow-x: auto;
+      }
+
+      .pipeline-stage {
+        min-width: 110px;
+      }
+
+      .detail-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-card.full,
+      .field.full {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        box-shadow: var(--shadow-md);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.open {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      .mobile-menu-button {
+        display: grid;
+      }
+
+      .topbar {
+        padding-inline: 18px;
+      }
+
+      .page {
+        padding: 24px 18px 40px;
+      }
+
+      .topbar-user-info {
+        display: none;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-head {
+        flex-direction: column;
+      }
+
+      .page-head .btn {
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .stat-card {
+        padding: 14px;
+      }
+
+      .stat-value {
+        font-size: 21px;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .search-wrap {
+        width: 100%;
+        min-width: 100%;
+      }
+
+      .toolbar-select {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .toolbar .btn {
+        flex: 1;
+      }
+
+      .result-count {
+        width: 100%;
+      }
+
+      .modal-backdrop {
+        padding: 8px;
+      }
+
+      .modal {
+        max-height: 96vh;
+        border-radius: 15px;
+      }
+
+      .modal-head,
+      .modal-body,
+      .modal-footer {
+        padding: 15px;
+      }
+
+      .workflow {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .workflow-step {
+        min-height: 55px;
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        gap: 8px;
+      }
+
+      .page {
+        padding-inline: 13px;
+      }
+
+      .pipeline {
+        padding-inline: 10px;
+      }
+
+      .modal-footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modal-footer .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="role-owner">
+
+  <div class="app-shell">
+
+    <!-- =======================================================
+         SIDEBAR
+    ======================================================== -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="brand">
+        <img
+          src="images/like star logo.png"
+          alt="LikeStar Publications"
+          onerror="
+            this.style.display='none';
+            document.getElementById('brandFallback').style.display='block';
+          "
+        >
+
+        <span
+          class="brand-fallback"
+          id="brandFallback"
+        >
+          LikeStar
+        </span>
+      </div>
+
+      <div class="sidebar-scroll">
+
+        <div class="nav-section">
+
+          <div class="nav-section-title">
+            Main
+          </div>
+
+          <nav class="nav-list">
+
+            <a
+              href="dashboard.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">⌂</span>
+              <span>Dashboard</span>
+            </a>
+
+            <a
+              href="management-quotes.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">▤</span>
+              <span>Quotes</span>
+            </a>
+
+            <a
+              href="management-quote-tracking.html"
+              class="nav-link active"
+              aria-current="page"
+            >
+              <span class="nav-icon">↗</span>
+              <span>Quote Tracking</span>
+            </a>
+
+            <a
+              href="management-sales.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">₵</span>
+              <span>Sales</span>
+            </a>
+
+            <a
+              href="management-delivery.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">▣</span>
+              <span>Delivery</span>
+            </a>
+
+          </nav>
+
+        </div>
+
+        <div class="nav-section">
+
+          <div class="nav-section-title">
+            Content
+          </div>
+
+          <nav class="nav-list">
+
+            <a
+              href="management-reviews.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">★</span>
+              <span>Reviews</span>
+            </a>
+
+            <a
+              href="management-services.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">☷</span>
+              <span>Services</span>
+            </a>
+
+            <a
+              href="management-portfolio.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">▧</span>
+              <span>Portfolio</span>
+            </a>
+
+            <a
+              href="management-customers.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">♙</span>
+              <span>Customers</span>
+            </a>
+
+          </nav>
+
+        </div>
+
+        <div class="nav-section">
+
+          <div class="nav-section-title">
+            Administration
+          </div>
+
+          <nav class="nav-list">
+
+            <a
+              href="management-employees.html"
+              class="nav-link"
+              data-role-only="owner manager"
+            >
+              <span class="nav-icon">♙</span>
+              <span>Employees</span>
+            </a>
+
+            <a
+              href="management-activity.html"
+              class="nav-link"
+              data-role-only="owner manager"
+            >
+              <span class="nav-icon">◷</span>
+              <span>Activity Log</span>
+            </a>
+
+            <a
+              href="management-settings.html"
+              class="nav-link"
+            >
+              <span class="nav-icon">⚙</span>
+              <span>Settings</span>
+            </a>
+
+          </nav>
+
+        </div>
+
+      </div>
+
+      <div class="sidebar-footer">
+
+        <div class="user-mini">
+
+          <div
+            class="avatar"
+            id="sidebarAvatar"
+          >
+            AU
+          </div>
+
+          <div class="user-mini-text">
+
+            <div
+              class="user-mini-name"
+              id="sidebarUserName"
+            >
+              Admin User
+            </div>
+
+            <div
+              class="user-mini-role"
+              id="sidebarUserRole"
+            >
+              owner
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+    ></div>
+
+    <!-- =======================================================
+         MAIN
+    ======================================================== -->
+
+    <main class="main">
+
+      <header class="topbar">
+
+        <div class="topbar-left">
+
+          <button
+            type="button"
+            class="icon-button mobile-menu-button"
+            id="mobileMenuButton"
+            aria-label="Open management menu"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+
+          <div class="page-context">
+            Management / Quote Tracking
+          </div>
+
+        </div>
+
+        <div class="topbar-right">
+
+          <button
+            type="button"
+            class="icon-button"
+            id="refreshTopButton"
+            title="Refresh quote tracking"
+            aria-label="Refresh quote tracking"
+          >
+            ↻
+          </button>
+
+          <button
+            type="button"
+            class="icon-button"
+            id="notificationButton"
+            title="Notifications"
+            aria-label="Notifications"
+          >
+            ♢
+          </button>
+
+          <div class="topbar-user">
+
+            <div class="topbar-user-info">
+
+              <div
+                class="topbar-user-name"
+                id="topbarUserName"
+              >
+                Admin User
+              </div>
+
+              <div
+                class="topbar-user-role"
+                id="topbarUserRole"
+              >
+                owner
+              </div>
+
+            </div>
+
+            <div
+              class="avatar"
+              id="topbarAvatar"
+            >
+              AU
+            </div>
+
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- =====================================================
+           PAGE CONTENT
+      ====================================================== -->
+
+      <section class="page">
+
+        <div class="page-head">
+
+          <div>
+
+            <div class="eyebrow">
+              Sales workflow
+            </div>
+
+            <h1>
+              Quote Tracking
+            </h1>
+
+            <p>
+              Track customer quote requests from first contact
+              through quotation, follow-up, and completed sales.
+            </p>
+
+          </div>
+
+          <a
+            href="management-quotes.html"
+            class="btn btn-primary"
+          >
+            + View Quote Requests
+          </a>
+
+        </div>
+
+        <!-- ===================================================
+             STATS
+        ==================================================== -->
+
+        <div class="stats-grid">
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Total Requests
+              </span>
+
+              <span class="stat-icon">
+                #
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statTotal"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Loaded quote records
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                New
+              </span>
+
+              <span class="stat-icon">
+                N
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statNew"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Awaiting first contact
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                In Progress
+              </span>
+
+              <span class="stat-icon">
+                →
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statContacted"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Customer contacted
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Quoted
+              </span>
+
+              <span class="stat-icon">
+                Q
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statQuoted"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Awaiting decision
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Won
+              </span>
+
+              <span class="stat-icon">
+                ✓
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statWon"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Converted to sales
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Lost
+              </span>
+
+              <span class="stat-icon">
+                ×
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statLost"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Not converted
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Follow-ups Due
+              </span>
+
+              <span class="stat-icon">
+                !
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statFollowups"
+            >
+              0
+            </div>
+
+            <div class="stat-note">
+              Due today or overdue
+            </div>
+
+          </article>
+
+          <article class="stat-card">
+
+            <div class="stat-top">
+
+              <span class="stat-label">
+                Conversion Rate
+              </span>
+
+              <span class="stat-icon">
+                %
+              </span>
+
+            </div>
+
+            <div
+              class="stat-value"
+              id="statConversion"
+            >
+              0%
+            </div>
+
+            <div class="stat-note">
+              Won ÷ closed requests
+            </div>
+
+          </article>
+
+        </div>
+
+        <!-- ===================================================
+             PIPELINE
+        ==================================================== -->
+
+        <section class="panel pipeline-panel">
+
+          <div class="panel-head">
+
+            <div>
+
+              <div class="panel-title">
+                Quote Pipeline
+              </div>
+
+              <div class="panel-subtitle">
+                Current position of customer requests
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="pipeline">
+
+            <div
+              class="pipeline-stage"
+              data-stage="new"
+            >
+
+              <div
+                class="pipeline-dot"
+                id="pipelineNew"
+              >
+                0
+              </div>
+
+              <div class="pipeline-name">
+                New
+              </div>
+
+              <div class="pipeline-count">
+                Awaiting contact
+              </div>
+
+            </div>
+
+            <div
+              class="pipeline-stage"
+              data-stage="contacted"
+            >
+
+              <div
+                class="pipeline-dot"
+                id="pipelineContacted"
+              >
+                0
+              </div>
+
+              <div class="pipeline-name">
+                Contacted
+              </div>
+
+              <div class="pipeline-count">
+                Customer reached
+              </div>
+
+            </div>
+
+            <div
+              class="pipeline-stage"
+              data-stage="quoted"
+            >
+
+              <div
+                class="pipeline-dot"
+                id="pipelineQuoted"
+              >
+                0
+              </div>
+
+              <div class="pipeline-name">
+                Quoted
+              </div>
+
+              <div class="pipeline-count">
+                Quote sent
+              </div>
+
+            </div>
+
+            <div
+              class="pipeline-stage"
+              data-stage="won"
+            >
+
+              <div
+                class="pipeline-dot"
+                id="pipelineWon"
+              >
+                0
+              </div>
+
+              <div class="pipeline-name">
+                Won
+              </div>
+
+              <div class="pipeline-count">
+                Sale confirmed
+              </div>
+
+            </div>
+
+            <div
+              class="pipeline-stage"
+              data-stage="lost"
+            >
+
+              <div
+                class="pipeline-dot"
+                id="pipelineLost"
+              >
+                0
+              </div>
+
+              <div class="pipeline-name">
+                Lost
+              </div>
+
+              <div class="pipeline-count">
+                Not converted
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ===================================================
+             FILTERS
+        ==================================================== -->
+
+        <section class="panel toolbar">
+
+          <div class="search-wrap">
+
+            <span
+              class="search-icon"
+              aria-hidden="true"
+            >
+              ⌕
+            </span>
+
+            <input
+              type="search"
+              class="form-control"
+              id="quoteSearch"
+              placeholder="Search customer, phone, service or quote ID..."
+              autocomplete="off"
+            >
+
+          </div>
+
+          <select
+            class="form-control toolbar-select"
+            id="quoteStatusFilter"
+            aria-label="Filter quote status"
+          >
+            <option value="all">
+              All statuses
+            </option>
+
+            <option value="new">
+              New
+            </option>
+
+            <option value="contacted">
+              Contacted
+            </option>
+
+            <option value="quoted">
+              Quoted
+            </option>
+
+            <option value="won">
+              Won
+            </option>
+
+            <option value="lost">
+              Lost
+            </option>
+          </select>
+
+          <select
+            class="form-control toolbar-select"
+            id="quoteEmployeeFilter"
+            aria-label="Filter employee"
+          >
+            <option value="all">
+              All employees
+            </option>
+          </select>
+
+          <select
+            class="form-control toolbar-select"
+            id="quoteFollowupFilter"
+            aria-label="Filter follow-ups"
+          >
+            <option value="all">
+              All follow-ups
+            </option>
+
+            <option value="due">
+              Due / overdue
+            </option>
+
+            <option value="upcoming">
+              Upcoming
+            </option>
+
+            <option value="none">
+              No follow-up
+            </option>
+          </select>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="resetFiltersButton"
+          >
+            Reset
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            id="refreshButton"
+          >
+            ↻ Refresh
+          </button>
+
+          <span
+            class="result-count"
+            id="quoteTrackingCount"
+          >
+            0 requests
+          </span>
+
+        </section>
+
+        <!-- ===================================================
+             TABLE
+        ==================================================== -->
+
+        <section class="panel table-panel">
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Request
+                  </th>
+
+                  <th>
+                    Customer
+                  </th>
+
+                  <th>
+                    Service
+                  </th>
+
+                  <th>
+                    Quote Amount
+                  </th>
+
+                  <th>
+                    Assigned To
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  <th>
+                    Follow-up
+                  </th>
+
+                  <th>
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody id="quoteTrackingTableBody">
+
+                <!-- Dynamic rows -->
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <div
+            class="empty-state"
+            id="emptyState"
+          >
+
+            <div class="empty-icon">
+              ↗
+            </div>
+
+            <h3>
+              No quote requests yet
+            </h3>
+
+            <p>
+              Quote requests will appear here after they are
+              received from the public website and loaded from
+              Firebase.
+            </p>
+
+          </div>
+
+        </section>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- =========================================================
+       DETAIL MODAL
+  ========================================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="quoteModal"
+    aria-hidden="true"
+  >
+
+    <section
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-head">
+
+        <div>
+
+          <div
+            class="modal-title"
+            id="modalTitle"
+          >
+            Quote Details
+          </div>
+
+          <div
+            class="modal-subtitle"
+            id="modalSubtitle"
+          >
+            Quote request
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close quote details"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <div
+          class="not-connected"
+          id="firebaseNotice"
+        >
+          <div>
+            <strong>
+              Firebase is not connected yet.
+            </strong>
+
+            This page is ready for Firebase. Status changes,
+            assignments and follow-up updates will be persisted
+            once Firebase Authentication and Firestore are
+            connected.
+          </div>
+        </div>
+
+        <div class="modal-section">
+
+          <div class="modal-section-title">
+            Quote Status
+          </div>
+
+          <div
+            class="workflow"
+            id="workflow"
+          >
+
+            <div
+              class="workflow-step"
+              data-workflow="new"
+            >
+              New
+            </div>
+
+            <div
+              class="workflow-step"
+              data-workflow="contacted"
+            >
+              Contacted
+            </div>
+
+            <div
+              class="workflow-step"
+              data-workflow="quoted"
+            >
+              Quoted
+            </div>
+
+            <div
+              class="workflow-step"
+              data-workflow="won"
+            >
+              Won
+            </div>
+
+            <div
+              class="workflow-step"
+              data-workflow="lost"
+            >
+              Lost
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-section">
+
+          <div class="modal-section-title">
+            Request Information
+          </div>
+
+          <div class="detail-grid">
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Customer
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailCustomer"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Phone
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailPhone"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Email
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailEmail"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Service
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailService"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Request Date
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailCreatedAt"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Customer Budget
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailBudget"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card full">
+
+              <div class="detail-label">
+                Project Description
+              </div>
+
+              <div
+                class="detail-value regular description-box"
+                id="detailDescription"
+              >
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-section">
+
+          <div class="modal-section-title">
+            Commercial Details
+          </div>
+
+          <div class="detail-grid">
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Quote Amount
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailQuotedAmount"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Final Sale Amount
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailGrossSale"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Discount
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailDiscount"
+              >
+                —
+              </div>
+
+            </div>
+
+            <div class="detail-card">
+
+              <div class="detail-label">
+                Net Revenue
+              </div>
+
+              <div
+                class="detail-value"
+                id="detailNetRevenue"
+              >
+                —
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-section">
+
+          <div class="modal-section-title">
+            Assignment & Follow-up
+          </div>
+
+          <div class="form-grid">
+
+            <div class="field">
+
+              <label for="detailAssignedTo">
+                Assigned Employee
+              </label>
+
+              <select
+                class="form-control"
+                id="detailAssignedTo"
+              >
+
+                <option value="">
+                  Unassigned
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="detailStatus">
+                Status
+              </label>
+
+              <select
+                class="form-control"
+                id="detailStatus"
+              >
+
+                <option value="new">
+                  New
+                </option>
+
+                <option value="contacted">
+                  Contacted
+                </option>
+
+                <option value="quoted">
+                  Quoted
+                </option>
+
+                <option value="won">
+                  Won
+                </option>
+
+                <option value="lost">
+                  Lost
+                </option>
+
+              </select>
+
+            </div>
+
+            <div class="field">
+
+              <label for="detailFollowup">
+                Follow-up Date
+              </label>
+
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="detailFollowup"
+              >
+
+            </div>
+
+            <div class="field">
+
+              <label for="detailLastContacted">
+                Last Contacted
+              </label>
+
+              <input
+                type="datetime-local"
+                class="form-control"
+                id="detailLastContacted"
+              >
+
+            </div>
+
+            <div class="field full">
+
+              <label for="detailNotes">
+                Internal Notes
+              </label>
+
+              <textarea
+                class="form-control"
+                id="detailNotes"
+                placeholder="Add internal notes about the customer, quote or follow-up..."
+              ></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-section">
+
+          <div class="modal-section-title">
+            Timeline
+          </div>
+
+          <div
+            class="timeline"
+            id="quoteTimeline"
+          >
+            <!-- Dynamic timeline -->
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          id="modalCancel"
+        >
+          Close
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="saveQuoteButton"
+          data-role-only="owner manager staff"
+        >
+          Save Changes
+        </button>
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <script>
+    /* =========================================================
+       LIKESTAR QUOTE TRACKING
+       Firebase-ready architecture
+    ========================================================= */
+
+    const MANAGEMENT_CONFIG = {
+      firebaseConnected: false,
+
+      /*
+       * Development role only.
+       * In production this MUST come from Firebase Auth
+       * and the users/{uid} Firestore document.
+       */
+      developmentRole: "owner",
+
+      developmentUser: {
+        name: "Admin User",
+        email: "",
+        role: "owner"
+      }
+    };
+
+    /*
+     * IMPORTANT:
+     *
+     * Do not put fake quote records here.
+     *
+     * Once Firebase is connected, this array will be populated
+     * from the quotes collection using bounded Firestore queries.
+     */
+    let quoteRecords = [];
+
+    let employeeRecords = [];
+
+    let activeQuoteId = null;
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const elements = {
+      sidebar:
+        document.getElementById("sidebar"),
+
+      sidebarOverlay:
+        document.getElementById("sidebarOverlay"),
+
+      mobileMenuButton:
+        document.getElementById("mobileMenuButton"),
+
+      refreshButton:
+        document.getElementById("refreshButton"),
+
+      refreshTopButton:
+        document.getElementById("refreshTopButton"),
+
+      notificationButton:
+        document.getElementById("notificationButton"),
+
+      search:
+        document.getElementById("quoteSearch"),
+
+      statusFilter:
+        document.getElementById("quoteStatusFilter"),
+
+      employeeFilter:
+        document.getElementById("quoteEmployeeFilter"),
+
+      followupFilter:
+        document.getElementById("quoteFollowupFilter"),
+
+      resetFiltersButton:
+        document.getElementById("resetFiltersButton"),
+
+      count:
+        document.getElementById("quoteTrackingCount"),
+
+      tableBody:
+        document.getElementById("quoteTrackingTableBody"),
+
+      emptyState:
+        document.getElementById("emptyState"),
+
+      modal:
+        document.getElementById("quoteModal"),
+
+      modalClose:
+        document.getElementById("modalClose"),
+
+      modalCancel:
+        document.getElementById("modalCancel"),
+
+      saveQuoteButton:
+        document.getElementById("saveQuoteButton"),
+
+      modalTitle:
+        document.getElementById("modalTitle"),
+
+      modalSubtitle:
+        document.getElementById("modalSubtitle"),
+
+      detailCustomer:
+        document.getElementById("detailCustomer"),
+
+      detailPhone:
+        document.getElementById("detailPhone"),
+
+      detailEmail:
+        document.getElementById("detailEmail"),
+
+      detailService:
+        document.getElementById("detailService"),
+
+      detailCreatedAt:
+        document.getElementById("detailCreatedAt"),
+
+      detailBudget:
+        document.getElementById("detailBudget"),
+
+      detailDescription:
+        document.getElementById("detailDescription"),
+
+      detailQuotedAmount:
+        document.getElementById("detailQuotedAmount"),
+
+      detailGrossSale:
+        document.getElementById("detailGrossSale"),
+
+      detailDiscount:
+        document.getElementById("detailDiscount"),
+
+      detailNetRevenue:
+        document.getElementById("detailNetRevenue"),
+
+      detailAssignedTo:
+        document.getElementById("detailAssignedTo"),
+
+      detailStatus:
+        document.getElementById("detailStatus"),
+
+      detailFollowup:
+        document.getElementById("detailFollowup"),
+
+      detailLastContacted:
+        document.getElementById("detailLastContacted"),
+
+      detailNotes:
+        document.getElementById("detailNotes"),
+
+      timeline:
+        document.getElementById("quoteTimeline")
+    };
+
+    /* =========================================================
+       ROLE
+    ========================================================= */
+
+    function applyDevelopmentRole() {
+
+      const role =
+        MANAGEMENT_CONFIG.developmentUser.role ||
+        MANAGEMENT_CONFIG.developmentRole ||
+        "staff";
+
+      document.body.classList.remove(
+        "role-owner",
+        "role-manager",
+        "role-staff",
+        "role-designer"
+      );
+
+      document.body.classList.add(
+        "role-" + role
+      );
+
+      const user =
+        MANAGEMENT_CONFIG.developmentUser;
+
+      const name =
+        user.name || "Admin User";
+
+      const initials =
+        getInitials(name);
+
+      document.getElementById(
+        "sidebarUserName"
+      ).textContent = name;
+
+      document.getElementById(
+        "sidebarUserRole"
+      ).textContent = role;
+
+      document.getElementById(
+        "topbarUserName"
+      ).textContent = name;
+
+      document.getElementById(
+        "topbarUserRole"
+      ).textContent = role;
+
+      document.getElementById(
+        "sidebarAvatar"
+      ).textContent = initials;
+
+      document.getElementById(
+        "topbarAvatar"
+      ).textContent = initials;
+    }
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function getInitials(name) {
+
+      const parts =
+        String(name || "User")
+          .trim()
+          .split(/\s+/)
+          .filter(Boolean);
+
+      if (!parts.length) {
+        return "U";
+      }
+
+      if (parts.length === 1) {
+        return parts[0]
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      return (
+        parts[0][0] +
+        parts[parts.length - 1][0]
+      ).toUpperCase();
+    }
+
+    function normalizeStatus(status) {
+
+      const value =
+        String(status || "new")
+          .trim()
+          .toLowerCase();
+
+      const validStatuses = [
+        "new",
+        "contacted",
+        "quoted",
+        "won",
+        "lost"
+      ];
+
+      return validStatuses.includes(value)
+        ? value
+        : "new";
+    }
+
+    function formatStatus(status) {
+
+      const labels = {
+        new: "New",
+        contacted: "Contacted",
+        quoted: "Quoted",
+        won: "Won",
+        lost: "Lost"
+      };
+
+      return labels[normalizeStatus(status)];
+    }
+
+    function formatMoney(amount, currency = "GHS") {
+
+      const value =
+        Number(amount);
+
+      if (!Number.isFinite(value)) {
+        return "—";
+      }
+
+      const symbol =
+        currency === "GHS"
+          ? "GH₵"
+          : currency;
+
+      return (
+        symbol +
+        " " +
+        value.toLocaleString(
+          "en-GH",
+          {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          }
+        )
+      );
+    }
+
+    function toDate(value) {
+
+      if (!value) {
+        return null;
+      }
+
+      if (
+        value instanceof Date
+      ) {
+        return value;
+      }
+
+      if (
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+      ) {
+        return value.toDate();
+      }
+
+      if (
+        typeof value === "object" &&
+        typeof value.seconds === "number"
+      ) {
+        return new Date(
+          value.seconds * 1000
+        );
+      }
+
+      const parsed =
+        new Date(value);
+
+      return Number.isNaN(parsed.getTime())
+        ? null
+        : parsed;
+    }
+
+    function formatDate(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return "—";
+      }
+
+      return date.toLocaleDateString(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+    }
+
+    function formatDateTime(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return "—";
+      }
+
+      return date.toLocaleString(
+        "en-GH",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
+    }
+
+    function toDateTimeLocal(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return "";
+      }
+
+      const pad =
+        number =>
+          String(number).padStart(2, "0");
+
+      return (
+        date.getFullYear() +
+        "-" +
+        pad(date.getMonth() + 1) +
+        "-" +
+        pad(date.getDate()) +
+        "T" +
+        pad(date.getHours()) +
+        ":" +
+        pad(date.getMinutes())
+      );
+    }
+
+    function isSameOrBeforeToday(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return false;
+      }
+
+      const today =
+        new Date();
+
+      today.setHours(
+        23,
+        59,
+        59,
+        999
+      );
+
+      return date <= today;
+    }
+
+    function isUpcoming(value) {
+
+      const date =
+        toDate(value);
+
+      if (!date) {
+        return false;
+      }
+
+      const now =
+        new Date();
+
+      const end =
+        new Date();
+
+      end.setDate(
+        end.getDate() + 30
+      );
+
+      return (
+        date > now &&
+        date <= end
+      );
+    }
+
+    function calculateSaleTotals(
+      grossAmount,
+      discountType,
+      discountValue
+    ) {
+
+      const gross =
+        Math.max(
+          0,
+          Number(grossAmount) || 0
+        );
+
+      const value =
+        Math.max(
+          0,
+          Number(discountValue) || 0
+        );
+
+      let discountAmount = 0;
+
+      if (
+        discountType ===
+        "percentage"
+      ) {
+
+        const percentage =
+          Math.min(
+            value,
+            100
+          );
+
+        discountAmount =
+          gross *
+          (percentage / 100);
+
+      } else if (
+        discountType ===
+        "fixed"
+      ) {
+
+        discountAmount =
+          value;
+      }
+
+      discountAmount =
+        Math.min(
+          discountAmount,
+          gross
+        );
+
+      const netRevenue =
+        gross -
+        discountAmount;
+
+      return {
+        grossAmount: gross,
+        discountAmount:
+          Number(
+            discountAmount.toFixed(2)
+          ),
+        netRevenue:
+          Number(
+            netRevenue.toFixed(2)
+          )
+      };
+    }
+
+    /* =========================================================
+       FOLLOW-UP
+    ========================================================= */
+
+    function getFollowupState(record) {
+
+      if (!record.followUpAt) {
+        return "none";
+      }
+
+      if (
+        isSameOrBeforeToday(
+          record.followUpAt
+        )
+      ) {
+        return "due";
+      }
+
+      if (
+        isUpcoming(
+          record.followUpAt
+        )
+      ) {
+        return "upcoming";
+      }
+
+      return "upcoming";
+    }
+
+    function getFollowupLabel(record) {
+
+      const state =
+        getFollowupState(record);
+
+      if (state === "none") {
+        return "No follow-up";
+      }
+
+      if (state === "due") {
+        return (
+          "Due · " +
+          formatDate(
+            record.followUpAt
+          )
+        );
+      }
+
+      return (
+        formatDate(
+          record.followUpAt
+        )
+      );
+    }
+
+    /* =========================================================
+       FILTERING
+    ========================================================= */
+
+    function getFilteredQuotes() {
+
+      const search =
+        elements.search.value
+          .trim()
+          .toLowerCase();
+
+      const status =
+        elements.statusFilter.value;
+
+      const employee =
+        elements.employeeFilter.value;
+
+      const followup =
+        elements.followupFilter.value;
+
+      return quoteRecords.filter(
+        record => {
+
+          const recordStatus =
+            normalizeStatus(
+              record.status
+            );
+
+          if (
+            status !== "all" &&
+            recordStatus !== status
+          ) {
+            return false;
+          }
+
+          if (
+            employee !== "all" &&
+            String(
+              record.assignedTo || ""
+            ) !== employee
+          ) {
+            return false;
+          }
+
+          const followupState =
+            getFollowupState(record);
+
+          if (
+            followup !== "all" &&
+            followupState !== followup
+          ) {
+            return false;
+          }
+
+          if (!search) {
+            return true;
+          }
+
+          const searchable = [
+            record.id,
+            record.quoteNumber,
+            record.customerName,
+            record.phone,
+            record.email,
+            record.serviceName,
+            record.description
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+          return searchable.includes(
+            search
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       RENDER
+    ========================================================= */
+
+    function renderQuotes() {
+
+      const records =
+        getFilteredQuotes();
+
+      elements.tableBody.innerHTML = "";
+
+      elements.count.textContent =
+        records.length +
+        (
+          records.length === 1
+            ? " request"
+            : " requests"
+        );
+
+      if (!records.length) {
+
+        elements.emptyState.style.display =
+          "block";
+
+        return;
+      }
+
+      elements.emptyState.style.display =
+        "none";
+
+      records.forEach(
+        record => {
+
+          const row =
+            document.createElement("tr");
+
+          const status =
+            normalizeStatus(
+              record.status
+            );
+
+          const employeeName =
+            record.assignedToName ||
+            "Unassigned";
+
+          const followupState =
+            getFollowupState(record);
+
+          row.innerHTML = `
+            <td>
+              <div class="request-id">
+                ${escapeHtml(
+                  record.quoteNumber ||
+                  record.id ||
+                  "Quote"
+                )}
+              </div>
+
+              <div class="customer-phone">
+                ${escapeHtml(
+                  formatDate(
+                    record.createdAt
+                  )
+                )}
+              </div>
+            </td>
+
+            <td>
+              <div class="customer-name">
+                ${escapeHtml(
+                  record.customerName ||
+                  "Unknown customer"
+                )}
+              </div>
+
+              <div class="customer-phone">
+                ${escapeHtml(
+                  record.phone ||
+                  record.email ||
+                  "No contact"
+                )}
+              </div>
+            </td>
+
+            <td>
+              <div class="service-name">
+                ${escapeHtml(
+                  record.serviceName ||
+                  "—"
+                )}
+              </div>
+            </td>
+
+            <td>
+              <div class="money">
+                ${escapeHtml(
+                  formatMoney(
+                    record.quotedAmount,
+                    record.currency || "GHS"
+                  )
+                )}
+              </div>
+            </td>
+
+            <td>
+              <div class="employee-cell">
+
+                <div class="employee-avatar">
+                  ${escapeHtml(
+                    getInitials(
+                      employeeName
+                    )
+                  )}
+                </div>
+
+                <span>
+                  ${escapeHtml(
+                    employeeName
+                  )}
+                </span>
+
+              </div>
+            </td>
+
+            <td>
+              <span
+                class="status-badge status-${status}"
+              >
+                ${escapeHtml(
+                  formatStatus(
+                    status
+                  )
+                )}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="followup ${followupState}"
+              >
+                ${escapeHtml(
+                  getFollowupLabel(
+                    record
+                  )
+                )}
+              </span>
+            </td>
+
+            <td>
+              <div class="row-actions">
+
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-small"
+                  data-action="view"
+                  data-id="${escapeHtml(
+                    record.id || ""
+                  )}"
+                >
+                  View
+                </button>
+
+              </div>
+            </td>
+          `;
+
+          elements.tableBody.appendChild(
+            row
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       STATS
+    ========================================================= */
+
+    function renderStats() {
+
+      const counts = {
+        total: quoteRecords.length,
+        new: 0,
+        contacted: 0,
+        quoted: 0,
+        won: 0,
+        lost: 0,
+        followups: 0
+      };
+
+      quoteRecords.forEach(
+        record => {
+
+          const status =
+            normalizeStatus(
+              record.status
+            );
+
+          counts[status]++;
+
+          if (
+            getFollowupState(
+              record
+            ) === "due"
+          ) {
+            counts.followups++;
+          }
+        }
+      );
+
+      const closed =
+        counts.won +
+        counts.lost;
+
+      const conversion =
+        closed > 0
+          ? (
+              counts.won /
+              closed *
+              100
+            )
+          : 0;
+
+      document.getElementById(
+        "statTotal"
+      ).textContent =
+        counts.total;
+
+      document.getElementById(
+        "statNew"
+      ).textContent =
+        counts.new;
+
+      document.getElementById(
+        "statContacted"
+      ).textContent =
+        counts.contacted;
+
+      document.getElementById(
+        "statQuoted"
+      ).textContent =
+        counts.quoted;
+
+      document.getElementById(
+        "statWon"
+      ).textContent =
+        counts.won;
+
+      document.getElementById(
+        "statLost"
+      ).textContent =
+        counts.lost;
+
+      document.getElementById(
+        "statFollowups"
+      ).textContent =
+        counts.followups;
+
+      document.getElementById(
+        "statConversion"
+      ).textContent =
+        conversion.toFixed(1) +
+        "%";
+
+      document.getElementById(
+        "pipelineNew"
+      ).textContent =
+        counts.new;
+
+      document.getElementById(
+        "pipelineContacted"
+      ).textContent =
+        counts.contacted;
+
+      document.getElementById(
+        "pipelineQuoted"
+      ).textContent =
+        counts.quoted;
+
+      document.getElementById(
+        "pipelineWon"
+      ).textContent =
+        counts.won;
+
+      document.getElementById(
+        "pipelineLost"
+      ).textContent =
+        counts.lost;
+    }
+
+    /* =========================================================
+       EMPLOYEES
+    ========================================================= */
+
+    function populateEmployeeFilters() {
+
+      const filter =
+        elements.employeeFilter;
+
+      const assignment =
+        elements.detailAssignedTo;
+
+      filter.innerHTML =
+        `<option value="all">
+          All employees
+        </option>`;
+
+      assignment.innerHTML =
+        `<option value="">
+          Unassigned
+        </option>`;
+
+      employeeRecords.forEach(
+        employee => {
+
+          if (!employee.uid) {
+            return;
+          }
+
+          const label =
+            employee.name ||
+            employee.email ||
+            employee.uid;
+
+          const filterOption =
+            document.createElement(
+              "option"
+            );
+
+          filterOption.value =
+            employee.uid;
+
+          filterOption.textContent =
+            label;
+
+          filter.appendChild(
+            filterOption
+          );
+
+          const assignmentOption =
+            document.createElement(
+              "option"
+            );
+
+          assignmentOption.value =
+            employee.uid;
+
+          assignmentOption.textContent =
+            label;
+
+          assignment.appendChild(
+            assignmentOption
+          );
+        }
+      );
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    function openQuoteModal(id) {
+
+      const record =
+        quoteRecords.find(
+          item =>
+            String(item.id) ===
+            String(id)
+        );
+
+      if (!record) {
+        return;
+      }
+
+      activeQuoteId =
+        record.id;
+
+      const status =
+        normalizeStatus(
+          record.status
+        );
+
+      elements.modalTitle.textContent =
+        record.quoteNumber ||
+        record.id ||
+        "Quote Details";
+
+      elements.modalSubtitle.textContent =
+        (
+          record.customerName ||
+          "Customer"
+        ) +
+        " · " +
+        (
+          record.serviceName ||
+          "Quote Request"
+        );
+
+      elements.detailCustomer.textContent =
+        record.customerName ||
+        "—";
+
+      elements.detailPhone.textContent =
+        record.phone ||
+        "—";
+
+      elements.detailEmail.textContent =
+        record.email ||
+        "—";
+
+      elements.detailService.textContent =
+        record.serviceName ||
+        "—";
+
+      elements.detailCreatedAt.textContent =
+        formatDateTime(
+          record.createdAt
+        );
+
+      elements.detailBudget.textContent =
+        record.budget
+          ? (
+              typeof record.budget ===
+              "number"
+                ? formatMoney(
+                    record.budget,
+                    record.currency ||
+                    "GHS"
+                  )
+                : String(
+                    record.budget
+                  )
+            )
+          : "—";
+
+      elements.detailDescription.textContent =
+        record.description ||
+        "No project description provided.";
+
+      elements.detailQuotedAmount.textContent =
+        formatMoney(
+          record.quotedAmount,
+          record.currency ||
+          "GHS"
+        );
+
+      elements.detailGrossSale.textContent =
+        formatMoney(
+          record.grossSaleAmount,
+          record.currency ||
+          "GHS"
+        );
+
+      elements.detailDiscount.textContent =
+        formatDiscount(
+          record
+        );
+
+      elements.detailNetRevenue.textContent =
+        formatMoney(
+          record.netRevenue,
+          record.currency ||
+          "GHS"
+        );
+
+      elements.detailAssignedTo.value =
+        record.assignedTo ||
+        "";
+
+      elements.detailStatus.value =
+        status;
+
+      elements.detailFollowup.value =
+        toDateTimeLocal(
+          record.followUpAt
+        );
+
+      elements.detailLastContacted.value =
+        toDateTimeLocal(
+          record.lastContactedAt
+        );
+
+      elements.detailNotes.value =
+        record.notes ||
+        "";
+
+      renderWorkflow(
+        status
+      );
+
+      renderTimeline(
+        record
+      );
+
+      elements.modal.classList.add(
+        "open"
+      );
+
+      elements.modal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "modal-open"
+      );
+    }
+
+    function formatDiscount(record) {
+
+      if (
+        !record.discount ||
+        !record.discount.amount
+      ) {
+        return "No discount";
+      }
+
+      const discount =
+        record.discount;
+
+      if (
+        discount.type ===
+        "percentage"
+      ) {
+
+        return (
+          Number(
+            discount.value
+          ) +
+          "% · " +
+          formatMoney(
+            discount.amount,
+            record.currency ||
+            "GHS"
+          )
+        );
+      }
+
+      return formatMoney(
+        discount.amount,
+        record.currency ||
+        "GHS"
+      );
+    }
+
+    function renderWorkflow(status) {
+
+      document
+        .querySelectorAll(
+          ".workflow-step"
+        )
+        .forEach(
+          step => {
+
+            const stepStatus =
+              step.dataset.workflow;
+
+            step.classList.remove(
+              "active",
+              "won-active",
+              "lost-active"
+            );
+
+            if (
+              stepStatus ===
+              status
+            ) {
+
+              if (
+                status ===
+                "won"
+              ) {
+
+                step.classList.add(
+                  "won-active"
+                );
+
+              } else if (
+                status ===
+                "lost"
+              ) {
+
+                step.classList.add(
+                  "lost-active"
+                );
+
+              } else {
+
+                step.classList.add(
+                  "active"
+                );
+              }
+            }
+          }
+        );
+    }
+
+    function renderTimeline(record) {
+
+      const events = [];
+
+      if (
+        record.createdAt
+      ) {
+
+        events.push({
+          title:
+            "Quote request received",
+          date:
+            record.createdAt
+        });
+      }
+
+      if (
+        record.contactedAt
+      ) {
+
+        events.push({
+          title:
+            "Customer contacted",
+          date:
+            record.contactedAt
+        });
+      }
+
+      if (
+        record.quotedAt
+      ) {
+
+        events.push({
+          title:
+            "Quote sent to customer",
+          date:
+            record.quotedAt
+        });
+      }
+
+      if (
+        record.wonAt
+      ) {
+
+        events.push({
+          title:
+            "Quote converted to sale",
+          date:
+            record.wonAt
+        });
+      }
+
+      if (
+        record.lostAt
+      ) {
+
+        events.push({
+          title:
+            "Quote marked as lost",
+          date:
+            record.lostAt
+        });
+      }
+
+      if (
+        record.lastContactedAt &&
+        !record.contactedAt
+      ) {
+
+        events.push({
+          title:
+            "Last customer contact",
+          date:
+            record.lastContactedAt
+        });
+      }
+
+      events.sort(
+        (a, b) => {
+
+          const aDate =
+            toDate(a.date);
+
+          const bDate =
+            toDate(b.date);
+
+          return (
+            (aDate?.getTime() || 0) -
+            (bDate?.getTime() || 0)
+          );
+        }
+      );
+
+      if (!events.length) {
+
+        elements.timeline.innerHTML = `
+          <div class="muted-cell">
+            No timeline information available.
+          </div>
+        `;
+
+        return;
+      }
+
+      elements.timeline.innerHTML =
+        events.map(
+          event => `
+            <div class="timeline-item">
+
+              <div class="timeline-dot">
+                •
+              </div>
+
+              <div>
+
+                <div class="timeline-title">
+                  ${escapeHtml(
+                    event.title
+                  )}
+                </div>
+
+                <div class="timeline-date">
+                  ${escapeHtml(
+                    formatDateTime(
+                      event.date
+                    )
+                  )}
+                </div>
+
+              </div>
+
+            </div>
+          `
+        ).join("");
+    }
+
+    function closeQuoteModal() {
+
+      activeQuoteId =
+        null;
+
+      elements.modal.classList.remove(
+        "open"
+      );
+
+      elements.modal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "modal-open"
+      );
+    }
+
+    /* =========================================================
+       SAVE
+    ========================================================= */
+
+    function saveQuoteChanges() {
+
+      if (!activeQuoteId) {
+        return;
+      }
+
+      const record =
+        quoteRecords.find(
+          item =>
+            String(item.id) ===
+            String(activeQuoteId)
+        );
+
+      if (!record) {
+        return;
+      }
+
+      if (
+        !MANAGEMENT_CONFIG
+          .firebaseConnected
+      ) {
+
+        alert(
+          "Firebase is not connected yet. The changes were not saved."
+        );
+
+        return;
+      }
+
+      /*
+       * Production implementation:
+       *
+       * 1. Verify Firebase Auth user.
+       * 2. Verify their role from users/{uid}.
+       * 3. Update only permitted quote fields.
+       * 4. Set status timestamps when a status changes.
+       * 5. Create an activityLogs document.
+       *
+       * Example fields:
+       *
+       * assignedTo
+       * assignedToName
+       * status
+       * followUpAt
+       * lastContactedAt
+       * notes
+       *
+       * Do not trust client-side role checks.
+       * Firestore Security Rules must enforce access.
+       */
+
+      alert(
+        "Firebase integration is enabled, but the Firestore save function still needs to be connected."
+      );
+    }
+
+    /* =========================================================
+       MOBILE SIDEBAR
+    ========================================================= */
+
+    function openSidebar() {
+
+      elements.sidebar.classList.add(
+        "open"
+      );
+
+      elements.sidebarOverlay.classList.add(
+        "open"
+      );
+
+      elements.mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+    function closeSidebar() {
+
+      elements.sidebar.classList.remove(
+        "open"
+      );
+
+      elements.sidebarOverlay.classList.remove(
+        "open"
+      );
+
+      elements.mobileMenuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+
+    /* =========================================================
+       REFRESH
+    ========================================================= */
+
+    function refreshPage() {
+
+      /*
+       * When Firebase is connected:
+       *
+       * await loadQuotes();
+       * await loadEmployees();
+       *
+       * Keep reads bounded with limit().
+       */
+
+      renderStats();
+      renderQuotes();
+
+      if (
+        !MANAGEMENT_CONFIG
+          .firebaseConnected
+      ) {
+
+        console.info(
+          "Quote Tracking: Firebase is not connected."
+        );
+      }
+    }
+
+    /* =========================================================
+       EVENT LISTENERS
+    ========================================================= */
+
+    elements.mobileMenuButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          elements.sidebar.classList.contains(
+            "open"
+          )
+        ) {
+
+          closeSidebar();
+
+        } else {
+
+          openSidebar();
+        }
+      }
+    );
+
+    elements.sidebarOverlay.addEventListener(
+      "click",
+      closeSidebar
+    );
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        if (
+          window.innerWidth >
+          900
+        ) {
+          closeSidebar();
+        }
+      }
+    );
+
+    [
+      elements.search,
+      elements.statusFilter,
+      elements.employeeFilter,
+      elements.followupFilter
+    ].forEach(
+      control => {
+
+        control.addEventListener(
+          "input",
+          renderQuotes
+        );
+
+        control.addEventListener(
+          "change",
+          renderQuotes
+        );
+      }
+    );
+
+    elements.resetFiltersButton.addEventListener(
+      "click",
+      () => {
+
+        elements.search.value =
+          "";
+
+        elements.statusFilter.value =
+          "all";
+
+        elements.employeeFilter.value =
+          "all";
+
+        elements.followupFilter.value =
+          "all";
+
+        renderQuotes();
+      }
+    );
+
+    elements.refreshButton.addEventListener(
+      "click",
+      refreshPage
+    );
+
+    elements.refreshTopButton.addEventListener(
+      "click",
+      refreshPage
+    );
+
+    elements.notificationButton.addEventListener(
+      "click",
+      () => {
+
+        if (
+          !MANAGEMENT_CONFIG
+            .firebaseConnected
+        ) {
+
+          alert(
+            "Notifications will become active after Firebase is connected."
+          );
+
+          return;
+        }
+      }
+    );
+
+    elements.tableBody.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(
+            "[data-action='view']"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        openQuoteModal(
+          button.dataset.id
+        );
+      }
+    );
+
+    elements.modalClose.addEventListener(
+      "click",
+      closeQuoteModal
+    );
+
+    elements.modalCancel.addEventListener(
+      "click",
+      closeQuoteModal
+    );
+
+    elements.saveQuoteButton.addEventListener(
+      "click",
+      saveQuoteChanges
+    );
+
+    elements.detailStatus.addEventListener(
+      "change",
+      () => {
+
+        renderWorkflow(
+          elements.detailStatus.value
+        );
+      }
+    );
+
+    elements.modal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          elements.modal
+        ) {
+          closeQuoteModal();
+        }
+      }
+    );
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          closeQuoteModal();
+          closeSidebar();
+        }
+      }
+    );
+
+    /* =========================================================
+       FIREBASE IMPLEMENTATION NOTES
+    =========================================================
+
+      Recommended Firestore document:
+
+      quotes/{quoteId}
+
+      {
+        customerId: "customerDocumentId",
+        customerName: "Customer Name",
+        phone: "0200000000",
+        email: "customer@example.com",
+
+        serviceId: "serviceDocumentId",
+        serviceName: "T-Shirt Printing",
+
+        description: "50 branded T-shirts",
+        budget: 500,
+
+        status: "new",
+
+        quotedAmount: 500,
+
+        grossSaleAmount: null,
+
+        discount: {
+          type: "percentage",
+          value: 0,
+          amount: 0
+        },
+
+        netRevenue: null,
+
+        currency: "GHS",
+
+        assignedTo: null,
+        assignedToName: null,
+
+        createdAt: Timestamp,
+        contactedAt: null,
+        quotedAt: null,
+        wonAt: null,
+        lostAt: null,
+
+        followUpAt: null,
+        lastContactedAt: null,
+
+        notes: ""
+      }
+
+
+      BOUNDED QUERY:
+
+      collection("quotes")
+        .orderBy("createdAt", "desc")
+        .limit(50)
+
+
+      For larger datasets, use cursor pagination:
+
+      startAfter(lastDocument)
+        .limit(50)
+
+
+      STATUS FILTERS can use:
+
+      where("status", "==", "quoted")
+
+      combined with:
+
+      orderBy("createdAt", "desc")
+      limit(50)
+
+
+      Be aware that combinations of where()
+      and orderBy() may require Firestore indexes.
+
+
+      EMPLOYEE FILTER:
+
+      where("assignedTo", "==", employeeUid)
+
+
+      SEARCH:
+
+      Firestore does NOT provide arbitrary
+      full-text "contains" search.
+
+      For the initial system, search the bounded
+      loaded result set client-side.
+
+      If LikeStar grows significantly, introduce
+      a dedicated search solution rather than
+      pretending Firestore is a full-text engine.
+
+
+      ACTIVITY LOG:
+
+      activityLogs/{logId}
+
+      {
+        action: "updated",
+        targetType: "quote",
+        targetId: quoteId,
+        targetName: quoteNumber,
+
+        performedBy: uid,
+        performedByName: employeeName,
+        performedByRole: employeeRole,
+
+        description: "Updated quote status",
+
+        createdAt: Timestamp,
+
+        metadata: {
+          previousStatus: "contacted",
+          newStatus: "quoted"
+        }
+      }
+
+
+      SECURITY:
+
+      Frontend role checks are only for UI.
+
+      Firestore Security Rules must enforce:
+
+      owner:
+        full quote access
+
+      manager:
+        quote management
+
+      staff:
+        assigned quote access / permitted updates
+
+      designer:
+        normally no quote modification access
+
+
+      STATUS TIMESTAMPS:
+
+      new -> contacted:
+        contactedAt = server timestamp
+
+      contacted -> quoted:
+        quotedAt = server timestamp
+
+      quoted -> won:
+        wonAt = server timestamp
+
+      any -> lost:
+        lostAt = server timestamp
+
+
+      REVENUE:
+
+      If a quote becomes won:
+
+      grossSaleAmount
+        - discount.amount
+        =
+      netRevenue
+
+      The Sales page should use netRevenue.
+
+      Do NOT treat gross sale amount as net revenue.
+
+    ========================================================= */
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
+
+    applyDevelopmentRole();
+
+    populateEmployeeFilters();
+
+    renderStats();
+
+    renderQuotes();
+
+  </script>
+
+</body>
+</html>
+
